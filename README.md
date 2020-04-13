@@ -1,2 +1,1 @@
-# Nomad
-Nomad Matrix library
+![Nomad Logo](https://github.com/void-intelligence/Nomad/blob/master/resources/Nomad.png)
