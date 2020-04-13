@@ -1,7 +1,7 @@
 # NOMAD
 
 <p align="center">
-  <img src="https://github.com/void-intelligence/Nomad/blob/master/resources/nomad-logo.png" alt="Nomad Logo" width="920" height="343">
+  <img src="https://github.com/void-intelligence/Nomad/blob/master/resources/Nomad.png" alt="Nomad Logo" width="920" height="343">
 </p>
 
 
