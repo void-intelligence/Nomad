@@ -30,6 +30,7 @@ Below you can see a list of all the functions currently implemented in the matri
 Calculates the Dot Product between two matrices. (or a matrix and a Vector)
 
 1- ```public Matrix Dot(Matrix matrix);```
+
 2- ```public void InDot(Matrix matrix);```
 
 ```C#
@@ -56,6 +57,7 @@ a.InDot(b);
 Calculates the Hadamard Product (Element-wise multiplication) of two matrices.
 
 1- ```public Matrix Hadamard(Matrix matrix);```
+
 2- ```public void InHadamard(Matrix matrix);```
 
 ```C#
@@ -78,6 +80,7 @@ a.InHadamard(b);
 Scales the matrix with a scalar value. (*double*)
 
 1- ```public Matrix Scale(double scalar);```
+
 2- ```public void InScale(double scalar);```
 
 ```C#
@@ -102,6 +105,7 @@ Calculates the sum of two matrices.
 ##### SUPPORTS VECTOR BROADCASTING
 
 1- ```public Matrix Add(Matrix matrix);```
+
 2- ```public void InAdd(Matrix matrix);```
 
 ```C#
@@ -129,6 +133,7 @@ Calculates the difference of two matrices.
 ##### SUPPORTS VECTOR BROADCASTING
 
 1- ```public Matrix Sub(Matrix matrix);```
+
 2- ```public void InSub(Matrix matrix);```
 
 ```C#
@@ -155,6 +160,7 @@ a.InSub(b);
 Calculates the inverse of a matrix.
 
 1- ```public Matrix Inverse();```
+
 2- ```public void InInverse();```
 
 ```C#
@@ -179,8 +185,11 @@ a.InInverse();
 Calculates the Transpose of a matrix.
 
 1- ```public void InTranspose();```
+
 2- ```public Matrix Transpose();```
+
 3- ```public void InT();```
+
 4- ```public Matrix T();```
 
 
@@ -206,6 +215,7 @@ Applies a function to all elements of the matrix.
 
 
 1- ```public void InMap(Func<double, double> func);```
+
 2- ```public Matrix Map(Func<double, double> func);```
 
 ```C#
@@ -237,8 +247,11 @@ Fills in the matrix with random values.
 There are two overloads of these functions. You can either determine lower and upper limits to randomization or let it be 0.0 and 1.0 by default.
 
 1- ```public void InRandomize(double lowest, double highest);```
+
 2- ```public Matrix Randomize(double lowest, double highest);```
+
 3- ```public void InRandomize();```
+
 4- ```public Matrix Randomize();```
 
 
