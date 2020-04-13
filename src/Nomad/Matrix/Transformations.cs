@@ -1,4 +1,10 @@
-﻿using System;
+﻿// © 2020 VOID-INTELLIGENCE ALL RIGHTS RESERVED
+
+/********************************************\
+      Matrix Transformation Functionality. 
+\********************************************/
+
+using System;
 
 namespace Nomad.Matrix
 {

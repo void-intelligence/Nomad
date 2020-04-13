@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// © 2020 VOID-INTELLIGENCE ALL RIGHTS RESERVED
 
 namespace Nomad.Utility
 {
-
     public class Shape
     {
         public int X { get; set; }
@@ -12,16 +11,6 @@ namespace Nomad.Utility
         {
             X = x;
             Y = y;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
         }
 
         public override string ToString()

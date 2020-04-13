@@ -1,6 +1,8 @@
+// © 2020 VOID-INTELLIGENCE ALL RIGHTS RESERVED
+
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nomad.Matrix;
-using System;
 
 namespace NomadTest
 {

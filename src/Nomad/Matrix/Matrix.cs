@@ -1,4 +1,6 @@
-﻿/********************************************\
+﻿// © 2020 VOID-INTELLIGENCE ALL RIGHTS RESERVED
+
+/********************************************\
          Primary Matrix class logic.
 \********************************************/
 
@@ -36,22 +38,22 @@ namespace Nomad.Matrix
         
         #region Dot Product
 
-        public void InDot(Matrix Matrix)
+        public void InDot(Matrix matrix)
         {
-            if (Columns != Matrix.Rows)
+            if (Columns != matrix.Rows)
             {
                 throw new InvalidOperationException("Cannot multiply matrices of different sizes.");
             }
 
-            var _result = new double[Rows, Matrix.Columns];
+            var _result = new double[Rows, matrix.Columns];
             for (int _row = 0; _row < Rows; _row++)
             {
-                for (int _col = 0; _col < Matrix.Columns; _col++)
+                for (int _col = 0; _col < matrix.Columns; _col++)
                 {
                     double _sum = 0;
                     for (int i = 0; i < Columns; i++)
                     {
-                        _sum += _matrix[_row, i] * Matrix[i + 1, _col + 1];
+                        _sum += _matrix[_row, i] * matrix[i + 1, _col + 1];
                     }
                     _result[_row, _col] = _sum;
                 }
@@ -71,9 +73,9 @@ namespace Nomad.Matrix
 
         #region Hadamard (Element Multiplication)
 
-        public void InHadamard(Matrix Matrix)
+        public void InHadamard(Matrix matrix)
         {
-            if (Columns != Matrix.Columns || Rows != Matrix.Rows)
+            if (Columns != matrix.Columns || Rows != matrix.Rows)
             {
                 throw new InvalidOperationException("Cannot multiply matrices of different sizes.");
             }
@@ -82,7 +84,7 @@ namespace Nomad.Matrix
             {
                 for (int _col = 0; _col < Columns; _col++)
                 {
-                    _matrix[_row, _col] *= Matrix[_row + 1, _col + 1];
+                    _matrix[_row, _col] *= matrix[_row + 1, _col + 1];
                 }
             }
         }
@@ -98,13 +100,13 @@ namespace Nomad.Matrix
 
         #region Scale Operation
 
-        public void InScale(double Scalar)
+        public void InScale(double scalar)
         {
             for (int _row = 0; _row < _matrix.GetLength(0); _row++)
             {
                 for (int _col = 0; _col < _matrix.GetLength(1); _col++)
                 {
-                    _matrix[_row, _col] *= Scalar;
+                    _matrix[_row, _col] *= scalar;
                 }
             }
         }
@@ -120,17 +122,17 @@ namespace Nomad.Matrix
 
         #region Add Operation
 
-        public void InAdd(Matrix Matrix)
+        public void InAdd(Matrix matrix)
         {
             // Vector Broadcasting
-            if (Matrix.Shape().Type() == Utility.EType.VectorTransposed)
+            if (matrix.Shape().Type() == Utility.EType.VectorTransposed)
             {
-                Matrix.InTranspose();
+                matrix.InTranspose();
             }
 
-            if (Matrix.Shape().Type() == Utility.EType.Vector)
+            if (matrix.Shape().Type() == Utility.EType.Vector)
             {
-                if (Rows != Matrix.Rows)
+                if (Rows != matrix.Rows)
                 {
                     throw new InvalidOperationException("Cannot broadcast Vector.");
                 }
@@ -139,14 +141,14 @@ namespace Nomad.Matrix
                 {
                     for (int _col = 0; _col < Columns; _col++)
                     {
-                        _matrix[_row, _col] += Matrix[_row, 1];
+                        _matrix[_row, _col] += matrix[_row, 1];
                     }
                 }
                 return;
             }
 
             // Normal Addition
-            if (Rows != Matrix.Rows || Columns != Matrix.Columns)
+            if (Rows != matrix.Rows || Columns != matrix.Columns)
             {
                 throw new InvalidOperationException("Cannot add matrices of different sizes.");
             }
@@ -154,15 +156,15 @@ namespace Nomad.Matrix
             {
                 for (int _col = 0; _col < _matrix.GetLength(1); _col++)
                 {
-                    _matrix[_row, _col] += Matrix[_row + 1, _col + 1];
+                    _matrix[_row, _col] += matrix[_row + 1, _col + 1];
                 }
             }
         }
 
-        public Matrix Add(Matrix Matrix)
+        public Matrix Add(Matrix matrix)
         {
             var _mat = Duplicate();
-            _mat.InAdd(Matrix);
+            _mat.InAdd(matrix);
             return _mat;
         }
 
@@ -170,17 +172,17 @@ namespace Nomad.Matrix
 
         #region Subtraction Operation
 
-        public void InSub(Matrix Matrix)
+        public void InSub(Matrix matrix)
         {
             // Vector Broadcasting
-            if (Matrix.Shape().Type() == Utility.EType.VectorTransposed)
+            if (matrix.Shape().Type() == Utility.EType.VectorTransposed)
             {
-                Matrix.InTranspose();
+                matrix.InTranspose();
             }
 
-            if (Matrix.Shape().Type() == Utility.EType.Vector)
+            if (matrix.Shape().Type() == Utility.EType.Vector)
             {
-                if (Rows != Matrix.Rows)
+                if (Rows != matrix.Rows)
                 {
                     throw new InvalidOperationException("Cannot broadcast Vector.");
                 }
@@ -189,14 +191,14 @@ namespace Nomad.Matrix
                 {
                     for (int _col = 0; _col < Columns; _col++)
                     {
-                        _matrix[_row, _col] -= Matrix[_row, 1];
+                        _matrix[_row, _col] -= matrix[_row, 1];
                     }
                 }
                 return;
             }
 
             // Normal Subtraction
-            if (Rows != Matrix.Rows || Columns != Matrix.Columns)
+            if (Rows != matrix.Rows || Columns != matrix.Columns)
             {
                 throw new InvalidOperationException("Cannot sub matrices of different sizes.");
             }
@@ -204,15 +206,15 @@ namespace Nomad.Matrix
             {
                 for (int _col = 0; _col < _matrix.GetLength(1); _col++)
                 {
-                    _matrix[_row, _col] -= Matrix[_row + 1, _col + 1];
+                    _matrix[_row, _col] -= matrix[_row + 1, _col + 1];
                 }
             }
         }
 
-        public Matrix Sub(Matrix Matrix)
+        public Matrix Sub(Matrix matrix)
         {
             var _mat = Duplicate();
-            _mat.InSub(Matrix);
+            _mat.InSub(matrix);
             return _mat;
         }
 
@@ -296,6 +298,11 @@ namespace Nomad.Matrix
             var _mat = Duplicate();
             _mat.InTranspose();
             return _mat;
+        }
+
+        public void InT()
+        {
+            InTranspose();
         }
 
         public Matrix T()
@@ -385,7 +392,7 @@ namespace Nomad.Matrix
             return new Utility.Shape(Rows, Columns);
         }
 
-        public Utility.EType IsVector()
+        public Utility.EType Type()
         {
             return Shape().Type();
         }
