@@ -4,4 +4,4 @@ install:
 - travis_retry nuget restore -source "https://www.nuget.org/api/v2" ./src/Nomad.sln
 script:
 - xbuild ./src/Nomad.sln
-- mono ./src/packages/xunit.runner.console*/tools/xunit.console.exe ./src/Nomad-Tests/bin/Debug/Fibonacci.Tests.dll
+- mono ./src/packages/xunit.runner.console*/tools/xunit.console.exe ./src/Nomad-Tests/bin/Debug/Nomad-Tests.dll
