@@ -248,5 +248,18 @@ namespace NomadTest
             a.Randomize();
             a.Map(Math.Sin);
         }
+
+
+        [TestMethod]
+        public void MatrixFill()
+        {
+            Matrix a = new Matrix(2);
+            a.InFill(10);
+            Assert.IsTrue(a[1, 1] == 10, "a[1, 1] has the value 10.");
+            Assert.IsTrue(a[1, 2] == 10, "a[1, 2] has the value 10.");
+            Assert.IsTrue(a[2, 1] == 10, "a[2, 1] has the value 10.");
+            Assert.IsTrue(a[2, 2] == 10, "a[2, 2] has the value 10.");
+
+        }
     }
 }

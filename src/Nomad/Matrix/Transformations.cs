@@ -153,6 +153,5 @@ namespace Nomad.Matrix
             _result[4, 4] = 1.0;
             return _result;
         }
-
     }
 }

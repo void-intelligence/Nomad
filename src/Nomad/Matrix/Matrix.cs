@@ -10,7 +10,7 @@ namespace Nomad.Matrix
 {
     public partial class Matrix
     {
-        private double[,] _matrix;
+        private double[,] _matrix; 
 
         public int Rows { get { return _matrix.GetLength(0); } }
         
@@ -367,6 +367,28 @@ namespace Nomad.Matrix
         {
             var _mat = Duplicate();
             _mat.InRandomize();
+            return _mat;
+        }
+
+        #endregion
+
+        #region Fill
+
+        public void InFill(double value)
+        {
+            for (int _row = 0; _row < _matrix.GetLength(0); _row++)
+            {
+                for (int _col = 0; _col < _matrix.GetLength(1); _col++)
+                {
+                    _matrix[_row, _col] = value;
+                }
+            }
+        }
+
+        public Matrix Fill(double value)
+        {
+            var _mat = Duplicate();
+            _mat.InFill(value);
             return _mat;
         }
 
