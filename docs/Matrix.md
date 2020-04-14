@@ -40,14 +40,14 @@ Matrix b = new Matrix(10, 8);
 // ...
 
 // Calculates the Dot product between a and b
-// and puts the resulting matrix in c
+// and stores the resulting matrix in c
 Matrix c = a.Dot(b);
 
 // Can also be written as
 Matrix d = a * b;
 
 // Calculates the Dot product between a and b
-// and puts the resulting matrix in a
+// and stores the resulting matrix in a
 a.InDot(b);
 ```
 
@@ -67,11 +67,11 @@ Matrix b = new Matrix(5, 10);
 // ...
 
 // Calculates the Hadamard product between a and b
-// and puts the resulting matrix in c
+// and stores the resulting matrix in c
 Matrix c = a.Hadamard(b);
 
 // Calculates the Hadamard product between a and b
-// and puts the resulting matrix in a
+// and stores the resulting matrix in a
 a.InHadamard(b);
 ```
 
@@ -88,13 +88,13 @@ Matrix a = new Matrix(5, 10);
 // TODO: Fill in matrix a
 // ...
 
-// Scales the matrix a and puts the result in c
+// Scales the matrix a and stores the result in c
 Matrix c = a.Scale(10);
 
 // Can also be written as
 Matrix d = a * 10;
 
-// Scales the matrix a and puts the result in a
+// Scales the matrix a and stores the result in a
 a.InScale(10);
 ```
 
@@ -115,14 +115,14 @@ Matrix b = new Matrix(5, 10);
 // ...
 
 // Calculates the Sum of a and b
-// and puts the resulting matrix in c
+// and stores the resulting matrix in c
 Matrix c = a.Add(b);
 
 // Can also be written as
 Matrix d = a + b;
 
 // Calculates the Sum of a and b
-// and puts the resulting matrix in a
+// and stores the resulting matrix in a
 a.InAdd(b);
 ```
 
@@ -143,14 +143,14 @@ Matrix b = new Matrix(5, 10);
 // ...
 
 // Calculates the difference of a and b
-// and puts the resulting matrix in c
+// and stores the resulting matrix in c
 Matrix c = a.Sub(b);
 
 // Can also be written as
 Matrix d = a - b;
 
 // Calculates the difference of a and b
-// and puts the resulting matrix in a
+// and stores the resulting matrix in a
 a.InSub(b);
 ```
 
@@ -169,14 +169,14 @@ Matrix a = new Matrix(5, 10);
 // ...
 
 // Calculates the inverse of a
-// and puts the resulting matrix in b
+// and stores the resulting matrix in b
 Matrix b = a.Inverse();
 
 // Can also be written as 
 Matrix d = !a;
 
 // Calculates the inverse of a
-// and puts the resulting matrix in a
+// and stores the resulting matrix in a
 a.InInverse();
 ```
 
@@ -195,16 +195,16 @@ Calculates the Transpose of a matrix.
 
 ```C#
 Matrix a = new Matrix(5, 10);
-// TODO: Fill in matrices a
+// TODO: Fill in matrix a
 // ...
 
 // Calculates the transpose of a
-// and puts the resulting matrix in b
+// and stores the resulting matrix in b
 Matrix b = a.Transpose();
 b = a.T();
 
 // Calculates the transpose of a
-// and puts the resulting matrix in a
+// and stores the resulting matrix in a
 a.InTranspose();
 a.InT();
 ```
@@ -228,15 +228,15 @@ public double Square(double val)
 
 ```C#
 Matrix a = new Matrix(5, 10);
-// TODO: Fill in matrices a
+// TODO: Fill in matrix a
 // ...
 
 // Maps the function Square(double) to the matrix
-// and puts the resulting matrix in b
+// and stores the resulting matrix in b
 Matrix b = a.Map(Square);
 
 // Maps the function Square(double) to the matrix
-// and puts the resulting matrix in a
+// and stores the resulting matrix in a
 a.InMap(Square);
 ```
 
@@ -261,8 +261,33 @@ Matrix a = new Matrix(5, 10);
 // Randomizes the values of matrix a (0.0, 1.0)
 a.InRandomize();
 
-// Creates a matrix of size a, randomizes it and puts it in matrix b (0.0, 1.0)
+// Creates a matrix of size a, randomizes it and stores it in matrix b (0.0, 1.0)
 Matrix b = a.Randomize();
+
+// Randomizes the values of matrix a (10.0, 15.0)
+a.InRandomize(10.0, 15.0);
+
+// Creates a matrix of size a, randomizes it and stores it in matrix b (10.0, 15.0)
+Matrix b = a.Randomize(10.0, 15.0);
+```
+
+### FILL OPERATION
+
+Fills the matrix with a given value.
+
+1- ```public void InFill(double value);```
+
+2- ```public Matrix Fill(double value);```
+
+
+```C#
+Matrix a = new Matrix(5, 10);
+
+// Fills the matrix a with the value 5 and stores it in matrix b
+Matrix b = a.Fill(5);
+
+// Fills the matrix a with the value 5 and stores it in matrix a
+a.InFill(5);
 ```
 
 ### UTILITY FUNCTIONS
@@ -318,3 +343,67 @@ Returns an Identity Matrix(Size, Size).
 4- ```public static Matrix Vandermonde(int rows, int cols)```
 
 Returns a Vandermonde Matrix(rows, cols) filled with Vandermonde formula.
+
+
+## Operators.cs Methods
+
+The following operators are overloaded for the matrix class.
+
+1- Inverse: operator !
+
+2- Add: operator +
+
+3- Subtract: operator -
+
+4- Dot: operator *
+
+5- Scale: operator *
+
+6- Equality: operator == and Equals() function
+
+7- Not Equal: operator !=
+
+8- Greater than: operator >
+
+9- Less than: operator <
+
+10- Greater than or equal to: operator >=
+
+11- Less than or equal to: operator <=
+
+12- Hash Code
+
+
+## Transformation.cs Methods
+
+Transformation holds certain methods for manipluation the matrix object in a 2D or 3D space
+
+##### THE INPUT TO ROTATION FUNCTIONS IS IN UNIT OF DEGREES
+
+1- Rotation2D(double angle)
+
+For rotating the matrix in 2D space
+
+2- Rotation3DX(double angle)
+
+For rotating the matrix along X axis in 3D space
+
+3- Rotation3DY(double angle)
+
+For rotating the matrix along Y axis in 3D space
+
+4- Rotation3DZ(double angle)
+
+For rotating the matrix along Z axis in 3D space
+
+5- Scaling(double factor)
+
+For scaling the matrix in a uniform manner in 3D space (Supports 2D)
+
+6- Scaling(double factorX, double factorY, double factorZ)
+
+For scaling the matrix in a precise manner in 3D space (Supports 2D)
+
+7- Translation(double moveX, double moveY, double moveZ)
+
+For moving the matrix in 3D Space (Supports 2D)
