@@ -20,12 +20,12 @@ namespace Nomad.Matrix
         {
             get
             {
-                return _matrix[row - 1, column - 1];
+                return _matrix[row, column];
             }
 
             set
             {
-                _matrix[row - 1, column - 1] = value;
+                _matrix[row , column] = value;
             }
         }
 
@@ -53,7 +53,7 @@ namespace Nomad.Matrix
                     double _sum = 0;
                     for (int i = 0; i < Columns; i++)
                     {
-                        _sum += _matrix[_row, i] * matrix[i + 1, _col + 1];
+                        _sum += _matrix[_row, i] * matrix[i, _col];
                     }
                     _result[_row, _col] = _sum;
                 }
@@ -84,7 +84,7 @@ namespace Nomad.Matrix
             {
                 for (int _col = 0; _col < Columns; _col++)
                 {
-                    _matrix[_row, _col] *= matrix[_row + 1, _col + 1];
+                    _matrix[_row, _col] *= matrix[_row, _col];
                 }
             }
         }
@@ -141,7 +141,7 @@ namespace Nomad.Matrix
                 {
                     for (int _col = 0; _col < Columns; _col++)
                     {
-                        _matrix[_row, _col] += matrix[_row, 1];
+                        _matrix[_row, _col] += matrix[_row, 0];
                     }
                 }
                 return;
@@ -156,7 +156,7 @@ namespace Nomad.Matrix
             {
                 for (int _col = 0; _col < _matrix.GetLength(1); _col++)
                 {
-                    _matrix[_row, _col] += matrix[_row + 1, _col + 1];
+                    _matrix[_row, _col] += matrix[_row, _col];
                 }
             }
         }
@@ -206,7 +206,7 @@ namespace Nomad.Matrix
             {
                 for (int _col = 0; _col < _matrix.GetLength(1); _col++)
                 {
-                    _matrix[_row, _col] -= matrix[_row + 1, _col + 1];
+                    _matrix[_row, _col] -= matrix[_row, _col];
                 }
             }
         }
@@ -403,7 +403,7 @@ namespace Nomad.Matrix
             {
                 for (int col = 0; col < Columns; col++)
                 {
-                    _result[row + 1, col + 1] = _matrix[row, col];
+                    _result[row, col] = _matrix[row, col];
                 }
             }
             return _result;

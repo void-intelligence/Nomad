@@ -68,9 +68,9 @@ namespace Nomad.Matrix
             result = (first.Rows == second.Rows) && (first.Columns == second.Columns);
             if (result)
             {
-                for (int row = 1; row <= first.Rows; row++)
+                for (int row = 0; row < first.Rows; row++)
                 {
-                    for (int col = 1; col <= first.Columns; col++)
+                    for (int col = 0; col < first.Columns; col++)
                     {
                         result &= (first[row, col] == second[row, col]);
                     }
@@ -86,9 +86,9 @@ namespace Nomad.Matrix
             result = (first.Rows != second.Rows) || (first.Columns != second.Columns);
             if (!result)
             {
-                for (int row = 1; row <= first.Rows; row++)
+                for (int row = 0; row < first.Rows; row++)
                 {
-                    for (int col = 1; col <= first.Columns; col++)
+                    for (int col = 0; col < first.Columns; col++)
                     {
                         result |= (first[row, col] != second[row, col]);
                     }
@@ -98,13 +98,13 @@ namespace Nomad.Matrix
         }
 
         // Comparison g
-        public static Boolean operator >(Matrix first, Matrix second)
+        public static bool operator >(Matrix first, Matrix second)
         {
             return (first.Rows * first.Columns) > (second.Rows * second.Columns);
         }
 
         // Comparison l
-        public static Boolean operator <(Matrix first, Matrix second)
+        public static bool operator <(Matrix first, Matrix second)
         {
             return (first.Rows * first.Columns) < (second.Rows * second.Columns);
         }
@@ -133,9 +133,9 @@ namespace Nomad.Matrix
             result = (this.Rows == matrix.Rows) && (this.Columns == matrix.Columns);
             if (result)
             {
-                for (int row = 1; row <= this.Rows; row++)
+                for (int row = 0; row < this.Rows; row++)
                 {
-                    for (int col = 1; col <= this.Columns; col++)
+                    for (int col = 0; col < this.Columns; col++)
                     {
                         result &= (this[row, col] == matrix[row, col]);
                     }
@@ -149,9 +149,9 @@ namespace Nomad.Matrix
         {
             var _matrixString = new StringBuilder();
             _matrixString.Append(this.Rows).Append("x").Append(this.Columns).Append("=");
-            for (int row = 1; row <= this.Rows; row++)
+            for (int row = 0; row < this.Rows; row++)
             {
-                for (int col = 1; col <= this.Columns; col++)
+                for (int col = 0; col < this.Columns; col++)
                 {
                     _matrixString.Append(this[row, col]).Append(";");
                 }

@@ -17,35 +17,35 @@ namespace NomadTest
             Matrix c = new Matrix(3);
 
             #region Matrix definition
-            a[1, 1] = 11;
-            a[1, 2] = 12;
-            a[1, 3] = 13;
-            a[2, 1] = 21;
-            a[2, 2] = 22;
-            a[2, 3] = 23;
-            a[3, 1] = 31;
-            a[3, 2] = 32;
-            a[3, 3] = 33;
+            a[0, 0] = 11;
+            a[0, 1] = 12;
+            a[0, 2] = 13;
+            a[1, 0] = 21;
+            a[1, 1] = 22;
+            a[1, 2] = 23;
+            a[2, 0] = 31;
+            a[2, 1] = 32;
+            a[2, 2] = 33;
 
-            b[1, 1] = 11;
-            b[1, 2] = 12;
-            b[1, 3] = 13;
-            b[2, 1] = 21;
-            b[2, 2] = 22;
-            b[2, 3] = 23;
-            b[3, 1] = 31;
-            b[3, 2] = 32;
-            b[3, 3] = 33;
+            b[0, 0] = 11;
+            b[0, 1] = 12;
+            b[0, 2] = 13;
+            b[1, 0] = 21;
+            b[1, 1] = 22;
+            b[1, 2] = 23;
+            b[2, 0] = 31;
+            b[2, 1] = 32;
+            b[2, 2] = 33;
 
-            c[1, 1] = 21;
-            c[1, 2] = 12;
-            c[1, 3] = 13;
-            c[2, 1] = 21;
-            c[2, 2] = 22;
-            c[2, 3] = 23;
-            c[3, 1] = 31;
-            c[3, 2] = 32;
-            c[3, 3] = 33;
+            c[0, 0] = 21;
+            c[0, 1] = 12;
+            c[0, 2] = 13;
+            c[1, 0] = 21;
+            c[1, 1] = 22;
+            c[1, 2] = 23;
+            c[2, 0] = 31;
+            c[2, 1] = 32;
+            c[2, 2] = 33;
             #endregion
 
             Assert.IsTrue(a == b, "Matrices A and B are equal!");
@@ -61,25 +61,25 @@ namespace NomadTest
             Matrix d = new Matrix(3, 4);
 
             #region Matrix definition
-            a[1, 1] = 11;
-            a[1, 2] = 12;
-            a[1, 3] = 13;
-            a[2, 1] = 21;
-            a[2, 2] = 22;
-            a[2, 3] = 23;
-            a[3, 1] = 31;
-            a[3, 2] = 32;
-            a[3, 3] = 33;
+            a[0, 0] = 11;
+            a[0, 1] = 12;
+            a[0, 2] = 13;
+            a[1, 0] = 21;
+            a[1, 1] = 22;
+            a[1, 2] = 23;
+            a[2, 0] = 31;
+            a[2, 1] = 32;
+            a[2, 2] = 33;
 
-            b[1, 1] = 21;
-            b[1, 2] = 12;
-            b[1, 3] = 13;
-            b[2, 1] = 21;
-            b[2, 2] = 22;
-            b[2, 3] = 23;
-            b[3, 1] = 31;
-            b[3, 2] = 32;
-            b[3, 3] = 33;
+            b[0, 0] = 21;
+            b[0, 1] = 12;
+            b[0, 2] = 13;
+            b[1, 0] = 21;
+            b[1, 1] = 22;
+            b[1, 2] = 23;
+            b[2, 0] = 31;
+            b[2, 1] = 32;
+            b[2, 2] = 33;
             #endregion
 
             Assert.IsTrue(a != b, "Matrices A and B are not equal!");
@@ -98,26 +98,26 @@ namespace NomadTest
             Matrix _trueResult = new Matrix(2, 3);
 
             #region Matrix definition
-            a[1, 1] = 1;
-            a[1, 2] = 2;
-            a[1, 3] = 3;
-            a[2, 1] = 4;
-            a[2, 2] = 5;
-            a[2, 3] = 6;
+            a[0, 0] = 1;
+            a[0, 1] = 2;
+            a[0, 2] = 3;
+            a[1, 0] = 4;
+            a[1, 1] = 5;
+            a[1, 2] = 6;
+                                 
+            b[0, 0] = 6;
+            b[0, 1] = 5;
+            b[0, 2] = 4;
+            b[1, 0] = 3;
+            b[1, 1] = 2;
+            b[1, 2] = 1;
 
-            b[1, 1] = 6;
-            b[1, 2] = 5;
-            b[1, 3] = 4;
-            b[2, 1] = 3;
-            b[2, 2] = 2;
-            b[2, 3] = 1;
-
+            _trueResult[0, 0] = a[0, 0] + b[0, 0];
+            _trueResult[0, 1] = a[0, 1] + b[0, 1];
+            _trueResult[0, 2] = a[0, 2] + b[0, 2];
+            _trueResult[1, 0] = a[1, 0] + b[1, 0];
             _trueResult[1, 1] = a[1, 1] + b[1, 1];
             _trueResult[1, 2] = a[1, 2] + b[1, 2];
-            _trueResult[1, 3] = a[1, 3] + b[1, 3];
-            _trueResult[2, 1] = a[2, 1] + b[2, 1];
-            _trueResult[2, 2] = a[2, 2] + b[2, 2];
-            _trueResult[2, 3] = a[2, 3] + b[2, 3];
             #endregion
 
 
@@ -134,24 +134,24 @@ namespace NomadTest
             Matrix _trueResult = new Matrix(2);
 
             #region Matrix definition
-            a[1, 1] = 1;
-            a[1, 2] = 2;
-            a[1, 3] = 3;
-            a[2, 1] = 4;
-            a[2, 2] = 5;
-            a[2, 3] = 6;
+            a[0, 0] = 1;
+            a[0, 1] = 2;
+            a[0, 2] = 3;
+            a[1, 0] = 4;
+            a[1, 1] = 5;
+            a[1, 2] = 6;
 
-            b[1, 1] = 1;
-            b[1, 2] = 2;
-            b[2, 1] = 3;
-            b[2, 2] = 4;
-            b[3, 1] = 5;
-            b[3, 2] = 6;
+            b[0, 0] = 1;
+            b[0, 1] = 2;
+            b[1, 0] = 3;
+            b[1, 1] = 4;
+            b[2, 0] = 5;
+            b[2, 1] = 6;
 
-            _trueResult[1, 1] = a[1, 1] * b[1, 1] + a[1, 2] * b[2, 1] + a[1, 3] * b[3, 1];
-            _trueResult[1, 2] = a[1, 1] * b[1, 2] + a[1, 2] * b[2, 2] + a[1, 3] * b[3, 2];
-            _trueResult[2, 1] = a[2, 1] * b[1, 1] + a[2, 2] * b[2, 1] + a[2, 3] * b[3, 1];
-            _trueResult[2, 2] = a[2, 1] * b[1, 2] + a[2, 2] * b[2, 2] + a[2, 3] * b[3, 2];
+            _trueResult[0, 0] = a[0, 0] * b[0, 0] + a[0, 1] * b[1, 0] + a[0, 2] * b[2, 0];
+            _trueResult[0, 1] = a[0, 0] * b[0, 1] + a[0, 1] * b[1, 1] + a[0, 2] * b[2, 1];
+            _trueResult[1, 0] = a[1, 0] * b[0, 0] + a[1, 1] * b[1, 0] + a[1, 2] * b[2, 0];
+            _trueResult[1, 1] = a[1, 0] * b[0, 1] + a[1, 1] * b[1, 1] + a[1, 2] * b[2, 1];
             #endregion
 
             var _calculatedResult = a * b;
@@ -167,25 +167,25 @@ namespace NomadTest
             double _scalar = 5.0;
 
             #region Matrix definition
-            a[1, 1] = 1;
-            a[1, 2] = 2;
-            a[1, 3] = 3;
-            a[2, 1] = 4;
-            a[2, 2] = 5;
-            a[2, 3] = 6;
-            a[3, 1] = 4;
-            a[3, 2] = 5;
-            a[3, 3] = 6;
+            a[0, 0] = 1;
+            a[0, 1] = 2;
+            a[0, 2] = 3;
+            a[1, 0] = 4;
+            a[1, 1] = 5;
+            a[1, 2] = 6;
+            a[2, 0] = 4;
+            a[2, 1] = 5;
+            a[2, 2] = 6;
 
+            _trueResult[0, 0] = a[0, 0] * _scalar;
+            _trueResult[0, 1] = a[0, 1] * _scalar;
+            _trueResult[0, 2] = a[0, 2] * _scalar;
+            _trueResult[1, 0] = a[1, 0] * _scalar;
             _trueResult[1, 1] = a[1, 1] * _scalar;
             _trueResult[1, 2] = a[1, 2] * _scalar;
-            _trueResult[1, 3] = a[1, 3] * _scalar;
+            _trueResult[2, 0] = a[2, 0] * _scalar;
             _trueResult[2, 1] = a[2, 1] * _scalar;
             _trueResult[2, 2] = a[2, 2] * _scalar;
-            _trueResult[2, 3] = a[2, 3] * _scalar;
-            _trueResult[3, 1] = a[3, 1] * _scalar;
-            _trueResult[3, 2] = a[3, 2] * _scalar;
-            _trueResult[3, 3] = a[3, 3] * _scalar;
             #endregion
 
             var _calculatedResult = a * _scalar;
@@ -200,25 +200,25 @@ namespace NomadTest
             Matrix _trueResult = new Matrix(3);
 
             #region Matrix definition
-            a[1, 1] = 1;
+            a[0, 0] = 1;
+            a[0, 1] = 3;
+            a[0, 2] = 3;
+            a[1, 0] = 1;
+            a[1, 1] = 4;
             a[1, 2] = 3;
-            a[1, 3] = 3;
-            a[2, 1] = 1;
+            a[2, 0] = 1;
+            a[2, 1] = 3;
             a[2, 2] = 4;
-            a[2, 3] = 3;
-            a[3, 1] = 1;
-            a[3, 2] = 3;
-            a[3, 3] = 4;
 
-            _trueResult[1, 1] = 7;
-            _trueResult[1, 2] = -3;
-            _trueResult[1, 3] = -3;
-            _trueResult[2, 1] = -1;
+            _trueResult[0, 0] = 7;
+            _trueResult[0, 1] = -3;
+            _trueResult[0, 2] = -3;
+            _trueResult[1, 0] = -1;
+            _trueResult[1, 1] = 1;
+            _trueResult[1, 2] = 0;
+            _trueResult[2, 0] = -1;
+            _trueResult[2, 1] = 0;
             _trueResult[2, 2] = 1;
-            _trueResult[2, 3] = 0;
-            _trueResult[3, 1] = -1;
-            _trueResult[3, 2] = 0;
-            _trueResult[3, 3] = 1;
             #endregion
 
             var _calculatedResult = !a;
@@ -255,10 +255,11 @@ namespace NomadTest
         {
             Matrix a = new Matrix(2);
             a.InFill(10);
-            Assert.IsTrue(a[1, 1] == 10, "a[1, 1] has the value 10.");
-            Assert.IsTrue(a[1, 2] == 10, "a[1, 2] has the value 10.");
-            Assert.IsTrue(a[2, 1] == 10, "a[2, 1] has the value 10.");
-            Assert.IsTrue(a[2, 2] == 10, "a[2, 2] has the value 10.");
+
+            Assert.IsTrue(a[0, 0] == 10, "a[1, 1] has the value 10.");
+            Assert.IsTrue(a[0, 1] == 10, "a[1, 2] has the value 10.");
+            Assert.IsTrue(a[1, 0] == 10, "a[2, 1] has the value 10.");
+            Assert.IsTrue(a[1, 1] == 10, "a[2, 2] has the value 10.");
 
         }
     }
