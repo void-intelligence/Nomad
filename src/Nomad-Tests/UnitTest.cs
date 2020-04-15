@@ -262,5 +262,92 @@ namespace NomadTest
             Assert.IsTrue(a[1, 1] == 10, "a[2, 2] has the value 10.");
 
         }
+
+
+        [TestMethod]
+        public void MatrixFlatten()
+        {
+            Matrix a = new Matrix(2, 2);
+            a.InRandomize();
+
+            Matrix b = a.Flatten();
+
+            Assert.IsTrue(a[0, 0] == b[0, 0], "a[0, 0] has the value of b[0, 0].");
+            Assert.IsTrue(a[0, 1] == b[1, 0], "a[0, 1] has the value of b[1, 0].");
+            Assert.IsTrue(a[1, 0] == b[2, 0], "a[1, 0] has the value of b[2, 0].");
+            Assert.IsTrue(a[1, 1] == b[3, 0], "a[1, 1] has the value of b[3, 0].");
+        }
+
+        [TestMethod]
+        public void MatrixWiden()
+        {
+            Matrix a = new Matrix(4, 1);
+            a.InRandomize();
+
+            Matrix b = a.Widen(2, 2);
+
+            Assert.IsTrue(b[0, 0] == a[0, 0], "b[0, 0] has the value of a[0, 0].");
+            Assert.IsTrue(b[0, 1] == a[1, 0], "b[0, 1] has the value of a[1, 0].");
+            Assert.IsTrue(b[1, 0] == a[2, 0], "b[1, 0] has the value of a[2, 0].");
+            Assert.IsTrue(b[1, 1] == a[3, 0], "b[1, 1] has the value of a[3, 0].");
+        }
+
+        [TestMethod]
+        public void MatrixTypes()
+        {
+            Matrix vector = new Matrix(4, 1);
+            Matrix square = new Matrix(4, 4);
+            Matrix vectorT = new Matrix(1, 4);
+            Matrix matrix = new Matrix(4, 3);
+            Matrix scalar = new Matrix(1, 1);
+
+            Assert.IsTrue(vector.Type() == Nomad.Utility.EType.Vector, "Vector is a matrix of type Vector.");
+            Assert.IsTrue(square.Type() == Nomad.Utility.EType.SquareMatrix, "Square is a matrix of type SquareMatrix.");
+            Assert.IsTrue(vectorT.Type() == Nomad.Utility.EType.VectorTransposed, "VectorT is a matrix of type VectorTransposed.");
+            Assert.IsTrue(matrix.Type() == Nomad.Utility.EType.Matrix, "Matrix is a matrix of type Matrix.");
+            Assert.IsTrue(scalar.Type() == Nomad.Utility.EType.Scalar, "Scalar is a matrix of type Scalar.");
+        }
+        
+        [TestMethod]
+        public void MatrixShape()
+        {
+            Matrix a = new Matrix(4, 3);
+
+            Assert.IsTrue(a.Shape().X == 4, "a.Shape.X is 4.");
+            Assert.IsTrue(a.Shape().Y == 3, "a.Shape.Y is 3.");
+
+            // Transpose Test
+            a.InTranspose();
+            Assert.IsTrue(a.Shape().X == 3, "aT.Shape.X is 3.");
+            Assert.IsTrue(a.Shape().Y == 4, "aT.Shape.Y is 4.");
+        }
+
+        [TestMethod]
+        public void SubMatrix()
+        {
+            Matrix a = new Matrix(10, 10);
+            a.InRandomize();
+
+            Matrix b = a.SubMatrix(3, 3, 5, 5);
+
+            Assert.IsTrue(b[0, 0] == a[3, 3], "b[0, 0] has the value of a[3, 3].");
+            Assert.IsTrue(b[0, 1] == a[3, 4], "b[0, 1] has the value of a[3, 4].");
+            Assert.IsTrue(b[1, 0] == a[4, 3], "b[1, 0] has the value of a[4, 3].");
+            Assert.IsTrue(b[1, 1] == a[4, 4], "b[1, 1] has the value of a[4, 4].");
+        }
+
+        [TestMethod]
+        public void MatrixDuplicate()
+        {
+            Matrix a = new Matrix(2, 2);
+            a.InRandomize();
+
+            Matrix b = a.Duplicate();
+
+            Assert.IsTrue(a[0, 0] == b[0, 0], "b[0, 0] has the value of a[0, 0].");
+            Assert.IsTrue(a[0, 1] == b[0, 1], "b[0, 1] has the value of a[0, 1].");
+            Assert.IsTrue(a[1, 0] == b[1, 0], "b[1, 0] has the value of a[1, 0].");
+            Assert.IsTrue(a[1, 1] == b[1, 1], "b[1, 1] has the value of a[1, 1].");
+        }
     }
 }

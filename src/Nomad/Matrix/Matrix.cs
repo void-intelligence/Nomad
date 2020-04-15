@@ -382,6 +382,73 @@ namespace Nomad.Matrix
 
         #endregion
 
+        #region Flatten & Widen Functionality
+
+        public void InFlatten()
+        {
+            _matrix = Flatten()._matrix;
+        }
+
+        public Matrix Flatten()
+        {
+            Matrix _result = new Matrix(Rows * Columns, 1);
+            int k = 0;
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Columns; j++)
+                {
+                    _result[k, 0] = _matrix[i, j];
+                    k++;
+                }
+            }
+            return _result;
+        }
+
+        public void InWiden(int newX, int newY)
+        {
+            _matrix = Widen(newX, newY)._matrix;
+        }
+
+        public Matrix Widen(int newX, int newY)
+        {
+            if(Rows != newX * newY)
+            {
+                throw new InvalidOperationException("Invalid matrix size.");
+            }
+
+            bool _transpose = false;
+            if(Type() != Utility.EType.Vector && Type() != Utility.EType.VectorTransposed)
+            {
+                throw new InvalidOperationException("Cannot widen a non-vector matrix.");
+            }
+            if(Type() == Utility.EType.VectorTransposed)
+            {
+                InTranspose();
+                _transpose = true;
+            }
+
+            Matrix _result = new Matrix(newX, newY);
+
+            int k = 0;
+            for (int i = 0; i < newX; i++)
+            {
+                for (int j = 0; j < newY; j++)
+                {
+                    _result[i, j] = this[k, 0];
+                    k++;
+                }
+            }
+
+            if (_transpose)
+            {
+                InTranspose();
+            }
+
+            return _result;
+        }
+
+        #endregion
+
         #region Utility
 
         public Matrix Duplicate()
@@ -396,6 +463,25 @@ namespace Nomad.Matrix
             }
             return _result;
         }
+
+        public Matrix SubMatrix(int startX, int startY, uint dX, uint dY)
+        {
+            if (!(startX >= 0 && startX + dX <= Rows && startY >= 0 && startY + dY <= Columns))
+            {
+                throw new InvalidOperationException("Index out of bounds.");
+            }
+
+            Matrix _result = new Matrix((int)dX, (int)dY);
+            for (int i = startX; i < startX + dX; i++)
+            {
+                for (int j = startY; j < startY + dY; j++)
+                {
+                    _result._matrix[i - startX, j - startY] = _matrix[i, j];
+                }
+            }
+
+            return _result;
+        }             
 
         public Nomad.Utility.Shape Shape()
         {

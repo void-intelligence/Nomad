@@ -285,6 +285,51 @@ Matrix b = a.Fill(5);
 a.InFill(5);
 ```
 
+### FLATTEN AND WIDEN OPERATION
+
+Flattening a matrix will transform it into vector form.
+Widening a vector will transform it into a matrix form.
+
+#### Flatten
+
+1- ```public void InFlatten();```
+
+2- ```public Matrix Flatten();```
+
+
+```C#
+Matrix a = new Matrix(5, 10);
+// TODO: Fill in matrix a
+// ...
+
+// Flattens the matrix a and stores the resulting vector in b
+Matrix b = a.Flatten();
+
+// Flattens the matrix a and stores the resulting vector in a
+a.InFlatten
+```
+
+#### Widen
+
+1- ``` public void InWiden(int newX, int newY);```
+
+2- ``` public Matrix Widen(int newX, int newY);```
+
+#### NOTE: newX * newY MUST EQUAL TO THE ROW COUNT OF THE CURRENT VECTOR
+
+```C#
+Matrix a = new Matrix(10, 1);
+// TODO: Fill in vector a
+// ...
+
+// Widens the vector a and stores the resulting matrix in b
+Matrix b = a.Widen(5, 2);
+
+// Widens the vector a and stores the resulting matrix in a
+a.InWiden(5,2);
+```
+
+
 ### UTILITY FUNCTIONS
 
 1- ```public Matrix Duplicate();```
@@ -292,28 +337,55 @@ a.InFill(5);
 Grabs a duplicate instance of the matrix
 ```C#
 Matrix a = new Matrix(5, 10);
-a.InRandomize();
+// TODO: Fill in matrix a
+// ...
 
 Matrix b = a.Duplicate();
 ```
 
-2- ```public Nomad.Utility.Shape Shape()```
+2- ```public Matrix SubMatrix(int startX, int startY, uint dX, uint dY);```
+
+Calculates the Submatrix of the current matrix and retuns it.
+
+```C#
+Matrix a = new Matrix(5, 5);
+// TODO: Fill in matrix a
+// ...
+
+// Grabs the submatrix of a and stores it in matrix b
+Matrix b = a.SubMatrix(1, 1, 3, 3)
+```
+
+#### FUNCTION PARAMETERS
+
+1- ```startX```: Starting location for Rows
+
+2- ```startY```: Starting location for Columns
+
+3- ```dX```: Distance to read in Rows starting from startX
+
+4- ```dY```: Distance to read in Columns starting from startY
+
+
+3- ```public Nomad.Utility.Shape Shape()```
 
 Grabs the shape of the Matrix
 ```C#
 Matrix a = new Matrix(5, 5);
-a.InRandomize();
+// TODO: Fill in matrix a
+// ...
 
 // Shape is (5, 5) of type Square Matrix
 Shape s = a.Shape();
 ```
 
-3- ```public Utility.EType Type()```
+4- ```public Utility.EType Type()```
 
 Grabs the type of the Matrix
 ```C#
 Matrix a = new Matrix(10, 1);
-a.InRandomize();
+// TODO: Fill in vector a
+// ...
 
 // In this case a vector
 EType t = a.Type();

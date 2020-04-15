@@ -29,13 +29,13 @@ namespace Nomad.Utility
             // Vector
             if (X == 1 && Y != 1)
             {
-                return EType.Vector;
+                return EType.VectorTransposed;
             }
 
             // Vector.T
             else if (X != 1 && Y == 1)
             {
-                return EType.VectorTransposed;
+                return EType.Vector;
             }
 
             // Square Matrix
