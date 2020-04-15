@@ -246,14 +246,9 @@ Fills in the matrix with random values.
 
 There are two overloads of these functions. You can either determine lower and upper limits to randomization or let it be 0.0 and 1.0 by default.
 
-1- ```public void InRandomize(double lowest, double highest);```
+1- ```public void InRandomize(double lowest = 0.0, double highest = 1.0);```
 
-2- ```public Matrix Randomize(double lowest, double highest);```
-
-3- ```public void InRandomize();```
-
-4- ```public Matrix Randomize();```
-
+2- ```public Matrix Randomize(double lowest = 0.0, double highest = 1.0);```
 
 ```C#
 Matrix a = new Matrix(5, 10);

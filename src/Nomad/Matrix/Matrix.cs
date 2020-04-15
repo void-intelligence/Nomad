@@ -338,7 +338,7 @@ namespace Nomad.Matrix
 
         #region Randomization
 
-        public void InRandomize(double lowest, double highest)
+        public void InRandomize(double lowest = 0.0, double highest = 1.0)
         {
             Random _random = new Random();
             double _diff = highest - lowest;
@@ -351,22 +351,10 @@ namespace Nomad.Matrix
             }
         }
 
-        public Matrix Randomize(double lowest, double highest)
+        public Matrix Randomize(double lowest = 0.0, double highest = 1.0)
         {
             var _mat = Duplicate();
             _mat.InRandomize(lowest, highest);
-            return _mat;
-        }
-
-        public void InRandomize()
-        {
-            InRandomize(0.0, 1.0);
-        }
-
-        public Matrix Randomize()
-        {
-            var _mat = Duplicate();
-            _mat.InRandomize();
             return _mat;
         }
 
