@@ -285,10 +285,11 @@ Matrix b = a.Fill(5);
 a.InFill(5);
 ```
 
-### FLATTEN AND WIDEN OPERATION
+### FLATTEN, WIDEN AND RESHAPE OPERATION
 
 Flattening a matrix will transform it into vector form.
 Widening a vector will transform it into a matrix form.
+Reshape will perform a flatten and a widen on the matrix to change it's dimentions.
 
 #### Flatten
 
@@ -306,14 +307,14 @@ Matrix a = new Matrix(5, 10);
 Matrix b = a.Flatten();
 
 // Flattens the matrix a and stores the resulting vector in a
-a.InFlatten
+a.InFlatten();
 ```
 
 #### Widen
 
-1- ``` public void InWiden(int newX, int newY);```
+1- ```public void InWiden(int newX, int newY);```
 
-2- ``` public Matrix Widen(int newX, int newY);```
+2- ```public Matrix Widen(int newX, int newY);```
 
 #### NOTE: newX * newY MUST EQUAL TO THE ROW COUNT OF THE CURRENT VECTOR
 
@@ -326,9 +327,28 @@ Matrix a = new Matrix(10, 1);
 Matrix b = a.Widen(5, 2);
 
 // Widens the vector a and stores the resulting matrix in a
-a.InWiden(5,2);
+a.InWiden(5, 2);
 ```
 
+#### Reshape
+
+1- ```public void InReshape(int newX, int newY);```
+
+2- ```public Matrix Reshape(int newX, int newY)```
+
+```C#
+Matrix a = new Matrix(4, 2);
+// TODO: Fill in vector a
+// ...
+
+// Reshapes the matrix a from (4, 2) into (2, 4) 
+// and stores the resulting matrix into b
+Matrix b = a.Reshape(2, 4);
+
+// Reshapes the matrix a from (4, 2) into (2, 4) 
+// and stores the resulting matrix into a
+a.InReshape(2, 4);
+```
 
 ### UTILITY FUNCTIONS
 
@@ -347,15 +367,6 @@ Matrix b = a.Duplicate();
 
 Calculates the Submatrix of the current matrix and retuns it.
 
-```C#
-Matrix a = new Matrix(5, 5);
-// TODO: Fill in matrix a
-// ...
-
-// Grabs the submatrix of a and stores it in matrix b
-Matrix b = a.SubMatrix(1, 1, 3, 3)
-```
-
 #### FUNCTION PARAMETERS
 
 1- ```startX```: Starting location for Rows
@@ -366,6 +377,14 @@ Matrix b = a.SubMatrix(1, 1, 3, 3)
 
 4- ```dY```: Distance to read in Columns starting from startY
 
+```C#
+Matrix a = new Matrix(5, 5);
+// TODO: Fill in matrix a
+// ...
+
+// Grabs the submatrix of a and stores it in matrix b
+Matrix b = a.SubMatrix(1, 1, 3, 3)
+```
 
 3- ```public Nomad.Utility.Shape Shape()```
 

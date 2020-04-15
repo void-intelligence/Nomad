@@ -10,10 +10,10 @@ namespace Nomad.Matrix
 {
     public partial class Matrix
     {
-        private double[,] _matrix; 
+        private double[,] _matrix;
 
         public int Rows { get { return _matrix.GetLength(0); } }
-        
+
         public int Columns { get { return _matrix.GetLength(1); } }
 
         public double this[int row, int column]
@@ -25,7 +25,7 @@ namespace Nomad.Matrix
 
             set
             {
-                _matrix[row , column] = value;
+                _matrix[row, column] = value;
             }
         }
 
@@ -35,7 +35,7 @@ namespace Nomad.Matrix
         }
 
         public Matrix(int m) : this(m, m) { }
-        
+
         #region Dot Product
 
         public void InDot(Matrix matrix)
@@ -411,17 +411,17 @@ namespace Nomad.Matrix
 
         public Matrix Widen(int newX, int newY)
         {
-            if(Rows != newX * newY)
+            if (Rows != newX * newY)
             {
                 throw new InvalidOperationException("Invalid matrix size.");
             }
 
             bool _transpose = false;
-            if(Type() != Utility.EType.Vector && Type() != Utility.EType.VectorTransposed)
+            if (Type() != Utility.EType.Vector && Type() != Utility.EType.VectorTransposed)
             {
                 throw new InvalidOperationException("Cannot widen a non-vector matrix.");
             }
-            if(Type() == Utility.EType.VectorTransposed)
+            if (Type() == Utility.EType.VectorTransposed)
             {
                 InTranspose();
                 _transpose = true;
@@ -444,6 +444,18 @@ namespace Nomad.Matrix
                 InTranspose();
             }
 
+            return _result;
+        }
+
+        public void InReshape(int newX, int newY)
+        {
+            _matrix = Reshape(newX, newY)._matrix;
+        }
+
+        public Matrix Reshape(int newX, int newY)
+        {
+            Matrix _tmp = Flatten();
+            Matrix _result = _tmp.Widen(newX, newY);
             return _result;
         }
 
@@ -481,7 +493,7 @@ namespace Nomad.Matrix
             }
 
             return _result;
-        }             
+        }
 
         public Nomad.Utility.Shape Shape()
         {

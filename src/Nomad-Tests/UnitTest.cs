@@ -359,5 +359,22 @@ namespace NomadTest
             string calculatedString = "[1, \n]";
             Assert.IsTrue(fnString == calculatedString, "String calculation is successful.");
         }
+
+        [TestMethod]
+        public void MatrixReshape()
+        {
+            Matrix a = new Matrix(3, 2);
+            Matrix b = a.Reshape(2, 3);
+
+            bool equality = true;
+            equality &= (a[0, 0] == b[0, 0]);
+            equality &= (a[0, 1] == b[0, 1]);
+            equality &= (a[1, 0] == b[0, 2]);
+            equality &= (a[1, 1] == b[1, 0]);
+            equality &= (a[2, 0] == b[1, 1]);
+            equality &= (a[2, 1] == b[1, 2]);
+        
+            Assert.IsTrue(equality, "Reshape operation is successful.");
+        }
     }
 }
