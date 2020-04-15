@@ -4,6 +4,7 @@
          Primary Matrix class logic.
 \********************************************/
 
+using Nomad.Utility;
 using System;
 
 namespace Nomad.Matrix
@@ -338,23 +339,52 @@ namespace Nomad.Matrix
 
         #region Randomization
 
-        public void InRandomize(double lowest = 0.0, double highest = 1.0)
+        public void InRandomize(double lowest = 0.0, double highest = 1.0, EDistribution distribution = EDistribution.Uniform)
         {
-            Random _random = new Random();
             double _diff = highest - lowest;
-            for (int _row = 0; _row < _matrix.GetLength(0); _row++)
+            if (distribution == EDistribution.Invalid)
             {
-                for (int _col = 0; _col < _matrix.GetLength(1); _col++)
+                throw new InvalidOperationException("Invalid Random Distribution Mode!");
+            }
+
+            else if (distribution == EDistribution.Uniform)
+            {
+                Random _random = new Random();
+                for (int _row = 0; _row < _matrix.GetLength(0); _row++)
                 {
-                    _matrix[_row, _col] = (_random.NextDouble() * _diff) + lowest;
+                    for (int _col = 0; _col < _matrix.GetLength(1); _col++)
+                    {
+                        _matrix[_row, _col] = (_random.NextDouble() * _diff) + lowest;
+                    }
+                }
+            }
+            else if (distribution == EDistribution.Gaussian)
+            {
+                Random random = new Random(); //reuse this if you are generating many
+                for (int _row = 0; _row < _matrix.GetLength(0); _row++)
+                {
+                    for (int _col = 0; _col < _matrix.GetLength(1); _col++)
+                    {
+                        //uniform(0,1] random doubles
+                        double u1 = 1.0 - random.NextDouble();
+                        double u2 = 1.0 - random.NextDouble();
+
+                        //random normal(0,1)
+                        double randStdNormal = System.Math.Sqrt(-2.0 * System.Math.Log(u1)) * System.Math.Sin(2.0 * System.Math.PI * u2);
+
+                        //random normal(mean,stdDev^2)
+                        double randNormal = 0 + _diff * randStdNormal;
+
+                        _matrix[_row, _col] = randNormal;
+                    }
                 }
             }
         }
 
-        public Matrix Randomize(double lowest = 0.0, double highest = 1.0)
+        public Matrix Randomize(double lowest = 0.0, double highest = 1.0, EDistribution distribution = EDistribution.Uniform)
         {
             var _mat = Duplicate();
-            _mat.InRandomize(lowest, highest);
+            _mat.InRandomize(lowest, highest, distribution);
             return _mat;
         }
 

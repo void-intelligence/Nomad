@@ -246,24 +246,22 @@ Fills in the matrix with random values.
 
 There are two overloads of these functions. You can either determine lower and upper limits to randomization or let it be 0.0 and 1.0 by default.
 
-1- ```public void InRandomize(double lowest = 0.0, double highest = 1.0);```
+1- ```public void InRandomize(double lowest = 0.0, double highest = 1.0, EDistribution distribution = EDistribution.Uniform);```
 
-2- ```public Matrix Randomize(double lowest = 0.0, double highest = 1.0);```
+2- ```public Matrix Randomize(double lowest = 0.0, double highest = 1.0, EDistribution distribution = EDistribution.Uniform);```
 
 ```C#
 Matrix a = new Matrix(5, 10);
 
-// Randomizes the values of matrix a (0.0, 1.0)
-a.InRandomize();
+// Randomizes the values of matrix a with values ranging between 10.0 and 15.0
+// Using a uniform random number distribution to fill the matrix
+// The result will be stored in matrix a
+a.InRandomize(10.0, 15.0, EDistribution.Uniform);
 
-// Creates a matrix of size a, randomizes it and stores it in matrix b (0.0, 1.0)
-Matrix b = a.Randomize();
-
-// Randomizes the values of matrix a (10.0, 15.0)
-a.InRandomize(10.0, 15.0);
-
-// Creates a matrix of size a, randomizes it and stores it in matrix b (10.0, 15.0)
-Matrix b = a.Randomize(10.0, 15.0);
+// Randomizes the values of matrix a with values ranging between 10.0 and 15.0
+// Using a uniform random number distribution to fill the matrix
+// The result will be stored in matrix b while retaining the shape of a
+Matrix b = a.Randomize(10.0, 15.0, EDistribution.Uniform);
 ```
 
 ### FILL OPERATION
