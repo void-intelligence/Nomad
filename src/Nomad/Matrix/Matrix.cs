@@ -493,6 +493,27 @@ namespace Nomad.Matrix
             return Shape().Type();
         }
 
+        public override string ToString()
+        {
+            string buffer = string.Empty;
+            buffer += "[";
+            for (int row = 0; row < Rows; row++)
+            {
+                for (int col = 0; col < Columns; col++)
+                {
+                    buffer += _matrix[row, col].ToString() + ", ";
+                }
+                buffer += "\n";
+            }
+            buffer += "]";
+            return buffer;
+        }
+
+        public void Print()
+        {
+            Console.WriteLine(ToString());
+        }
+
         #endregion
     }
 }

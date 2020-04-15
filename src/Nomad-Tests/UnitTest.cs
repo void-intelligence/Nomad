@@ -349,5 +349,15 @@ namespace NomadTest
             Assert.IsTrue(a[1, 0] == b[1, 0], "b[1, 0] has the value of a[1, 0].");
             Assert.IsTrue(a[1, 1] == b[1, 1], "b[1, 1] has the value of a[1, 1].");
         }
+
+        [TestMethod] 
+        public void MatrixToString()
+        {
+            Matrix a = new Matrix(1, 1);
+            a[0, 0] = 1;
+            string fnString = a.ToString();
+            string calculatedString = "[1, \n]";
+            Assert.IsTrue(fnString == calculatedString, "String calculation is successful.");
+        }
     }
 }
