@@ -6,19 +6,19 @@ The matrix class is split into five separate files to improve code readability a
 
 The five files are as follows.
 
-1- **Matrix.cs**
+1- [**Matrix.cs**](https://github.com/void-intelligence/Nomad/blob/master/docs/Matrix.md#matrixcs-methods)
 Primary logic functionality of the Matrix class.
 
-2- **Matrices.cs**
+2- [**Matrices.cs**](https://github.com/void-intelligence/Nomad/blob/master/docs/Matrix.md#matricescs-methods)
 Methods for creating special types of ready-made matrices. 
 
-3- **Operators.cs**
+3- [**Operators.cs**](https://github.com/void-intelligence/Nomad/blob/master/docs/Matrix.md#operatorscs-methods)
 Matrix's operators are all overloaded in this file.
 
-4- **Transformation.cs**
+4- [**Transformation.cs**](https://github.com/void-intelligence/Nomad/blob/master/docs/Matrix.md#transformationcs-methods)
 2D and 3D Matrix Transformation logic.
 
-5- **Norm.cs**
+5- [**Norm.cs**](https://github.com/void-intelligence/Nomad/blob/master/docs/Matrix.md#normcs-methods)
 Various Norm calculation functions for the matrix class.
 
 ## Matrix.cs Methods
@@ -267,6 +267,8 @@ a.InRandomize(10.0, 15.0, EDistribution.Uniform);
 Matrix b = a.Randomize(10.0, 15.0, EDistribution.Uniform);
 ```
 
+You can read more about EDistribution enum [here](https://github.com/void-intelligence/Nomad/blob/master/docs/EDistribution.md).
+
 ### FILL OPERATION
 
 Fills the matrix with a given value.
@@ -289,8 +291,6 @@ a.InFill(5);
 ### FLATTEN, WIDEN AND RESHAPE OPERATION
 
 Flattening a matrix will transform it into vector form.
-Widening a vector will transform it into a matrix form.
-Reshape will perform a flatten and a widen on the matrix to change it's dimentions.
 
 #### Flatten
 
@@ -313,6 +313,8 @@ a.InFlatten();
 
 #### Widen
 
+Widening a vector will transform it into a matrix form.
+
 1- ```public void InWiden(int newX, int newY);```
 
 2- ```public Matrix Widen(int newX, int newY);```
@@ -332,6 +334,8 @@ a.InWiden(5, 2);
 ```
 
 #### Reshape
+
+Reshape will perform a flatten and a widen on the matrix to change the dimentions while retaining the data within the structure of the matrix.
 
 1- ```public void InReshape(int newX, int newY);```
 
@@ -399,6 +403,8 @@ Matrix a = new Matrix(5, 5);
 Shape s = a.Shape();
 ```
 
+You can read more about the Shape class [here](https://github.com/void-intelligence/Nomad/blob/master/docs/Shape.md).
+
 4- ```public Utility.EType Type()```
 
 Grabs the type of the Matrix
@@ -410,6 +416,9 @@ Matrix a = new Matrix(10, 1);
 // In this case a vector
 EType t = a.Type();
 ```
+
+
+You can read more about the EType enum [here](https://github.com/void-intelligence/Nomad/blob/master/docs/EType.md).
 
 ## Matrices.cs Methods
 
@@ -535,3 +544,5 @@ double result = a.IntegrateCustomNorm(HyperTan);
 
 // Result will have the value of Cumsum(HyperTan(a))
 ```
+
+[**Back To Index**](https://github.com/void-intelligence/Nomad/blob/master/docs/README.md)
