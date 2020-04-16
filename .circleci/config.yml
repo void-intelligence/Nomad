@@ -2,7 +2,8 @@ version: 2.1
 
 orbs:
   windows: circleci/windows@2.2.0
-
+  codecov: codecov/codecov@1.0.2
+  
 jobs:
   test:
     description: Setup and run application tests
@@ -23,9 +24,8 @@ jobs:
       - run:
           name: "Run Application Tests"
           command: dotnet.exe test -v n --results-directory:test_coverage --collect:"Code Coverage"
-      - run:
-          name: "Print Working Directory"
-          command: pwd
+      - codecov/upload:
+          file: C:\Users\circleci\project\test_coverage
       - store_artifacts:
           path: C:\Users\circleci\project\test_coverage
   build:
