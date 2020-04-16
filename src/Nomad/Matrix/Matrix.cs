@@ -154,7 +154,7 @@ namespace Nomad.Matrix
                 return;
             }
 
-            // Normal Addition
+            // Regular Addition
             if (Rows != matrix.Rows || Columns != matrix.Columns)
             {
                 throw new InvalidOperationException("Cannot add matrices of different sizes.");
@@ -210,7 +210,7 @@ namespace Nomad.Matrix
                 return;
             }
 
-            // Normal Subtraction
+            // Regular Subtraction
             if (Rows != matrix.Rows || Columns != matrix.Columns)
             {
                 throw new InvalidOperationException("Cannot sub matrices of different sizes.");
@@ -372,6 +372,7 @@ namespace Nomad.Matrix
             }
             else if (distribution == EDistribution.Gaussian)
             {
+                double _dispersion = _diff / 2;
                 Random random = new Random(); //reuse this if you are generating many
                 for (int _row = 0; _row < _matrix.GetLength(0); _row++)
                 {
@@ -385,7 +386,7 @@ namespace Nomad.Matrix
                         double randStdNormal = System.Math.Sqrt(-2.0 * System.Math.Log(u1)) * System.Math.Sin(2.0 * System.Math.PI * u2);
 
                         //random normal(mean,stdDev^2)
-                        double randNormal = 0 + _diff * randStdNormal;
+                        double randNormal = 0 + _dispersion * randStdNormal;
 
                         _matrix[_row, _col] = randNormal;
                     }
