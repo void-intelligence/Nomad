@@ -376,5 +376,34 @@ namespace NomadTest
         
             Assert.IsTrue(equality, "Reshape operation is successful.");
         }
+
+        [TestMethod]
+        public void MatrixNormTest()
+        {
+            Matrix a = new Matrix(3, 3);
+            a[0, 0] = 11;
+            a[0, 1] = 12;
+            a[0, 2] = 13;
+            a[1, 0] = 21;
+            a[1, 1] = 22;
+            a[1, 2] = 23;
+            a[2, 0] = 31;
+            a[2, 1] = 32;
+            a[2, 2] = 33;
+
+            double _Tax = a.TaxicabNorm();
+            double _Abs = a.AbsoluteNorm();
+            double _Frob = a.EuclideanNorm();
+            double _Man = a.ManhattanNorm();
+            double _Max = a.MaximumNorm();
+            double _P = a.PNorm(3);
+
+            Assert.IsTrue(_Tax == 198, "Max norm operation is successful.");
+            Assert.IsTrue(_Abs == 198, "Absolute norm operation is successful.");
+            Assert.IsTrue(_Frob == 70.441465061425291, "Euclidean norm operation is successful.");
+            Assert.IsTrue(_Man == 198, "Manhattan norm operation is successful.");
+            Assert.IsTrue(_Max == 33, "Maximum norm operation is successful.");
+            Assert.IsTrue(_P == 51.403943234349725, "P norm operation is successful.");
+        }
     }
 }
