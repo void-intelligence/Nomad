@@ -12,14 +12,14 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - dotnet-packages-v1-{{ checksum "src/Nomad-Tests/Nomad-Tests.csproj" }}
+            - dotnet-packages-v1-{{ checksum "src/Nomad/Nomad.csproj" }}
       - run:
           name: "Install project dependencies"
           command: dotnet.exe restore
       - save_cache:
           paths:
             - C:\Users\circleci\.nuget\packages
-          key: dotnet-packages-v1-{{ checksum "src/Nomad-Tests/Nomad-Tests.csproj" }}
+          key: dotnet-packages-v1-{{ checksum "src/Nomad/Nomad.csproj" }}
       - run:
           name: "Run Application Tests"
           command: dotnet.exe test -v n --results-directory:test_coverage --collect:"Code Coverage"
