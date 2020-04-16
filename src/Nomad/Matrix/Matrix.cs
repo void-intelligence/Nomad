@@ -125,9 +125,11 @@ namespace Nomad.Matrix
 
         public void InAdd(Matrix matrix)
         {
+            bool transpose = false;
             // Vector Broadcasting
             if (matrix.Shape().Type() == Utility.EType.VectorTransposed)
             {
+                transpose = true;
                 matrix.InTranspose();
             }
 
@@ -144,6 +146,10 @@ namespace Nomad.Matrix
                     {
                         _matrix[_row, _col] += matrix[_row, 0];
                     }
+                }
+                if (transpose)
+                {
+                    matrix.InTranspose();
                 }
                 return;
             }
@@ -175,9 +181,11 @@ namespace Nomad.Matrix
 
         public void InSub(Matrix matrix)
         {
+            bool transpose = false;
             // Vector Broadcasting
             if (matrix.Shape().Type() == Utility.EType.VectorTransposed)
             {
+                transpose = true;
                 matrix.InTranspose();
             }
 
@@ -192,8 +200,12 @@ namespace Nomad.Matrix
                 {
                     for (int _col = 0; _col < Columns; _col++)
                     {
-                        _matrix[_row, _col] -= matrix[_row, 1];
+                        _matrix[_row, _col] -= matrix[_row, 0];
                     }
+                }
+                if(transpose)
+                {
+                    matrix.InTranspose();
                 }
                 return;
             }

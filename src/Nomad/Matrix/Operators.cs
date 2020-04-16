@@ -33,7 +33,7 @@ namespace Nomad.Matrix
         public static Matrix operator -(Matrix first, Matrix second)
         {
             var result = first.Duplicate();
-            result.Sub(second);
+            result.InSub(second);
             return result;
         }
 

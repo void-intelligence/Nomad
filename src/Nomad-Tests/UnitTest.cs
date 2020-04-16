@@ -405,5 +405,51 @@ namespace NomadTest
             Assert.IsTrue(_Max == 33, "Maximum norm operation is successful.");
             Assert.IsTrue(_P == 51.403943234349725, "P norm operation is successful.");
         }
+
+        [TestMethod]
+        public void MatrixBroadcasting()
+        {
+            Matrix a = new Matrix(3, 3);
+            a[0, 0] = 10;
+            a[0, 1] = 10;
+            a[0, 2] = 10;
+            a[1, 0] = 20;
+            a[1, 1] = 20;
+            a[1, 2] = 20;
+            a[2, 0] = 30;
+            a[2, 1] = 30;
+            a[2, 2] = 30;
+
+            Matrix b = new Matrix(3, 1);
+            b[0, 0] = 10;
+            b[1, 0] = 10;
+            b[2, 0] = 10;
+
+            Matrix c = a + b;
+            Matrix d = a - b;
+
+            bool equality = true;
+            equality &= (c[0, 0] == 20);
+            equality &= (c[0, 1] == 20);
+            equality &= (c[0, 2] == 20);
+            equality &= (c[1, 0] == 30);
+            equality &= (c[1, 1] == 30);
+            equality &= (c[1, 2] == 30);
+            equality &= (c[2, 0] == 40);
+            equality &= (c[2, 1] == 40);
+            equality &= (c[2, 2] == 40);
+
+            equality &= (d[0, 0] == 0);
+            equality &= (d[0, 1] == 0);
+            equality &= (d[0, 2] == 0);
+            equality &= (d[1, 0] == 10);
+            equality &= (d[1, 1] == 10);
+            equality &= (d[1, 2] == 10);
+            equality &= (d[2, 0] == 20);
+            equality &= (d[2, 1] == 20);
+            equality &= (d[2, 2] == 20);
+
+            Assert.IsTrue(equality, "Broadcasting in addition is successful.");
+        }
     }
 }
