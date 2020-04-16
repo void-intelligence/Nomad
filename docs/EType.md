@@ -14,7 +14,7 @@ The Distribution enum holds five elements
 
 5- ```SquareMatrix``` n by n matrix
 		
-This enum is used when calling the Type function in the [matrix class](https://github.com/void-intelligence/Nomad/blob/master/docs/Matrix.md)
+This enum is used when calling the Type function in the [matrix class](https://github.com/void-intelligence/Nomad/blob/master/docs/Matrix.md).
 
 The value of this enum is always calculated based on the shape of the matrix, and within the [shape class](https://github.com/void-intelligence/Nomad/blob/master/docs/Shape.md).
 
