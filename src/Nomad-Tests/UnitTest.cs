@@ -449,7 +449,7 @@ namespace NomadTest
             equality &= (d[2, 1] == 20);
             equality &= (d[2, 2] == 20);
 
-            Assert.IsTrue(equality, "Broadcasting in addition is successful.");
+            Assert.IsTrue(equality, "Broadcasting in addition / subtraction is successful.");
         }
     }
 }
