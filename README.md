@@ -1,4 +1,4 @@
-# NOMAD
+# NOMAD [![Void-Intelligence](https://circleci.com/gh/void-intelligence/Nomad.svg?style=shield)](https://app.circleci.com/pipelines/github/void-intelligence/Nomad)
 
 <p align="center">
   <img src="https://github.com/void-intelligence/Nomad/blob/master/resources/Nomad.png" alt="Nomad Logo" width="920" height="343">
