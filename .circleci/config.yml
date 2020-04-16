@@ -1,0 +1,43 @@
+ version: 2.1
+
+ orbs:
+  win: circleci/windows@2.2.0
+
+ jobs:
+   test:
+    description: Setup and run application tests
+    executor:
+      name: windows/default
+    steps:
+      - checkout
+      - restore_cache:
+        keys:
+          - dotnet-packages-v1-{{ checksum "src/Nomad-Test/Nomad-Tests.csproj" }}
+      - run:
+          name: "Install project dependencies"
+          command: dotnet.exe restore
+      - run:
+          name: "Run Application Tests"
+          command: dotnet.exe test -v n --results-directory:test_coverage --collect:"Code Coverage"
+      - run:
+          name: "Print Working Directory"
+          command: pwd
+      - store_artifacts:
+          path: C:\Users\circleci\project\test_coverage
+      
+   build:
+    description: Build application with Release configuration
+    executor:
+      name: windows/default
+    steps:
+      - checkout
+      - run:
+          name: "Build Application according to some given configuration"
+          command: dotnet.exe build --configuration Release
+workflows:
+  test_and_build:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
