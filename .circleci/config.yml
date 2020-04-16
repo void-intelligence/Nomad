@@ -12,7 +12,7 @@
       - checkout
       - restore_cache:
         keys:
-          - dotnet-packages-v1-{{ checksum "src/Nomad-Test/Nomad-Tests.csproj" }}
+          - dotnet-packages-v1-{{ checksum "src/Nomad/Nomad.csproj" }}
       - run:
           name: "Install project dependencies"
           command: dotnet.exe restore
