@@ -19,6 +19,8 @@ The full API Documentation explaination on all aspects of the library, you can c
 
 (The library will be available in NuGet as soon as the first release)
 
+The quickstart guide will get you up and running with the nomad library in no time.
+
 ```C#
 using System;
 using Nomad.Matrix;
@@ -26,42 +28,41 @@ using Nomad.Utility;
 
 namespace Sample
 {
-  public class Program
-  {
-	  public static void Main()
-	  {
-      // Create a matrix of size 5 (rows) and 10 (columns)
-		  Matrix mat = new Matrix(5, 10)
-      
-      // Randomly Initialize the values of your matrix with Gaussian Distribution 
-      // Gaussian Dispersion will be ((high - low) / 2)
-      mat.InRandomize(0.0, 1.0, EDistribution.Gaussian);
-      
-      // Transpose the Matrix mat and put it in matT
-      Matrix matT = mat.T();
-      
-      // Calculate the dot product between the two matrices mat and matT and store the result in product
-      Matrix product = mat * matT;
-  
-      // Flatten the product matrix inplace
-      product.InFlatten();
-      
-      // Make sure the matrix has been transformed into a vector as expected
-      Console.WriteLine(product.Type().ToString());
-      
-      // Transpose the vector inplace so it will print in 1 line
-      product.InTranspose();
-      
-      // Convert the product vector into a string
-      string str = product.ToString();
-      
-      // Print the product Vector
-      Console.WriteLine(str);
-      
-      // End the program
-      return;
-	  }
-  }
-}
+    public class Program
+    {
+        public static void Main()
+        {
+            // Create a matrix of size 5 (rows) and 10 (columns)
+            Matrix mat = new Matrix(5, 10);
 
+            // Randomly Initialize the values of your matrix with Gaussian Distribution 
+            // Gaussian Dispersion will be ((high - low) / 2)
+            mat.InRandomize(0.0, 1.0, EDistribution.Gaussian);
+
+            // Transpose the Matrix mat and put it in matT
+            Matrix matT = mat.T();
+
+            // Calculate the dot product between the two matrices mat and matT and store the result in product
+            Matrix product = mat * matT;
+
+            // Flatten the product matrix inplace
+            product.InFlatten();
+
+            // Make sure the matrix has been transformed into a vector as expected
+            Console.WriteLine(product.Type().ToString());
+
+            // Transpose the vector inplace so it will print in 1 line
+            product.InTranspose();
+
+            // Convert the product vector into a string
+            string str = product.ToString();
+
+            // Print the product Vector
+            Console.WriteLine(str);
+
+            // End the program
+            return;
+        }
+    }
+}
 ```
