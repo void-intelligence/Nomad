@@ -2,9 +2,9 @@
 
 ### OVERVIEW
 
-The matrix class is split into four separate files to improve code readability and maintenance.  
+The matrix class is split into five separate files to improve code readability and maintenance.  
 
-The four files are as follows.
+The five files are as follows.
 
 1- **Matrix.cs**
 Primary logic functionality of the Matrix class.
@@ -17,6 +17,9 @@ Matrix's operators are all overloaded in this file.
 
 4- **Transformation.cs**
 2D and 3D Matrix Transformation logic.
+
+5- **Norm.cs**
+Various Norm calculation functions for the matrix class.
 
 ## Matrix.cs Methods
 
@@ -464,30 +467,71 @@ Transformation holds certain methods for manipluation the matrix object in a 2D 
 
 ##### THE INPUT TO ROTATION FUNCTIONS IS IN UNIT OF DEGREES
 
-1- Rotation2D(double angle)
+1- ```Rotation2D(double angle)```
 
 For rotating the matrix in 2D space
 
-2- Rotation3DX(double angle)
+2- ```Rotation3DX(double angle)```
 
 For rotating the matrix along X axis in 3D space
 
-3- Rotation3DY(double angle)
+3- ```Rotation3DY(double angle)```
 
 For rotating the matrix along Y axis in 3D space
 
-4- Rotation3DZ(double angle)
+4- ```Rotation3DZ(double angle)```
 
 For rotating the matrix along Z axis in 3D space
 
-5- Scaling(double factor)
+5- ```Scaling(double factor)```
 
 For scaling the matrix in a uniform manner in 3D space (Supports 2D)
 
-6- Scaling(double factorX, double factorY, double factorZ)
+6- ```Scaling(double factorX, double factorY, double factorZ)```
 
 For scaling the matrix in a precise manner in 3D space (Supports 2D)
 
-7- Translation(double moveX, double moveY, double moveZ)
+7- ```Translation(double moveX, double moveY, double moveZ)```
 
 For moving the matrix in 3D Space (Supports 2D)
+
+## Norm.cs Methods
+
+This file contains the logic to calculate various norms of the matrix.
+
+1- ```Maximum Norm```
+
+2- ```Manhattan Norm```
+
+3- ```Taxicab Norm```
+
+4- ```P-Norm```
+
+5- ```Euclidean / Frobenius Norm```
+
+6- ```Absolute Norm```
+
+7- ```IntegrateCustomNorm(Func<double, double func)```
+
+Note that the only method here that is a different to the ones mentioned so far is the ```IntegrateCustomNorm```
+
+This method will take a function as input, map it to the matrix and calculate the sum of the results
+
+```C#
+// Let's assume this is the function we want to map to our matrix object
+public double HyperTan(double val) 
+{
+	return Math.Tanh(val * val);
+}
+```
+
+And now we use it
+
+```C#
+Matrix a = new Matrix(10, 10);
+a.InRandomize();
+
+double result = a.IntegrateCustomNorm(HyperTan);
+
+// Result will have the value of Cumsum(HyperTan(a))
+```

@@ -1,4 +1,6 @@
-﻿namespace Nomad.Utility
+﻿// © 2020 VOID-INTELLIGENCE ALL RIGHTS RESERVED
+
+namespace Nomad.Utility
 {
     public enum EDistribution
     {
