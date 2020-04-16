@@ -10,6 +10,6 @@ Welcome to Nomad API Documentation's index page.
 
 ## Enums
 
-[**Matrix**](https://github.com/void-intelligence/Nomad/blob/master/docs/EType.md)
+[**EType**](https://github.com/void-intelligence/Nomad/blob/master/docs/EType.md)
 
-[**Shape**](https://github.com/void-intelligence/Nomad/blob/master/docs/EDistribution.md)
+[**EDistribution**](https://github.com/void-intelligence/Nomad/blob/master/docs/EDistribution.md)
