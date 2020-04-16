@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
  win: circleci/windows@2.2.0
+
 jobs:
  test:
   description: Setup and run application tests
@@ -11,14 +12,14 @@ jobs:
    - checkout
    - restore_cache:
     keys:
-     - dotnet-packages-v1-{{ checksum "src/Nomad/Nomad.csproj" }}
+     - dotnet-packages-v1-{{ checksum "src/Nomad-Tests/Nomad-Tests.csproj" }}
    - run:
     name: "Install project dependencies"
     command: dotnet.exe restore
    - save_cache
     paths:
      - C:\Users\circleci\.nuget\packages
-    key: dotnet-packages-v1-{{ checksum "src/Nomad/Nomad.csproj" }}
+    key: dotnet-packages-v1-{{ checksum "src/Nomad-Tests/Nomad-Tests.csproj" }}
    - run:
     name: "Run Application Tests"
     command: dotnet.exe test -v n --results-directory:test_coverage --collect:"Code Coverage"
