@@ -346,7 +346,9 @@ namespace NomadTest
         [TestMethod]
         public void MatrixReshape()
         {
+            // Regular Reshape
             Matrix a = new Matrix(3, 2);
+            a.InRandomize();
             Matrix b = a.Reshape(2, 3);
 
             bool equality = true;
@@ -356,8 +358,35 @@ namespace NomadTest
             equality &= (a[1, 1] == b[1, 0]);
             equality &= (a[2, 0] == b[1, 1]);
             equality &= (a[2, 1] == b[1, 2]);
-        
+
             Assert.IsTrue(equality, "Reshape operation is successful.");
+
+            // Flatten Reshape    
+            Matrix matrix = a.Reshape(6, 1);
+            Matrix c = matrix;
+
+            bool secondEquality = true;
+            secondEquality &= (a[0, 0] == c[0, 0]);
+            secondEquality &= (a[0, 1] == c[1, 0]);
+            secondEquality &= (a[1, 0] == c[2, 0]);
+            secondEquality &= (a[1, 1] == c[3, 0]);
+            secondEquality &= (a[2, 0] == c[4, 0]);
+            secondEquality &= (a[2, 1] == c[5, 0]);
+            Assert.IsTrue(secondEquality, "Flatten Reshape operation is successful.");
+
+            // Flatten Transpose Reshape
+            Matrix d = a.Reshape(1, 6);
+
+            bool thirdEquality = true;
+            thirdEquality &= (a[0, 0] == d[0, 0]);
+            thirdEquality &= (a[0, 1] == d[0, 1]);
+            thirdEquality &= (a[1, 0] == d[0, 2]);
+            thirdEquality &= (a[1, 1] == d[0, 3]);
+            thirdEquality &= (a[2, 0] == d[0, 4]);
+            thirdEquality &= (a[2, 1] == d[0, 5]);
+            Assert.IsTrue(secondEquality, "Flatten Transpose Reshape operation is successful.");
+
+
         }
 
         [TestMethod]
