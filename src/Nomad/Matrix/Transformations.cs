@@ -19,10 +19,10 @@ namespace Nomad.Matrix
         {
             double _rad = Math.PI * angle / 180.0;
             var _result = new Matrix(2);
+            _result[0, 0] = Math.Cos(_rad);
+            _result[0, 1] = -Math.Sin(_rad);
+            _result[1, 0] = Math.Sin(_rad);
             _result[1, 1] = Math.Cos(_rad);
-            _result[1, 2] = -Math.Sin(_rad);
-            _result[2, 1] = Math.Sin(_rad);
-            _result[2, 2] = Math.Cos(_rad);
             return _result;
         }
 
@@ -35,17 +35,17 @@ namespace Nomad.Matrix
         {
             double _rad = Math.PI * angle / 180.0;
             var _result = new Matrix(3);
-            _result[1, 1] = 1.0;
-            _result[1, 2] = 0.0;
-            _result[1, 3] = 0.0;
+            _result[0, 0] = 1.0;
+            _result[0, 1] = 0.0;
+            _result[0, 2] = 0.0;
             //
-            _result[2, 1] = 0.0;
+            _result[1, 0] = 0.0;
+            _result[1, 1] = Math.Cos(_rad);
+            _result[1, 2] = -Math.Sin(_rad);
+            //
+            _result[2, 0] = 0.0;
+            _result[2, 1] = Math.Sin(_rad);
             _result[2, 2] = Math.Cos(_rad);
-            _result[2, 3] = -Math.Sin(_rad);
-            //
-            _result[3, 1] = 0.0;
-            _result[3, 2] = Math.Sin(_rad);
-            _result[3, 3] = Math.Cos(_rad);
             return _result;
         }
 
@@ -58,17 +58,17 @@ namespace Nomad.Matrix
         {
             double _rad = Math.PI * angle / 180.0;
             var _result = new Matrix(3);
-            _result[1, 1] = Math.Cos(_rad);
+            _result[0, 0] = Math.Cos(_rad);
+            _result[0, 1] = 0.0;
+            _result[0, 2] = Math.Sin(_rad);
+            //
+            _result[1, 0] = 0.0;
+            _result[1, 1] = 1.0;
             _result[1, 2] = 0.0;
-            _result[1, 3] = Math.Sin(_rad);
             //
+            _result[2, 0] = -Math.Sin(_rad);
             _result[2, 1] = 0.0;
-            _result[2, 2] = 1.0;
-            _result[2, 3] = 0.0;
-            //
-            _result[3, 1] = -Math.Sin(_rad);
-            _result[3, 2] = 0.0;
-            _result[3, 3] = Math.Cos(_rad);
+            _result[2, 2] = Math.Cos(_rad);
             return _result;
         }
 
@@ -81,76 +81,76 @@ namespace Nomad.Matrix
         {
             double _rad = Math.PI * angle / 180.0;
             var _result = new Matrix(3);
+            _result[0, 0] = Math.Cos(_rad);
+            _result[0, 1] = -Math.Sin(_rad);
+            _result[0, 2] = 0.0;
+            //
+            _result[1, 0] = Math.Sin(_rad);
             _result[1, 1] = Math.Cos(_rad);
-            _result[1, 2] = -Math.Sin(_rad);
-            _result[1, 3] = 0.0;
+            _result[1, 2] = 0.0;
             //
-            _result[2, 1] = Math.Sin(_rad);
-            _result[2, 2] = Math.Cos(_rad);
-            _result[2, 3] = 0.0;
-            //
-            _result[3, 1] = 0.0;
-            _result[3, 2] = 0.0;
-            _result[3, 3] = 1.0;
+            _result[2, 0] = 0.0;
+            _result[2, 1] = 0.0;
+            _result[2, 2] = 1.0;
             return _result;
         }
 
         public static Matrix Scaling(double factor)
         {
             var _result = new Matrix(3);
+            _result[0, 0] = factor;
+            _result[0, 1] = 0.0;
+            _result[0, 2] = 0.0;
+            //
+            _result[1, 0] = 0.0;
             _result[1, 1] = factor;
             _result[1, 2] = 0.0;
-            _result[1, 3] = 0.0;
             //
+            _result[2, 0] = 0.0;
             _result[2, 1] = 0.0;
             _result[2, 2] = factor;
-            _result[2, 3] = 0.0;
-            //
-            _result[3, 1] = 0.0;
-            _result[3, 2] = 0.0;
-            _result[3, 3] = factor;
             return _result;
         }
 
         public static Matrix Scaling(double factorX, double factorY, double factorZ)
         {
             var _result = new Matrix(3);
-            _result[1, 1] = factorX;
+            _result[0, 0] = factorX;
+            _result[0, 1] = 0.0;
+            _result[0, 2] = 0.0;
+            //
+            _result[1, 0] = 0.0;
+            _result[1, 1] = factorY;
             _result[1, 2] = 0.0;
-            _result[1, 3] = 0.0;
             //
+            _result[2, 0] = 0.0;
             _result[2, 1] = 0.0;
-            _result[2, 2] = factorY;
-            _result[2, 3] = 0.0;
-            //
-            _result[3, 1] = 0.0;
-            _result[3, 2] = 0.0;
-            _result[3, 3] = factorZ;
+            _result[2, 2] = factorZ;
             return _result;
         }
 
         public static Matrix Translation(double moveX, double moveY, double moveZ)
         {
             var _result = new Matrix(4);
+            _result[0, 0] = 1.0;
+            _result[0, 1] = 0.0;
+            _result[0, 2] = 0.0;
+            _result[0, 2] = moveX;
+            //
+            _result[1, 0] = 0.0;
             _result[1, 1] = 1.0;
             _result[1, 2] = 0.0;
-            _result[1, 3] = 0.0;
-            _result[1, 3] = moveX;
+            _result[1, 3] = moveY;
             //
+            _result[2, 0] = 0.0;
             _result[2, 1] = 0.0;
             _result[2, 2] = 1.0;
-            _result[2, 3] = 0.0;
-            _result[2, 4] = moveY;
+            _result[2, 3] = moveZ;
             //
+            _result[3, 0] = 0.0;
             _result[3, 1] = 0.0;
             _result[3, 2] = 0.0;
             _result[3, 3] = 1.0;
-            _result[3, 4] = moveZ;
-            //
-            _result[4, 1] = 0.0;
-            _result[4, 2] = 0.0;
-            _result[4, 3] = 0.0;
-            _result[4, 4] = 1.0;
             return _result;
         }
     }
