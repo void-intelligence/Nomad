@@ -11,8 +11,6 @@ namespace Nomad.Matrix
 {
     public partial class Matrix
     {
-        #region Overloaded operators
-
         public static Matrix operator !(Matrix matrix)
         {
             return matrix.Inverse(); 
@@ -30,7 +28,28 @@ namespace Nomad.Matrix
 
         public static Matrix operator *(Matrix first, Matrix second)
         {
-            return first.Dot(second);
+            // Scale the first matrix
+            if (first.Type() == Utility.EType.Scalar)
+            {
+                return second.Scale(first[0, 0]);
+            }
+            // Scale the second matrix
+            else if (second.Type() == Utility.EType.Scalar)
+            {
+                return first.Scale(second[0, 0]);
+            }
+            // If shape are equal and neither of the two matrices are square
+            // Calculate the Hadamard product between the first and the second
+            // Matrix, returning the result
+            else if (first.Shape() == second.Shape() && first.Type() != Utility.EType.SquareMatrix && second.Type() != Utility.EType.SquareMatrix)
+            {
+                return first.Hadamard(second);
+            }
+            // Calculate the dot product if none of the above
+            else
+            {
+                return first.Dot(second);
+            }
         }
 
         public static Matrix operator *(Matrix matrix, double scalar)
@@ -133,7 +152,5 @@ namespace Nomad.Matrix
             }
             return _matrixString.ToString().GetHashCode();
         }
-
-        #endregion
     }
 }
