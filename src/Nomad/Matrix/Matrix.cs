@@ -497,9 +497,22 @@ namespace Nomad.Matrix
 
         public Matrix Reshape(int newX, int newY)
         {
-            Matrix _tmp = Flatten();
-            Matrix _result = _tmp.Widen(newX, newY);
-            return _result;
+            Matrix _flattened = Flatten();
+
+            Shape shape = _flattened.Shape();
+            // Flatten
+            if(shape.X == newX && shape.Y == newY)
+            {
+                return _flattened;
+            }
+            // Flatten Transpose
+            else if(shape.X == newY && shape.Y == newX)
+            {
+                return _flattened.Transpose();
+            }
+
+            Matrix _widened = _flattened.Widen(newX, newY);
+            return _widened;
         }
 
         #endregion
