@@ -135,7 +135,7 @@ namespace Nomad.Matrix
             _result[0, 0] = 1.0;
             _result[0, 1] = 0.0;
             _result[0, 2] = 0.0;
-            _result[0, 2] = moveX;
+            _result[0, 3] = moveX;
             //
             _result[1, 0] = 0.0;
             _result[1, 1] = 1.0;
