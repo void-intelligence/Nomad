@@ -8,10 +8,22 @@
     <PackageProjectUrl>void-intelligence.github.io</PackageProjectUrl>
     <RepositoryUrl>https://github.com/void-intelligence/Nomad</RepositoryUrl>
     <RepositoryType>Git Repository</RepositoryType>
-    <PackageIcon></PackageIcon>
+    <PackageIcon>Nomad-proj-Icon.png</PackageIcon>
     <PackageIconUrl />
     <PackageTags>Matrix, Nomad, Library</PackageTags>
     <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+    <NeutralLanguage>en</NeutralLanguage>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageId>VI-Nomad</PackageId>
+    <PackageLicenseExpression>Apache 2.0</PackageLicenseExpression>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\resources\Nomad-proj-Icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
