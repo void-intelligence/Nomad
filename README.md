@@ -18,6 +18,10 @@ The full API Documentation explaination on all aspects of the library, you can c
 
 The quickstart guide will get you up and running with the nomad library in no time.
 
+```
+PM> Install-Package VI-Nomad -Version 1.0.0
+```
+
 ```C#
 using System;
 using Nomad.Matrix;

@@ -33,6 +33,8 @@
     <PackageIcon>Nomad-test-Icon.png</PackageIcon>
 
     <PackageIconUrl />
+
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
