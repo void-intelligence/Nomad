@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Authors>Void-Intelligence</Authors>
+    <Description>Lightweight Matrix Library made with .Net Core 3.0</Description>
+    <Copyright>(C) Void-Intelligence Under Apache 2.0 License</Copyright>
+    <PackageProjectUrl>void-intelligence.github.io</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/void-intelligence/Nomad</RepositoryUrl>
+    <RepositoryType>Git Repository</RepositoryType>
+    <PackageIcon></PackageIcon>
+    <PackageIconUrl />
+    <PackageTags>Matrix, Nomad, Library</PackageTags>
+    <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
