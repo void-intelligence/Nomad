@@ -17,9 +17,11 @@ The full API Documentation explaination on all aspects of the library, you can c
 
 ## Quickstart
 
-(The library will be available in NuGet as soon as the first release)
-
 The quickstart guide will get you up and running with the nomad library in no time.
+
+```
+PM> Install-Package VI-Nomad -Version 1.0.0
+```
 
 ```C#
 using System;
