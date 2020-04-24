@@ -467,7 +467,7 @@ namespace NomadTest
         {
             Matrix mat = new Matrix(10, 1);
             mat.InRandomize();
-            mat.InDropout(1.0);
+            mat.InDropout(1.0f);
 
             bool condition = true;
             condition &= (mat[0, 0] == 0.0);
