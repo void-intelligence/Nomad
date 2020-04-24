@@ -355,6 +355,54 @@ Matrix b = a.Reshape(2, 4);
 a.InReshape(2, 4);
 ```
 
+#### Merge and Split
+
+You can easily merge two matrices into a single vector, or split a single vector into two separate matrices.
+
+For Merge we have two methods 
+
+##### Note: The mergeIndex param is a reference int that returns the merge point in the new vector
+
+1- ```public void InMerge(Matrix matrix, out int mergeIndex);```
+
+2- ```public Matrix Merge(Matrix matrix, out int mergeIndex);```
+
+For Split we have one method
+
+3- ```public List<Matrix> Split(int mergeIndex);```
+
+```C#
+Matrix a = new Matrix(10, 1);
+Matrix b = new Matrix(5, 12);
+// TODO: Fill in vector a
+// ...
+
+// Merge a and b into a flat vector and put them into c
+Matrix c = a.Merge(b);
+
+// Widens the vector a and stores the resulting matrix in a
+List<Matrix> matrices = c.Split(15);
+```
+
+#### Dropout
+
+You can perform a Dropout Function with a chance input
+
+##### Note: Chance is automatically clamped between 0.0 and 1.0
+
+1- ```public void InDropout(float chance);```
+
+2- ```public Matrix Dropout(float chance);```
+
+```C#
+Matrix a = new Matrix(5, 10);
+// TODO: Fill in matrix a
+// ...
+
+// Dropout on a with a 75% chance of each value being set to 0.0f
+Matrix a.InDropout(0.75f);
+```
+
 ### UTILITY FUNCTIONS
 
 1- ```public Matrix Duplicate();```

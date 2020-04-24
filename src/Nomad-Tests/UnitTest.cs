@@ -98,7 +98,7 @@ namespace NomadTest
             a[1, 0] = 4;
             a[1, 1] = 5;
             a[1, 2] = 6;
-                                 
+
             b[0, 0] = 6;
             b[0, 1] = 5;
             b[0, 2] = 4;
@@ -290,7 +290,7 @@ namespace NomadTest
             Assert.IsTrue(matrix.Type() == Nomad.Utility.EType.Matrix, "Matrix is a matrix of type Matrix.");
             Assert.IsTrue(scalar.Type() == Nomad.Utility.EType.Scalar, "Scalar is a matrix of type Scalar.");
         }
-        
+
         [TestMethod]
         public void MatrixShape()
         {
@@ -333,7 +333,7 @@ namespace NomadTest
             Assert.IsTrue(a[1, 1] == b[1, 1], "b[1, 1] has the value of a[1, 1].");
         }
 
-        [TestMethod] 
+        [TestMethod]
         public void MatrixToString()
         {
             Matrix a = new Matrix(1, 1);
@@ -385,8 +385,6 @@ namespace NomadTest
             thirdEquality &= (a[2, 0] == d[0, 4]);
             thirdEquality &= (a[2, 1] == d[0, 5]);
             Assert.IsTrue(secondEquality, "Flatten Transpose Reshape operation is successful.");
-
-
         }
 
         [TestMethod]
@@ -462,6 +460,28 @@ namespace NomadTest
             equality &= (d[2, 2] == 20);
 
             Assert.IsTrue(equality, "Broadcasting in addition / subtraction is successful.");
+        }
+
+        [TestMethod]
+        public void MatrixDropout()
+        {
+            Matrix mat = new Matrix(10, 1);
+            mat.InRandomize();
+            mat.InDropout(1.0);
+
+            bool condition = true;
+            condition &= (mat[0, 0] == 0.0);
+            condition &= (mat[1, 0] == 0.0);
+            condition &= (mat[2, 0] == 0.0);
+            condition &= (mat[3, 0] == 0.0);
+            condition &= (mat[4, 0] == 0.0);
+            condition &= (mat[5, 0] == 0.0);
+            condition &= (mat[6, 0] == 0.0);
+            condition &= (mat[7, 0] == 0.0);
+            condition &= (mat[8, 0] == 0.0);
+            condition &= (mat[9, 0] == 0.0);
+
+            Assert.IsTrue(condition, "Dropout is successful.");
         }
     }
 }

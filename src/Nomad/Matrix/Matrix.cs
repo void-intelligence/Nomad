@@ -6,6 +6,7 @@
 
 using Nomad.Utility;
 using System;
+using System.Collections.Generic;
 
 namespace Nomad.Matrix
 {
@@ -513,6 +514,118 @@ namespace Nomad.Matrix
 
             Matrix _widened = _flattened.Widen(newX, newY);
             return _widened;
+        }
+
+        #endregion
+
+        #region Merge / Split
+
+        public void InMerge(Matrix matrix, out int mergeIndex)
+        {
+            _matrix = Merge(matrix, out mergeIndex)._matrix;
+        }
+
+        public Matrix Merge(Matrix matrix, out int mergeIndex)
+        {
+            Matrix av = Flatten();
+            Matrix bv = matrix.Flatten();
+            Matrix _result = new Matrix(av.Rows + bv.Rows, 1);
+
+            int k = 0;
+
+            // Append vector a to _result
+            for (int i = 0; i < av.Rows; i++)
+            {
+                _result[k, 0] = av[i, 0];
+                k++;
+            }
+
+            // Append vector b to _result
+            for (int i = 0; i < bv.Rows; i++)
+            {
+                _result[k, 0] = bv[i, 0];
+                k++;
+            }
+
+            mergeIndex = av.Rows;
+            return _result;
+        }
+
+        public List<Matrix> Split(int mergeIndex)
+        {
+            // If current matrix is a transposed vector (1, n)
+            // Transpose it inplace so it'll be proper
+            bool transpose = false;
+            if(Type() == EType.VectorTransposed)
+            {
+                transpose = true;
+                InT();
+            }
+
+            if(Type() != EType.Vector)
+            {
+                throw new InvalidOperationException("Split can only work on vectors");
+            }
+
+            List<Matrix> _result = new List<Matrix>();
+            Matrix a = Flatten();
+
+            int len0 = mergeIndex;
+            int len1 = a.Rows - mergeIndex;
+
+            Matrix _res0 = new Matrix(len0, 1);
+            Matrix _res1 = new Matrix(len1, 1);
+
+            int count = 0;
+            for (int i = 0; i < len0; i++)
+            {
+                _res0[i, 0] = a[count, 0];
+                count++;
+            }
+
+            for (int i = 0; i < len1; i++)
+            {
+                _res1[i, 0] = a[count, 0];
+                count++;
+            }
+
+            _result.Add(_res0);
+            _result.Add(_res1);
+
+            if (transpose)
+            {
+                InT();
+            }
+            
+            return _result;
+        }
+
+        #endregion
+
+        #region Dropout
+
+        public void InDropout(float chance)
+        {
+            Math.Clamp(chance, 0.0f, 1.0f);
+            Random random = new Random();
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Columns; j++)
+                {
+                    float d = (float)random.NextDouble();
+                    if (d < chance)
+                    {
+                        _matrix[i, j] = 0.0;
+                    }
+                }
+            }
+        }
+        
+        public Matrix Dropout(float chance)
+        {
+            Matrix _result = Duplicate();
+            _result.InDropout(chance);
+            return _result;
         }
 
         #endregion
