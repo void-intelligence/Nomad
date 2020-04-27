@@ -355,7 +355,80 @@ Matrix b = a.Reshape(2, 4);
 a.InReshape(2, 4);
 ```
 
+<<<<<<< Updated upstream
 #### Merge and Split
+=======
+<<<<<<< Updated upstream
+=======
+#### Element-Wise Function Operations
+
+There are three helper functions in this section.
+
+##### OneMinus
+
+The OneMinus Operation produces the following value: ```1 - Mat```
+
+1- ```public void InOneMinus();```
+
+2- ```public Matrix OneMinus();```
+
+##### OneOver
+
+The OneOver Operation produces the following value: ```1 / Mat```
+
+1- ```public void InOneOver();```
+
+2- ```public Matrix OneOver();```
+
+##### Power2
+
+The OneOver Operation produces the following value: ```Mat.Hadamard(Mat)```
+
+1- ```public void InPower2();```
+
+2- ```public Matrix Power2();```
+
+```C#
+Matrix a = new Matrix(4, 2);
+// TODO: Fill in matrix a
+// ...
+
+// a = 1 / a
+a.InOneOver();
+
+// a.Hadamard(a)
+a.InPower2();
+
+// a = 1 - a
+a.InOneMinus();
+
+// a = 1 / 1
+a.InOneOver();
+```
+
+#### Softmax
+
+Calculates the softmax of the matrix.
+
+1- ```public void InSoftmax();```
+
+2- ```public Matrix Softmax();```
+
+```C#
+Matrix a = new Matrix(4, 2);
+// TODO: Fill in matrix a
+// ...
+
+// Calculates the softmax(a) and stores the result in b
+Matrix b = a.Softmax();
+
+// Calculates the softmax(a) and stores the result in a
+a.InSoftmax();
+```
+
+#### Merge and Split
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 
 You can easily merge two matrices into a single vector, or split a single vector into two separate matrices.
 

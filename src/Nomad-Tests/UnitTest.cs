@@ -483,5 +483,83 @@ namespace NomadTest
 
             Assert.IsTrue(condition, "Dropout is successful.");
         }
+
+        [TestMethod]
+        public void MatrixOneMinus()
+        {
+            Matrix mat = new Matrix(2, 2);
+            mat[0, 0] = 10;
+            mat[0, 1] = 11;
+            mat[1, 0] = 20;
+            mat[1, 1] = 21;
+
+            mat.InOneMinus();
+
+            bool condition = true;
+            condition &= (mat[0, 0] == (1 - 10));
+            condition &= (mat[0, 1] == (1 - 11));
+            condition &= (mat[1, 0] == (1 - 20));
+            condition &= (mat[1, 1] == (1 - 21));
+
+            Assert.IsTrue(condition, "Dropout is successful.");
+        }
+
+        [TestMethod]
+        public void MatrixOneOver()
+        {
+            Matrix mat = new Matrix(2, 2);
+            mat[0, 0] = 10;
+            mat[0, 1] = 11;
+            mat[1, 0] = 20;
+            mat[1, 1] = 21;
+
+            mat.InOneOver();
+
+            bool condition = true;
+            condition &= (mat[0, 0] == (1.0 / 10.0));
+            condition &= (mat[0, 1] == (1.0 / 11.0));
+            condition &= (mat[1, 0] == (1.0 / 20.0));
+            condition &= (mat[1, 1] == (1.0 / 21.0));
+
+            Assert.IsTrue(condition, "Dropout is successful.");
+        }
+
+        [TestMethod]
+        public void MatrixPower2()
+        {
+            Matrix mat = new Matrix(2, 2);
+            mat[0, 0] = 10;
+            mat[0, 1] = 11;
+            mat[1, 0] = 20;
+            mat[1, 1] = 21;
+
+            mat.InPower2();
+
+            bool condition = true;
+            condition &= (mat[0, 0] == (100));
+            condition &= (mat[0, 1] == (121));
+            condition &= (mat[1, 0] == (400));
+            condition &= (mat[1, 1] == (441));
+
+            Assert.IsTrue(condition, "Dropout is successful.");
+        }
+
+        [TestMethod]
+        public void MatrixSoftmax()
+        {
+            Matrix mat = new Matrix(2, 2);
+            mat[0, 0] = 10;
+            mat[0, 1] = 20;
+            mat[1, 0] = 30;
+            mat[1, 1] = 40;
+
+            mat.InSoftmax();
+
+            bool condition = true;
+            condition &= (mat[0, 0] == (10.0 / 100.0));
+            condition &= (mat[0, 1] == (20.0 / 100.0));
+            condition &= (mat[1, 0] == (30.0 / 100.0));
+            condition &= (mat[1, 1] == (40.0 / 100.0));
+        }
     }
 }

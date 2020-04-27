@@ -518,6 +518,95 @@ namespace Nomad.Matrix
 
         #endregion
 
+        #region Element-Wise Function Operations
+
+        public void InOneMinus()
+        {
+            for (int _row = 0; _row < _matrix.GetLength(0); _row++)
+            {
+                for (int _col = 0; _col < _matrix.GetLength(1); _col++)
+                {
+                    _matrix[_row, _col] = 1 - _matrix[_row, _col];
+                }
+            }
+        }
+
+        public Matrix OneMinus()
+        {
+            Matrix _mat = Duplicate();
+            _mat.InOneMinus();
+            return _mat;
+        }
+
+        public void InOneOver()
+        {
+            for (int _row = 0; _row < _matrix.GetLength(0); _row++)
+            {
+                for (int _col = 0; _col < _matrix.GetLength(1); _col++)
+                {
+                    _matrix[_row, _col] = 1 / _matrix[_row, _col];
+                }
+            }
+        }
+        
+        public Matrix OneOver()
+        {
+            Matrix _mat = Duplicate();
+            _mat.InOneOver();
+            return _mat;
+        }
+
+        public void InPower2()
+        {
+            for (int _row = 0; _row < _matrix.GetLength(0); _row++)
+            {
+                for (int _col = 0; _col < _matrix.GetLength(1); _col++)
+                {
+                    _matrix[_row, _col] = _matrix[_row, _col] * _matrix[_row, _col];
+                }
+            }
+        }
+
+        public Matrix Power2()
+        {
+            Matrix _mat = Duplicate();
+            _mat.InPower2();
+            return _mat;
+        }
+
+
+        #endregion
+
+        #region Softmax
+
+        public void InSoftmax()
+        {
+            double sum = 0.0;
+            for (int _row = 0; _row < _matrix.GetLength(0); _row++)
+            {
+                for (int _col = 0; _col < _matrix.GetLength(1); _col++)
+                {
+                    sum += _matrix[_row, _col];
+                }
+            }
+            for (int _row = 0; _row < _matrix.GetLength(0); _row++)
+            {
+                for (int _col = 0; _col < _matrix.GetLength(1); _col++)
+                {
+                    _matrix[_row, _col] = _matrix[_row, _col] / sum;
+                }
+            }
+        }
+
+        public Matrix Softmax()
+        {
+            Matrix _mat = Duplicate();
+            _mat.InSoftmax();
+            return _mat;
+        }
+
+        #endregion
+
         #region Merge / Split
 
         public void InMerge(Matrix matrix, out int mergeIndex)
@@ -602,6 +691,11 @@ namespace Nomad.Matrix
 
         #endregion
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
         #region Dropout
 
         public void InDropout(float chance)
@@ -620,7 +714,11 @@ namespace Nomad.Matrix
                 }
             }
         }
+<<<<<<< Updated upstream
         
+=======
+
+>>>>>>> Stashed changes
         public Matrix Dropout(float chance)
         {
             Matrix _result = Duplicate();
@@ -630,6 +728,10 @@ namespace Nomad.Matrix
 
         #endregion
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
         #region Utility
 
         public Matrix Duplicate()
