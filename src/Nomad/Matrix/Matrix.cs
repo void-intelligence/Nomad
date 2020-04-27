@@ -691,11 +691,6 @@ namespace Nomad.Matrix
 
         #endregion
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
         #region Dropout
 
         public void InDropout(float chance)
@@ -714,11 +709,7 @@ namespace Nomad.Matrix
                 }
             }
         }
-<<<<<<< Updated upstream
-        
-=======
 
->>>>>>> Stashed changes
         public Matrix Dropout(float chance)
         {
             Matrix _result = Duplicate();
@@ -728,10 +719,6 @@ namespace Nomad.Matrix
 
         #endregion
 
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
         #region Utility
 
         public Matrix Duplicate()
