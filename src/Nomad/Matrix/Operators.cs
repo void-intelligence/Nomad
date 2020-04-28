@@ -57,8 +57,6 @@ namespace Nomad.Matrix
 
         public static bool operator ==(Matrix first, Matrix second)
         {
-            if (first == null || second == null) throw new InvalidOperationException("Argument cannot be null.");
-
             var result = first.Rows == second.Rows && first.Columns == second.Columns;
             if (result)
                 for (var row = 0; row < first.Rows; row++)
@@ -69,8 +67,6 @@ namespace Nomad.Matrix
 
         public static bool operator !=(Matrix first, Matrix second)
         {
-            if (first == null || second == null) throw new InvalidOperationException("Argument cannot be null.");
-
             var result = first.Rows != second.Rows || first.Columns != second.Columns;
             if (!result)
                 for (var row = 0; row < first.Rows; row++)
