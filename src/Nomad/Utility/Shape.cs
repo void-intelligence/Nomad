@@ -4,8 +4,8 @@ namespace Nomad.Utility
 {
     public class Shape
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int X { get; }
+        public int Y { get; }
 
         public Shape(int x, int y)
         {
@@ -20,31 +20,11 @@ namespace Nomad.Utility
 
         public EType Type()
         {
-            // Scalar
-            if (X == 1 && Y == 1)
-            {
-                return EType.Scalar;
-            }
-
-            // Vector
-            if (X == 1 && Y != 1)
-            {
-                return EType.VectorTransposed;
-            }
-
-            // Vector.T
-            else if (X != 1 && Y == 1)
-            {
-                return EType.Vector;
-            }
-
-            // Square Matrix
-            if (X != 1 && Y != 1 && X == Y)
-            {
-                return EType.SquareMatrix;
-            }
-
-            // Matrix
+            if (X == 1 && Y == 1) return EType.Scalar;
+            if (X == 1 && Y != 1) return EType.VectorTransposed;
+            if (X != 1 && Y == 1) return EType.Vector;
+            if (X != 1 && Y != 1 && X == Y) return EType.SquareMatrix;
+            if (X != 1 && Y != 1 && X != Y) return EType.Matrix;
             return EType.Matrix;
         }
     }

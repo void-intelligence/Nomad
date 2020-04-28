@@ -8,6 +8,6 @@ namespace Nomad.Utility
         Vector,
         VectorTransposed,
         Matrix,
-        SquareMatrix,
+        SquareMatrix
     }
 }

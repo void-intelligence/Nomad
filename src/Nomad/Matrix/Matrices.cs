@@ -14,11 +14,11 @@ namespace Nomad.Matrix
 
         private void InZero()
         {
-            for (int _row = 0; _row < _matrix.GetLength(0); _row++)
+            for (var row = 0; row < _matrix.GetLength(0); row++)
             {
-                for (int _col = 0; _col < _matrix.GetLength(1); _col++)
+                for (var col = 0; col < _matrix.GetLength(1); col++)
                 {
-                    _matrix[_row, _col] = 0.0;
+                    _matrix[row, col] = 0.0;
                 }
             }
         }
@@ -44,36 +44,37 @@ namespace Nomad.Matrix
 
         public static Matrix Zero(int size)
         {
-            var _result = new Matrix(size);
-            _result.InZero();
-            return _result;
+            var result = new Matrix(size);
+            result.InZero();
+            return result;
         }
 
         public static Matrix Zero(int rows, int cols)
         {
-            var _result = new Matrix(rows, cols);
-            _result.InZero();
-            return _result;
+            var result = new Matrix(rows, cols);
+            result.InZero();
+            return result;
         }
 
         public static Matrix Identity(int size)
         {
-            var _result = new Matrix(size);
-            _result.InIdentity();
-            return _result;
+            var result = new Matrix(size);
+            result.InIdentity();
+            return result;
         }
 
         public static Matrix Vandermonde(int rows, int cols)
         {
-            var _result = new Matrix(rows, cols);
-            for (int m = 1; m <= rows; m++)
+            var result = new Matrix(rows, cols);
+            for (var m = 1; m <= rows; m++)
             {
-                for (int n = 1; n <= cols; n++)
+                for (var n = 1; n <= cols; n++)
                 {
-                    _result[m, n] = Math.Pow(m, n - 1);
+                    result[m, n] = Math.Pow(m, n - 1);
                 }
             }
-            return _result;
+
+            return result;
         }
 
         #endregion
