@@ -192,11 +192,13 @@ namespace Nomad.Matrix
             var result = _matrix.Clone() as double[,];
             var identity = _matrix.Clone() as double[,];
 
+            if (result == null) throw new InvalidOperationException("Fatal Error!");
+            if (identity == null) throw new InvalidOperationException("Fatal Error!");
+
             //make identity matrix
             for (var row = 0; row < dimension; row++)
             for (var col = 0; col < dimension; col++)
-                if (identity != null)
-                    identity[row, col] = row == col ? 1.0 : 0.0;
+                identity[row, col] = row == col ? 1.0 : 0.0;
 
             //invert
             for (var i = 0; i < dimension; i++)
@@ -433,8 +435,6 @@ namespace Nomad.Matrix
 
         #endregion
 
-<<<<<<< Updated upstream
-=======
         #region Element-Wise Function Operations
 
         public void InOneMinus()
@@ -503,99 +503,6 @@ namespace Nomad.Matrix
 
         #endregion
 
-<<<<<<< Updated upstream
-        #region Element-Wise Function Operations
-
-        public void InOneMinus()
-        {
-            for (int _row = 0; _row < _matrix.GetLength(0); _row++)
-            {
-                for (int _col = 0; _col < _matrix.GetLength(1); _col++)
-                {
-                    _matrix[_row, _col] = 1 - _matrix[_row, _col];
-                }
-            }
-        }
-
-        public Matrix OneMinus()
-        {
-            Matrix _mat = Duplicate();
-            _mat.InOneMinus();
-            return _mat;
-        }
-
-        public void InOneOver()
-        {
-            for (int _row = 0; _row < _matrix.GetLength(0); _row++)
-            {
-                for (int _col = 0; _col < _matrix.GetLength(1); _col++)
-                {
-                    _matrix[_row, _col] = 1 / _matrix[_row, _col];
-                }
-            }
-        }
-        
-        public Matrix OneOver()
-        {
-            Matrix _mat = Duplicate();
-            _mat.InOneOver();
-            return _mat;
-        }
-
-        public void InPower2()
-        {
-            for (int _row = 0; _row < _matrix.GetLength(0); _row++)
-            {
-                for (int _col = 0; _col < _matrix.GetLength(1); _col++)
-                {
-                    _matrix[_row, _col] = _matrix[_row, _col] * _matrix[_row, _col];
-                }
-            }
-        }
-
-        public Matrix Power2()
-        {
-            Matrix _mat = Duplicate();
-            _mat.InPower2();
-            return _mat;
-        }
-
-
-        #endregion
-
-        #region Softmax
-
-        public void InSoftmax()
-        {
-            double sum = 0.0;
-            for (int _row = 0; _row < _matrix.GetLength(0); _row++)
-            {
-                for (int _col = 0; _col < _matrix.GetLength(1); _col++)
-                {
-                    sum += _matrix[_row, _col];
-                }
-            }
-            for (int _row = 0; _row < _matrix.GetLength(0); _row++)
-            {
-                for (int _col = 0; _col < _matrix.GetLength(1); _col++)
-                {
-                    _matrix[_row, _col] = _matrix[_row, _col] / sum;
-                }
-            }
-        }
-
-        public Matrix Softmax()
-        {
-            Matrix _mat = Duplicate();
-            _mat.InSoftmax();
-            return _mat;
-        }
-
-        #endregion
-
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
         #region Merge / Split
 
         public void InMerge(Matrix matrix, out int mergeIndex)
@@ -648,24 +555,24 @@ namespace Nomad.Matrix
             var len0 = mergeIndex;
             var len1 = a.Rows - mergeIndex;
 
-            var _res0 = new Matrix(len0, 1);
-            var _res1 = new Matrix(len1, 1);
+            var res0 = new Matrix(len0, 1);
+            var res1 = new Matrix(len1, 1);
 
             var count = 0;
             for (var i = 0; i < len0; i++)
             {
-                _res0[i, 0] = a[count, 0];
+                res0[i, 0] = a[count, 0];
                 count++;
             }
 
             for (var i = 0; i < len1; i++)
             {
-                _res1[i, 0] = a[count, 0];
+                res1[i, 0] = a[count, 0];
                 count++;
             }
 
-            result.Add(_res0);
-            result.Add(_res1);
+            result.Add(res0);
+            result.Add(res1);
 
             if (transpose) InT();
 
@@ -674,8 +581,6 @@ namespace Nomad.Matrix
 
         #endregion
 
-<<<<<<< Updated upstream
-=======
         #region Dropout
 
         public void InDropout(float chance)
@@ -699,38 +604,6 @@ namespace Nomad.Matrix
 
         #endregion
 
-<<<<<<< Updated upstream
-        #region Dropout
-
-        public void InDropout(float chance)
-        {
-            Math.Clamp(chance, 0.0f, 1.0f);
-            Random random = new Random();
-            for (int i = 0; i < Rows; i++)
-            {
-                for (int j = 0; j < Columns; j++)
-                {
-                    float d = (float)random.NextDouble();
-                    if (d < chance)
-                    {
-                        _matrix[i, j] = 0.0;
-                    }
-                }
-            }
-        }
-
-        public Matrix Dropout(float chance)
-        {
-            Matrix _result = Duplicate();
-            _result.InDropout(chance);
-            return _result;
-        }
-
-        #endregion
-
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
         #region Utility
 
         public Matrix Duplicate()

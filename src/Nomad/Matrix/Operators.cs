@@ -104,7 +104,7 @@ namespace Nomad.Matrix
             var matrix = obj as Matrix;
             if (obj == null) return false;
 
-            var result = matrix != null && (Rows == matrix.Rows && Columns == matrix.Columns);
+            var result = matrix != null && Rows == matrix.Rows && Columns == matrix.Columns;
             if (result)
                 for (var row = 0; row < Rows; row++)
                 for (var col = 0; col < Columns; col++)

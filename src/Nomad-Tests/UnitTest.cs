@@ -99,36 +99,6 @@ namespace NomadTest
         [TestMethod]
         public void MatrixAddition()
         {
-<<<<<<< Updated upstream
-            Matrix a = new Matrix(2, 3);
-            Matrix b = new Matrix(2, 3);
-            Matrix _trueResult = new Matrix(2, 3);
-
-            a[0, 0] = 1;
-            a[0, 1] = 2;
-            a[0, 2] = 3;
-            a[1, 0] = 4;
-            a[1, 1] = 5;
-            a[1, 2] = 6;
-
-            b[0, 0] = 6;
-            b[0, 1] = 5;
-            b[0, 2] = 4;
-            b[1, 0] = 3;
-            b[1, 1] = 2;
-            b[1, 2] = 1;
-
-            _trueResult[0, 0] = a[0, 0] + b[0, 0];
-            _trueResult[0, 1] = a[0, 1] + b[0, 1];
-            _trueResult[0, 2] = a[0, 2] + b[0, 2];
-            _trueResult[1, 0] = a[1, 0] + b[1, 0];
-            _trueResult[1, 1] = a[1, 1] + b[1, 1];
-            _trueResult[1, 2] = a[1, 2] + b[1, 2];
-
-            var _calculatedResult = a + b;
-
-            Assert.IsTrue(_calculatedResult == _trueResult, "Addition not correct!");
-=======
             var a = new Matrix(2, 3)
             {
                 [0, 0] = 1,
@@ -162,7 +132,6 @@ namespace NomadTest
             var calculatedResult = a + b;
 
             Assert.IsTrue(calculatedResult == trueResult, "Addition not correct!");
->>>>>>> Stashed changes
         }
 
         [TestMethod]
@@ -409,24 +378,6 @@ namespace NomadTest
             a.InRandomize();
             var b = a.Reshape(2, 3);
 
-<<<<<<< Updated upstream
-            bool equality = true;
-            equality &= (a[0, 0] == b[0, 0]);
-            equality &= (a[0, 1] == b[0, 1]);
-            equality &= (a[1, 0] == b[0, 2]);
-            equality &= (a[1, 1] == b[1, 0]);
-            equality &= (a[2, 0] == b[1, 1]);
-            equality &= (a[2, 1] == b[1, 2]);
-=======
-<<<<<<< Updated upstream
-            bool condition = true;
-            condition &= (a[0, 0] == b[0, 0]);
-            condition &= (a[0, 1] == b[0, 1]);
-            condition &= (a[1, 0] == b[0, 2]);
-            condition &= (a[1, 1] == b[1, 0]);
-            condition &= (a[2, 0] == b[1, 1]);
-            condition &= (a[2, 1] == b[1, 2]);
-=======
             var equality = true;
             equality &= Math.Abs(a[0, 0] - b[0, 0]) < 0.01;
             equality &= Math.Abs(a[0, 1] - b[0, 1]) < 0.01;
@@ -434,49 +385,10 @@ namespace NomadTest
             equality &= Math.Abs(a[1, 1] - b[1, 0]) < 0.01;
             equality &= Math.Abs(a[2, 0] - b[1, 1]) < 0.01;
             equality &= Math.Abs(a[2, 1] - b[1, 2]) < 0.01;
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
             Assert.IsTrue(equality, "Reshape operation is successful.");
 
             // Flatten Reshape    
-<<<<<<< Updated upstream
-            Matrix matrix = a.Reshape(6, 1);
-            Matrix c = matrix;
-
-            bool secondEquality = true;
-            secondEquality &= (a[0, 0] == c[0, 0]);
-            secondEquality &= (a[0, 1] == c[1, 0]);
-            secondEquality &= (a[1, 0] == c[2, 0]);
-            secondEquality &= (a[1, 1] == c[3, 0]);
-            secondEquality &= (a[2, 0] == c[4, 0]);
-            secondEquality &= (a[2, 1] == c[5, 0]);
-            Assert.IsTrue(secondEquality, "Flatten Reshape operation is successful.");
-
-            // Flatten Transpose Reshape
-            Matrix d = a.Reshape(1, 6);
-
-<<<<<<< Updated upstream
-            bool thirdEquality = true;
-            thirdEquality &= (a[0, 0] == d[0, 0]);
-            thirdEquality &= (a[0, 1] == d[0, 1]);
-            thirdEquality &= (a[1, 0] == d[0, 2]);
-            thirdEquality &= (a[1, 1] == d[0, 3]);
-            thirdEquality &= (a[2, 0] == d[0, 4]);
-            thirdEquality &= (a[2, 1] == d[0, 5]);
-            Assert.IsTrue(secondEquality, "Flatten Transpose Reshape operation is successful.");
-=======
-            bool thirdcondition = true;
-            thirdcondition &= (a[0, 0] == d[0, 0]);
-            thirdcondition &= (a[0, 1] == d[0, 1]);
-            thirdcondition &= (a[1, 0] == d[0, 2]);
-            thirdcondition &= (a[1, 1] == d[0, 3]);
-            thirdcondition &= (a[2, 0] == d[0, 4]);
-            thirdcondition &= (a[2, 1] == d[0, 5]);
-            Assert.IsTrue(seconditioncondition, "Flatten Transpose Reshape operation is successful.");
-
-
-=======
             var matrix = a.Reshape(6, 1);
             var c = matrix;
 
@@ -500,8 +412,6 @@ namespace NomadTest
             thirdEquality &= Math.Abs(a[2, 0] - d[0, 4]) < 0.01;
             thirdEquality &= Math.Abs(a[2, 1] - d[0, 5]) < 0.01;
             Assert.IsTrue(thirdEquality, "Flatten Transpose Reshape operation is successful.");
->>>>>>> Stashed changes
->>>>>>> Stashed changes
         }
 
         [TestMethod]
@@ -538,94 +448,10 @@ namespace NomadTest
         [TestMethod]
         public void MatrixBroadcasting()
         {
-<<<<<<< Updated upstream
-            Matrix a = new Matrix(3, 3);
-            a[0, 0] = 10;
-            a[0, 1] = 10;
-            a[0, 2] = 10;
-            a[1, 0] = 20;
-            a[1, 1] = 20;
-            a[1, 2] = 20;
-            a[2, 0] = 30;
-            a[2, 1] = 30;
-            a[2, 2] = 30;
-
-            Matrix b = new Matrix(3, 1);
-            b[0, 0] = 10;
-            b[1, 0] = 10;
-            b[2, 0] = 10;
-
-            Matrix c = a + b;
-            Matrix d = a - b;
-
-            bool equality = true;
-            equality &= (c[0, 0] == 20);
-            equality &= (c[0, 1] == 20);
-            equality &= (c[0, 2] == 20);
-            equality &= (c[1, 0] == 30);
-            equality &= (c[1, 1] == 30);
-            equality &= (c[1, 2] == 30);
-            equality &= (c[2, 0] == 40);
-            equality &= (c[2, 1] == 40);
-            equality &= (c[2, 2] == 40);
-
-            equality &= (d[0, 0] == 0);
-            equality &= (d[0, 1] == 0);
-            equality &= (d[0, 2] == 0);
-            equality &= (d[1, 0] == 10);
-            equality &= (d[1, 1] == 10);
-            equality &= (d[1, 2] == 10);
-            equality &= (d[2, 0] == 20);
-            equality &= (d[2, 1] == 20);
-            equality &= (d[2, 2] == 20);
-
-            Assert.IsTrue(equality, "Broadcasting in addition / subtraction is successful.");
-        }
-
-        [TestMethod]
-        public void MatrixDropout()
-        {
             Matrix mat = new Matrix(10, 1);
             mat.InRandomize();
             mat.InDropout(1.0f);
 
-            bool condition = true;
-<<<<<<< Updated upstream
-            condition &= (mat[0, 0] == 0.0);
-            condition &= (mat[1, 0] == 0.0);
-            condition &= (mat[2, 0] == 0.0);
-            condition &= (mat[3, 0] == 0.0);
-            condition &= (mat[4, 0] == 0.0);
-            condition &= (mat[5, 0] == 0.0);
-            condition &= (mat[6, 0] == 0.0);
-            condition &= (mat[7, 0] == 0.0);
-            condition &= (mat[8, 0] == 0.0);
-            condition &= (mat[9, 0] == 0.0);
-
-            Assert.IsTrue(condition, "Dropout is successful.");
-=======
-            condition &= (c[0, 0] == 20);
-            condition &= (c[0, 1] == 20);
-            condition &= (c[0, 2] == 20);
-            condition &= (c[1, 0] == 30);
-            condition &= (c[1, 1] == 30);
-            condition &= (c[1, 2] == 30);
-            condition &= (c[2, 0] == 40);
-            condition &= (c[2, 1] == 40);
-            condition &= (c[2, 2] == 40);
-
-            condition &= (d[0, 0] == 0);
-            condition &= (d[0, 1] == 0);
-            condition &= (d[0, 2] == 0);
-            condition &= (d[1, 0] == 10);
-            condition &= (d[1, 1] == 10);
-            condition &= (d[1, 2] == 10);
-            condition &= (d[2, 0] == 20);
-            condition &= (d[2, 1] == 20);
-            condition &= (d[2, 2] == 20);
-
-            Assert.IsTrue(condition, "Broadcasting in addition / subtraction is successful.");
-=======
             var a = new Matrix(3, 3)
             {
                 [0, 0] = 10,
@@ -688,26 +514,11 @@ namespace NomadTest
             condition &= Math.Abs(mat[9, 0]) < 0.01;
 
             Assert.IsTrue(condition, "Dropout is successful.");
->>>>>>> Stashed changes
->>>>>>> Stashed changes
         }
 
         [TestMethod]
         public void MatrixOneMinus()
         {
-<<<<<<< Updated upstream
-            Matrix mat = new Matrix(2, 2);
-            mat[0, 0] = 10;
-            mat[0, 1] = 11;
-            mat[1, 0] = 20;
-            mat[1, 1] = 21;
-
-            mat.InOneMinus();
-=======
-<<<<<<< Updated upstream
-            Matrix a = new Matrix(2, 2);
-            a.InRandomize();
-=======
             var mat = new Matrix(2, 2) {[0, 0] = 10, [0, 1] = 11, [1, 0] = 20, [1, 1] = 21};
 
             mat.InOneMinus();
@@ -717,54 +528,10 @@ namespace NomadTest
             condition &= Math.Abs(mat[0, 1] - (1 - 11)) < 0.01;
             condition &= Math.Abs(mat[1, 0] - (1 - 20)) < 0.01;
             condition &= Math.Abs(mat[1, 1] - (1 - 21)) < 0.01;
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
-            bool condition = true;
-            condition &= (mat[0, 0] == (1 - 10));
-            condition &= (mat[0, 1] == (1 - 11));
-            condition &= (mat[1, 0] == (1 - 20));
-            condition &= (mat[1, 1] == (1 - 21));
-
-<<<<<<< Updated upstream
             Assert.IsTrue(condition, "Dropout is successful.");
         }
 
-        [TestMethod]
-        public void MatrixOneOver()
-        {
-            Matrix mat = new Matrix(2, 2);
-            mat[0, 0] = 10;
-            mat[0, 1] = 11;
-            mat[1, 0] = 20;
-            mat[1, 1] = 21;
-
-            mat.InOneOver();
-
-            bool condition = true;
-            condition &= (mat[0, 0] == (1.0 / 10.0));
-            condition &= (mat[0, 1] == (1.0 / 11.0));
-            condition &= (mat[1, 0] == (1.0 / 20.0));
-            condition &= (mat[1, 1] == (1.0 / 21.0));
-
-            Assert.IsTrue(condition, "Dropout is successful.");
-=======
-<<<<<<< Updated upstream
-            int mergePoint;
-            Matrix c = a.Merge(b, out mergePoint);
-
-            bool condition = true;
-            condition &= (c[0, 0] == a[0, 0]);
-            condition &= (c[1, 0] == a[0, 1]);
-            condition &= (c[2, 0] == a[1, 0]);
-            condition &= (c[3, 0] == a[1, 1]);
-            condition &= (c[4, 0] == b[0, 0]);
-            condition &= (c[5, 0] == b[0, 1]);
-            condition &= (c[6, 0] == b[1, 0]);
-            condition &= (c[7, 0] == b[1, 1]);
-
-            Assert.IsTrue(condition, "Merge is successful.");
-=======
         [TestMethod]
         public void MatrixOneOver()
         {
@@ -779,70 +546,26 @@ namespace NomadTest
             condition &= Math.Abs(mat[1, 1] - 1.0 / 21.0) < 0.01;
 
             Assert.IsTrue(condition, "Dropout is successful.");
->>>>>>> Stashed changes
->>>>>>> Stashed changes
         }
 
         [TestMethod]
         public void MatrixPower2()
         {
-<<<<<<< Updated upstream
-            Matrix mat = new Matrix(2, 2);
-            mat[0, 0] = 10;
-            mat[0, 1] = 11;
-            mat[1, 0] = 20;
-            mat[1, 1] = 21;
-=======
-<<<<<<< Updated upstream
-            // Vector Transpose Test
-            Matrix v = new Matrix(1, 4);
-            v.InRandomize();
-=======
             var mat = new Matrix(2, 2) {[0, 0] = 10, [0, 1] = 11, [1, 0] = 20, [1, 1] = 21};
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
             mat.InPower2();
 
-<<<<<<< Updated upstream
-            bool condition = true;
-            condition &= (mat[0, 0] == (100));
-            condition &= (mat[0, 1] == (121));
-            condition &= (mat[1, 0] == (400));
-            condition &= (mat[1, 1] == (441));
-
-<<<<<<< Updated upstream
-=======
-            Assert.IsTrue(condition, "Split is successful.");
-=======
             var condition = true;
             condition &= Math.Abs(mat[0, 0] - 100) < 0.01;
             condition &= Math.Abs(mat[0, 1] - 121) < 0.01;
             condition &= Math.Abs(mat[1, 0] - 400) < 0.01;
             condition &= Math.Abs(mat[1, 1] - 441) < 0.01;
-
->>>>>>> Stashed changes
             Assert.IsTrue(condition, "Dropout is successful.");
         }
 
         [TestMethod]
         public void MatrixSoftmax()
         {
-<<<<<<< Updated upstream
-            Matrix mat = new Matrix(2, 2);
-            mat[0, 0] = 10;
-            mat[0, 1] = 20;
-            mat[1, 0] = 30;
-            mat[1, 1] = 40;
-
-            mat.InSoftmax();
-
-            bool condition = true;
-            condition &= (mat[0, 0] == (10.0 / 100.0));
-            condition &= (mat[0, 1] == (20.0 / 100.0));
-            condition &= (mat[1, 0] == (30.0 / 100.0));
-            condition &= (mat[1, 1] == (40.0 / 100.0));
-=======
             var mat = new Matrix(2, 2) {[0, 0] = 10, [0, 1] = 20, [1, 0] = 30, [1, 1] = 40};
 
             mat.InSoftmax();
@@ -854,8 +577,6 @@ namespace NomadTest
             condition &= Math.Abs(mat[1, 1] - 40.0 / 100.0) < 0.01;
 
             Assert.IsTrue(condition, "Dropout is successful.");
->>>>>>> Stashed changes
->>>>>>> Stashed changes
         }
     }
 }
