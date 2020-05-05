@@ -53,6 +53,14 @@ namespace Nomad.Matrix
                 _matrix[i, j] = values[i, j];
         }
 
+        public Matrix(double[] vectorValues)
+        {
+            var rows = vectorValues.Length;
+            _matrix = new double[rows, 1];
+            for (var i = 0; i < rows; i++)
+                _matrix[i, 1] = vectorValues[i];
+        }
+
         #region Dot Product
 
         public void InDot(Matrix matrix)
