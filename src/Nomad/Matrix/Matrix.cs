@@ -30,8 +30,27 @@ namespace Nomad.Matrix
             _matrix = new double[rows, columns];
         }
 
+        public Matrix(int rows, int columns, double values) : this(rows, columns)
+        {
+            InFill(values);
+        }
+
         public Matrix(int m) : this(m, m)
         {
+        }
+
+        public Matrix(int m, double values) : this(m, m, values)
+        {
+        }
+
+        public Matrix(double[,] values)
+        {
+            var rows = values.GetLength(0);
+            var cols = values.GetLength(1);
+            _matrix = new double[rows, cols];
+            for (var i = 0; i < rows; i++)
+            for (var j = 0; j < cols; j++)
+                _matrix[i, j] = values[i, j];
         }
 
         #region Dot Product
