@@ -105,12 +105,21 @@ namespace Nomad.Matrix
 
         public void InAdd(Matrix matrix)
         {
+            if (matrix.Shape().Type() == EType.Scalar)
+            {
+                for (var row = 0; row < Rows; row++)
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] += matrix[0, 0];
+                return;
+            }
+
             var transpose = false;
             // Vector Broadcasting
             if (matrix.Shape().Type() == EType.VectorTransposed)
             {
                 transpose = true;
                 matrix.InTranspose();
+                InTranspose();
             }
 
             if (matrix.Shape().Type() == EType.Vector)
@@ -120,7 +129,9 @@ namespace Nomad.Matrix
                 for (var row = 0; row < Rows; row++)
                 for (var col = 0; col < Columns; col++)
                     _matrix[row, col] += matrix[row, 0];
-                if (transpose) matrix.InTranspose();
+                if (!transpose) return;
+                matrix.InTranspose();
+                InTranspose();
                 return;
             }
 
@@ -145,6 +156,14 @@ namespace Nomad.Matrix
 
         public void InSub(Matrix matrix)
         {
+            if (matrix.Shape().Type() == EType.Scalar)
+            {
+                for (var row = 0; row < Rows; row++)
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] -= matrix[0, 0];
+                return;
+            }
+
             var transpose = false;
 
             // Vector Broadcasting
@@ -152,6 +171,7 @@ namespace Nomad.Matrix
             {
                 transpose = true;
                 matrix.InTranspose();
+                InTranspose();
             }
 
             if (matrix.Shape().Type() == EType.Vector)
@@ -161,7 +181,9 @@ namespace Nomad.Matrix
                 for (var row = 0; row < Rows; row++)
                 for (var col = 0; col < Columns; col++)
                     _matrix[row, col] -= matrix[row, 0];
-                if (transpose) matrix.InTranspose();
+                if (!transpose) return;
+                matrix.InTranspose();
+                InTranspose();
                 return;
             }
 
