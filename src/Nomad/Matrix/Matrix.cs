@@ -30,8 +30,35 @@ namespace Nomad.Matrix
             _matrix = new double[rows, columns];
         }
 
+        public Matrix(int rows, int columns, double values) : this(rows, columns)
+        {
+            InFill(values);
+        }
+
         public Matrix(int m) : this(m, m)
         {
+        }
+
+        public Matrix(int m, double values) : this(m, m, values)
+        {
+        }
+
+        public Matrix(double[,] values)
+        {
+            var rows = values.GetLength(0);
+            var cols = values.GetLength(1);
+            _matrix = new double[rows, cols];
+            for (var i = 0; i < rows; i++)
+            for (var j = 0; j < cols; j++)
+                _matrix[i, j] = values[i, j];
+        }
+
+        public Matrix(double[] vectorValues)
+        {
+            var rows = vectorValues.Length;
+            _matrix = new double[rows, 1];
+            for (var i = 0; i < rows; i++)
+                _matrix[i, 1] = vectorValues[i];
         }
 
         #region Dot Product
@@ -105,12 +132,21 @@ namespace Nomad.Matrix
 
         public void InAdd(Matrix matrix)
         {
+            if (matrix.Shape().Type() == EType.Scalar)
+            {
+                for (var row = 0; row < Rows; row++)
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] += matrix[0, 0];
+                return;
+            }
+
             var transpose = false;
             // Vector Broadcasting
             if (matrix.Shape().Type() == EType.VectorTransposed)
             {
                 transpose = true;
                 matrix.InTranspose();
+                InTranspose();
             }
 
             if (matrix.Shape().Type() == EType.Vector)
@@ -120,7 +156,9 @@ namespace Nomad.Matrix
                 for (var row = 0; row < Rows; row++)
                 for (var col = 0; col < Columns; col++)
                     _matrix[row, col] += matrix[row, 0];
-                if (transpose) matrix.InTranspose();
+                if (!transpose) return;
+                matrix.InTranspose();
+                InTranspose();
                 return;
             }
 
@@ -145,6 +183,14 @@ namespace Nomad.Matrix
 
         public void InSub(Matrix matrix)
         {
+            if (matrix.Shape().Type() == EType.Scalar)
+            {
+                for (var row = 0; row < Rows; row++)
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] -= matrix[0, 0];
+                return;
+            }
+
             var transpose = false;
 
             // Vector Broadcasting
@@ -152,6 +198,7 @@ namespace Nomad.Matrix
             {
                 transpose = true;
                 matrix.InTranspose();
+                InTranspose();
             }
 
             if (matrix.Shape().Type() == EType.Vector)
@@ -161,7 +208,9 @@ namespace Nomad.Matrix
                 for (var row = 0; row < Rows; row++)
                 for (var col = 0; col < Columns; col++)
                     _matrix[row, col] -= matrix[row, 0];
-                if (transpose) matrix.InTranspose();
+                if (!transpose) return;
+                matrix.InTranspose();
+                InTranspose();
                 return;
             }
 

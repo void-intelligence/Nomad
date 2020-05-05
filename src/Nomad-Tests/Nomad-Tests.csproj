@@ -35,6 +35,8 @@
     <PackageIconUrl />
 
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+
+    <Version>1.2.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
