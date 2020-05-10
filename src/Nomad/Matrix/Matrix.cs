@@ -13,6 +13,9 @@ namespace Nomad.Matrix
 {
     public partial class Matrix
     {
+        public List<Matrix> Cache { get; }
+        public Guid GUID { get; }
+
         private double[,] _matrix;
 
         public int Rows => _matrix.GetLength(0);
@@ -28,6 +31,8 @@ namespace Nomad.Matrix
         public Matrix(int rows, int columns)
         {
             _matrix = new double[rows, columns];
+            Cache = new List<Matrix>();
+            GUID = Guid.NewGuid();
         }
 
         public Matrix(int rows, int columns, double values) : this(rows, columns)
@@ -238,11 +243,9 @@ namespace Nomad.Matrix
             if (Rows != Columns) throw new InvalidOperationException("Only square matrices can be inverted.");
 
             var dimension = Rows;
-            var result = _matrix.Clone() as double[,];
-            var identity = _matrix.Clone() as double[,];
 
-            if (result == null) throw new InvalidOperationException("Fatal Error!");
-            if (identity == null) throw new InvalidOperationException("Fatal Error!");
+            if (!(_matrix.Clone() is double[,] result)) throw new InvalidOperationException("Fatal Error!");
+            if (!(_matrix.Clone() is double[,]identity)) throw new InvalidOperationException("Fatal Error!");
 
             //make identity matrix
             for (var row = 0; row < dimension; row++)
