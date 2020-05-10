@@ -452,8 +452,8 @@ namespace NomadTest
             mat1.InRandomize();
             Matrix mat2 = new Matrix(1, 22);
             mat2.InRandomize();
-            Matrix mat3 = mat1 + mat2;
-            Matrix mat4 = mat1 - mat2;
+            _ = mat1 + mat2;
+            _ = mat1 - mat2;
 
             Matrix mat = new Matrix(10, 1);
             mat.InRandomize();

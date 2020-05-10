@@ -11,14 +11,15 @@
     <PackageIcon>Nomad-proj-Icon.png</PackageIcon>
     <PackageIconUrl />
     <PackageTags>Matrix, Nomad, Library</PackageTags>
-    <PackageReleaseNotes>Merge/Split and Dropout</PackageReleaseNotes>
+    <PackageReleaseNotes>Add Caching Support
+Add GUID to Matrix class</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>VI-Nomad</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
+    <AssemblyVersion>1.3.0.0</AssemblyVersion>
+    <FileVersion>1.3.0.0</FileVersion>
     <Version>1.2.0</Version>
   </PropertyGroup>
 
