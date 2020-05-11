@@ -66,6 +66,33 @@ namespace Nomad.Matrix
                 _matrix[i, 1] = vectorValues[i];
         }
 
+        #region SUM
+
+        public double Sum()
+        {
+            var sum = 0.0;
+            for (var row = 0; row < Rows; row++)
+            for (var col = 0; col < Columns; col++)
+                sum += _matrix[row, col];
+            return sum;
+        }
+
+        #endregion
+
+        #region Average
+
+        public double Average()
+        {
+            var avg = 0.0;
+            for (var row = 0; row < Rows; row++)
+            for (var col = 0; col < Columns; col++)
+                avg += _matrix[row, col];
+            avg /= (Rows * Columns);
+            return avg;
+        }
+
+        #endregion
+
         #region Dot Product
 
         public void InDot(Matrix matrix)
@@ -94,7 +121,7 @@ namespace Nomad.Matrix
 
         #endregion
 
-        #region Hadamard (Element Multiplication)
+        #region Hadamard (Element Multiplication / Division)
 
         public void InHadamard(Matrix matrix)
         {
@@ -113,9 +140,41 @@ namespace Nomad.Matrix
             return mat;
         }
 
+
+        public void InHadamardDivision(Matrix matrix)
+        {
+            if (Columns != matrix.Columns || Rows != matrix.Rows)
+                throw new InvalidOperationException("Cannot multiply matrices of different sizes.");
+
+            for (var row = 0; row < Rows; row++)
+            for (var col = 0; col < Columns; col++)
+                _matrix[row, col] /= (matrix[row, col] + double.Epsilon);
+        }
+
+        public Matrix HadamardDivision(Matrix matrix)
+        {
+            var mat = Duplicate();
+            mat.InHadamardDivision(matrix);
+            return mat;
+        }
+
         #endregion
 
-        #region Scale Operation
+        #region Divide Scale Operation
+
+        public void InDivide(double denominator)
+        {
+            for (var row = 0; row < _matrix.GetLength(0); row++)
+            for (var col = 0; col < _matrix.GetLength(1); col++)
+                _matrix[row, col] /= (denominator + double.Epsilon);
+        }
+
+        public Matrix Divide(double denominator)
+        {
+            var mat = Duplicate();
+            mat.InDivide(denominator);
+            return mat;
+        }
 
         public void InScale(double scalar)
         {

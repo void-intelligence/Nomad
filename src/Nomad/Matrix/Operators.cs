@@ -50,6 +50,12 @@ namespace Nomad.Matrix
             return matrix.Scale(scalar);
         }
 
+        public static Matrix operator /(Matrix matrix, double scalar)
+        {
+            return matrix.Scale(1 / scalar);
+        }
+
+
         public static Matrix operator *(double scalar, Matrix matrix)
         {
             return matrix.Scale(scalar);
