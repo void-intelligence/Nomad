@@ -11,7 +11,14 @@
     <PackageIcon>Nomad-proj-Icon.png</PackageIcon>
     <PackageIconUrl />
     <PackageTags>Matrix, Nomad, Library</PackageTags>
-    <PackageReleaseNotes>Add Hadamard Division
+    <PackageReleaseNotes>1.4.2:
+Add: Variance Calculations
+
+1.4.1:
+Minor Improvements
+
+1.4.0:
+Add Hadamard Division
 Add Sum
 Add Average
 Add Scalar Division</PackageReleaseNotes>
@@ -20,9 +27,9 @@ Add Scalar Division</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>VI-Nomad</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <AssemblyVersion>1.4.0.0</AssemblyVersion>
-    <FileVersion>1.4.0.0</FileVersion>
-    <Version>1.4.0</Version>
+    <AssemblyVersion>1.4.2.0</AssemblyVersion>
+    <FileVersion>1.4.2.0</FileVersion>
+    <Version>1.4.2</Version>
   </PropertyGroup>
 
   <ItemGroup>

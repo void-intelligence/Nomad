@@ -66,7 +66,7 @@ namespace Nomad.Matrix
                 _matrix[i, 1] = vectorValues[i];
         }
 
-        #region SUM
+        #region SUM AVERAGE VARIANCE
 
         public double Sum()
         {
@@ -77,18 +77,34 @@ namespace Nomad.Matrix
             return sum;
         }
 
-        #endregion
-
-        #region Average
-
         public double Average()
         {
             var avg = 0.0;
             for (var row = 0; row < Rows; row++)
             for (var col = 0; col < Columns; col++)
                 avg += _matrix[row, col];
-            avg /= (Rows * Columns);
+            avg /= Rows * Columns;
             return avg;
+        }
+
+        public double Mean()
+        {
+            return Average();
+        }
+
+        public double Variance()
+        {
+            var mat = Duplicate();
+            var mean = mat.Mean();
+            
+            for (var i = 0; i < Rows; i++)
+            for (var j = 0; j < Columns; j++)
+            {
+                mat[i, j] -= mean;
+                mat[i, j] = Math.Pow(mat[i, j], 2);
+            }
+
+            return mat.Sum() / (Rows * Columns);
         }
 
         #endregion
@@ -148,7 +164,7 @@ namespace Nomad.Matrix
 
             for (var row = 0; row < Rows; row++)
             for (var col = 0; col < Columns; col++)
-                _matrix[row, col] /= (matrix[row, col] + double.Epsilon);
+                _matrix[row, col] /= matrix[row, col] + double.Epsilon;
         }
 
         public Matrix HadamardDivision(Matrix matrix)
@@ -166,7 +182,7 @@ namespace Nomad.Matrix
         {
             for (var row = 0; row < _matrix.GetLength(0); row++)
             for (var col = 0; col < _matrix.GetLength(1); col++)
-                _matrix[row, col] /= (denominator + double.Epsilon);
+                _matrix[row, col] /= denominator + double.Epsilon;
         }
 
         public Matrix Divide(double denominator)
