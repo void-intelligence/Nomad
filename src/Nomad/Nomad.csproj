@@ -11,7 +11,10 @@
     <PackageIcon>Nomad-proj-Icon.png</PackageIcon>
     <PackageIconUrl />
     <PackageTags>Matrix, Nomad, Library</PackageTags>
-    <PackageReleaseNotes>1.4.2:
+    <PackageReleaseNotes>1.4.3:
+Minor Improvements
+
+1.4.2:
 Add Variance Calculations
 
 1.4.1:
@@ -27,9 +30,9 @@ Add Scalar Division</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>VI-Nomad</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <AssemblyVersion>1.4.2.0</AssemblyVersion>
-    <FileVersion>1.4.2.0</FileVersion>
-    <Version>1.4.2</Version>
+    <AssemblyVersion>1.4.3.0</AssemblyVersion>
+    <FileVersion>1.4.3.0</FileVersion>
+    <Version>1.4.3</Version>
   </PropertyGroup>
 
   <ItemGroup>

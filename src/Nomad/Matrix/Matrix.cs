@@ -65,9 +65,7 @@ namespace Nomad.Matrix
             for (var i = 0; i < rows; i++)
                 _matrix[i, 1] = vectorValues[i];
         }
-
-        #region SUM AVERAGE VARIANCE
-
+        
         public double Sum()
         {
             var sum = 0.0;
@@ -107,10 +105,6 @@ namespace Nomad.Matrix
             return mat.Sum() / (Rows * Columns);
         }
 
-        #endregion
-
-        #region Dot Product
-
         public void InDot(Matrix matrix)
         {
             if (Columns != matrix.Rows)
@@ -135,10 +129,6 @@ namespace Nomad.Matrix
             return mat;
         }
 
-        #endregion
-
-        #region Hadamard (Element Multiplication / Division)
-
         public void InHadamard(Matrix matrix)
         {
             if (Columns != matrix.Columns || Rows != matrix.Rows)
@@ -156,7 +146,6 @@ namespace Nomad.Matrix
             return mat;
         }
 
-
         public void InHadamardDivision(Matrix matrix)
         {
             if (Columns != matrix.Columns || Rows != matrix.Rows)
@@ -173,11 +162,7 @@ namespace Nomad.Matrix
             mat.InHadamardDivision(matrix);
             return mat;
         }
-
-        #endregion
-
-        #region Divide Scale Operation
-
+        
         public void InDivide(double denominator)
         {
             for (var row = 0; row < _matrix.GetLength(0); row++)
@@ -205,11 +190,7 @@ namespace Nomad.Matrix
             mat.InScale(scalar);
             return mat;
         }
-
-        #endregion
-
-        #region Add Operation
-
+        
         public void InAdd(Matrix matrix)
         {
             if (matrix.Shape().Type() == EType.Scalar)
@@ -256,10 +237,6 @@ namespace Nomad.Matrix
             mat.InAdd(matrix);
             return mat;
         }
-
-        #endregion
-
-        #region Subtraction Operation
 
         public void InSub(Matrix matrix)
         {
@@ -309,10 +286,6 @@ namespace Nomad.Matrix
             return mat;
         }
 
-        #endregion
-
-        #region Inverse Operation
-
         public void InInverse()
         {
             if (Rows != Columns) throw new InvalidOperationException("Only square matrices can be inverted.");
@@ -359,10 +332,6 @@ namespace Nomad.Matrix
             return mat;
         }
 
-        #endregion
-
-        #region Transpose Operation
-
         public void InTranspose()
         {
             var result = new double[Columns, Rows];
@@ -393,10 +362,6 @@ namespace Nomad.Matrix
             return mat;
         }
 
-        #endregion
-
-        #region Map Functionality
-
         public void InMap(Func<double, double> func)
         {
             for (var row = 0; row < _matrix.GetLength(0); row++)
@@ -410,10 +375,6 @@ namespace Nomad.Matrix
             mat.InMap(func);
             return mat;
         }
-
-        #endregion
-
-        #region Randomization
 
         public void InRandomize(double lowest = 0.0, double highest = 1.0,
             EDistribution distribution = EDistribution.Uniform)
@@ -466,11 +427,7 @@ namespace Nomad.Matrix
             mat.InRandomize(lowest, highest, distribution);
             return mat;
         }
-
-        #endregion
-
-        #region Fill
-
+        
         public void InFill(double value)
         {
             for (var row = 0; row < _matrix.GetLength(0); row++)
@@ -484,10 +441,6 @@ namespace Nomad.Matrix
             mat.InFill(value);
             return mat;
         }
-
-        #endregion
-
-        #region Flatten & Widen Functionality
 
         public void InFlatten()
         {
@@ -559,11 +512,7 @@ namespace Nomad.Matrix
             var widened = flattened.Widen(newX, newY);
             return widened;
         }
-
-        #endregion
-
-        #region Element-Wise Function Operations
-
+        
         public void InOneMinus()
         {
             for (var row = 0; row < _matrix.GetLength(0); row++)
@@ -592,23 +541,19 @@ namespace Nomad.Matrix
             return mat;
         }
 
-        public void InPower2()
+        public void InPower(double p = 2.0)
         {
             for (var row = 0; row < _matrix.GetLength(0); row++)
             for (var col = 0; col < _matrix.GetLength(1); col++)
-                _matrix[row, col] = _matrix[row, col] * _matrix[row, col];
+                _matrix[row, col] = Math.Pow(_matrix[row, col], p);
         }
 
-        public Matrix Power2()
+        public Matrix Power(double p = 2.0)
         {
             var mat = Duplicate();
-            mat.InPower2();
+            mat.InPower(p);
             return mat;
         }
-
-        #endregion
-
-        #region Softmax
 
         public void InSoftmax()
         {
@@ -627,11 +572,7 @@ namespace Nomad.Matrix
             mat.InSoftmax();
             return mat;
         }
-
-        #endregion
-
-        #region Merge / Split
-
+        
         public void InMerge(Matrix matrix, out int mergeIndex)
         {
             _matrix = Merge(matrix, out mergeIndex)._matrix;
@@ -706,10 +647,6 @@ namespace Nomad.Matrix
             return result;
         }
 
-        #endregion
-
-        #region Dropout
-
         public void InDropout(float chance)
         {
             Math.Clamp(chance, 0.0f, 1.0f);
@@ -728,10 +665,6 @@ namespace Nomad.Matrix
             result.InDropout(chance);
             return result;
         }
-
-        #endregion
-
-        #region Utility
 
         public Matrix Duplicate()
         {
@@ -784,7 +717,5 @@ namespace Nomad.Matrix
         {
             Console.WriteLine(ToString());
         }
-
-        #endregion
     }
 }
