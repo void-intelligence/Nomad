@@ -28,6 +28,7 @@ namespace Nomad.Matrix
                     for (var l = 0; l < filter.Columns; l++)
                         if (l + j < Columns)
                         {
+                            // Pool Operation (Sum)
                             tempSum += _matrix[i + k, j + l] * filter[k, l];
                         }
                 }
