@@ -2,6 +2,7 @@
 
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Nomad.Convolution;
 using Nomad.Matrix;
 
 namespace NomadTest
@@ -556,11 +557,11 @@ namespace NomadTest
         }
 
         [TestMethod]
-        public void MatrixPower2()
+        public void MatrixPower()
         {
             var mat = new Matrix(2, 2) {[0, 0] = 10, [0, 1] = 11, [1, 0] = 20, [1, 1] = 21};
 
-            mat.InPower2();
+            mat.InPower();
 
             var condition = true;
             condition &= Math.Abs(mat[0, 0] - 100) < 0.01;
@@ -584,6 +585,16 @@ namespace NomadTest
             condition &= Math.Abs(mat[1, 1] - 40.0 / 100.0) < 0.01;
 
             Assert.IsTrue(condition, "Dropout is successful.");
+        }
+
+        [TestMethod]
+        public void MatrixConvolution()
+        {
+            var mat = new Matrix(7,7);
+            mat.InRandomize();
+
+            var conv = mat.Convolve(Filters.Scharr(), 4, 4, 0, 2);
+
         }
     }
 }
