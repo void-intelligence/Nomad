@@ -67,3 +67,7 @@ namespace Sample
     }
 }
 ```
+
+## Contact
+
+Main Dev: Nirex.0@Gmail.com
