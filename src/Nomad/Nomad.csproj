@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <Authors>Void-Intelligence</Authors>
-    <Description>Lightweight Matrix Library made with .Net Core 3.0</Description>
+    <Description>Lightweight Matrix Library</Description>
     <Copyright>(C) Void-Intelligence Under Apache 2.0 License</Copyright>
     <PackageProjectUrl>void-intelligence.github.io</PackageProjectUrl>
     <RepositoryUrl>https://github.com/void-intelligence/Nomad</RepositoryUrl>
@@ -11,28 +11,15 @@
     <PackageIcon>Nomad-proj-Icon.png</PackageIcon>
     <PackageIconUrl />
     <PackageTags>Matrix, Nomad, Library</PackageTags>
-    <PackageReleaseNotes>1.4.3:
-Minor Improvements
-
-1.4.2:
-Add Variance Calculations
-
-1.4.1:
-Minor Improvements
-
-1.4.0:
-Add Hadamard Division
-Add Sum
-Add Average
-Add Scalar Division</PackageReleaseNotes>
+    <PackageReleaseNotes>2.0 - Architecture Redesign</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>VI-Nomad</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <AssemblyVersion>1.4.3.0</AssemblyVersion>
-    <FileVersion>1.4.3.0</FileVersion>
-    <Version>1.4.3</Version>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -40,10 +27,6 @@ Add Scalar Division</PackageReleaseNotes>
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Convolution\" />
   </ItemGroup>
 
 </Project>

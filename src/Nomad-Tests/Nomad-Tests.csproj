@@ -12,7 +12,7 @@
 
     <Authors>Void-Intelligence</Authors>
 
-    <Description>Unit-Test project for Nomad Matrix Library</Description>
+    <Description>Unit-Test project for Nomad Matrix Library 2.0</Description>
 
     <Copyright>(C) Void-Intelligence Under Apache 2.0 License</Copyright>
 
@@ -26,7 +26,7 @@
 
     <PackageTags>Matrix, Nomad, Library</PackageTags>
 
-    <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+    <PackageReleaseNotes>2.0 Compatibility Release</PackageReleaseNotes>
 
     <NeutralLanguage>en</NeutralLanguage>
 
@@ -36,7 +36,9 @@
 
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 
-    <Version>1.2.0</Version>
+    <Version>2.0</Version>
+
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

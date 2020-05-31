@@ -12,7 +12,6 @@ namespace NomadTest
         [TestMethod]
         public void CiTestMethod()
         {
-
             Assert.IsTrue(true, "CI: Initial Test Successful");
         }
     }

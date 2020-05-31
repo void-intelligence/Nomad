@@ -11,6 +11,7 @@ namespace Nomad.Core
         /// <summary>
         /// Convolution Operation
         /// </summary>
+        // ReSharper disable once MethodOverloadWithOptionalParameter
         public Matrix Convolve(Matrix filter, int padSizeX = 1, int padSizeY = 1, double padValue = 0, int stride = 1)
         {
             return Pad(padSizeX, padSizeY, padValue).Convolve(filter, stride);
