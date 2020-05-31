@@ -42,4 +42,8 @@ Add Scalar Division</PackageReleaseNotes>
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Convolution\" />
+  </ItemGroup>
+
 </Project>

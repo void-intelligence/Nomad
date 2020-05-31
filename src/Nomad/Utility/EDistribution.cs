@@ -6,6 +6,7 @@ namespace Nomad.Utility
     {
         Invalid,
         Uniform,
-        Gaussian
+        Gaussian,
+        Normal
     }
 }
