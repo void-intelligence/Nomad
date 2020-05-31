@@ -67,13 +67,8 @@ namespace Nomad.Core
             return matrix.Scale(1 / scalar);
         }
 
-#nullable enable
-        // ReSharper disable once FunctionRecursiveOnAllPaths
-        public static bool operator==(Matrix? first, Matrix? second)
+        public static bool operator==(Matrix first, Matrix second)
         {
-            if (first == null) throw new ArgumentNullException(nameof(first));
-            if (second == null) throw new ArgumentNullException(nameof(second));
-
             var result = first.Rows == second.Rows;
             result &= first.Columns == second.Columns;
             if (!result) return result;
@@ -85,13 +80,10 @@ namespace Nomad.Core
             return result;
         }
 
-        public static bool operator!=(Matrix? first, Matrix? second)
+        public static bool operator!=(Matrix first, Matrix second)
         {
-            if (first == null) throw new ArgumentNullException(nameof(first));
-            if (second == null) throw new ArgumentNullException(nameof(second));
             return !(first == second);
         }
-#nullable disable
 
         public static bool operator>(Matrix first, Matrix second)
         {
