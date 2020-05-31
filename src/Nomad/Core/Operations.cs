@@ -411,7 +411,7 @@ namespace Nomad.Core
         {
             for (var row = 0; row < _matrix.GetLength(0); row++)
             for (var col = 0; col < _matrix.GetLength(1); col++)
-                _matrix[row, col] = Math.Pow(_matrix[row, col], 1.0 / r);
+                _matrix[row, col] = Math.Pow(_matrix[row, col], 1.0 / (r + double.Epsilon));
         }
 
         /// <summary>
@@ -437,7 +437,7 @@ namespace Nomad.Core
 
             for (var row = 0; row < Rows; row++)
             for (var col = 0; col < Columns; col++)
-                _matrix[row, col] = Math.Pow(_matrix[row, col], 1.0 / matrix[row, col]);
+                _matrix[row, col] = Math.Pow(_matrix[row, col], 1.0 / (matrix[row, col] + double.Epsilon));
         }
 
         /// <summary>
@@ -472,8 +472,6 @@ namespace Nomad.Core
 
             _matrix = result;
         }
-
-
 
         /// <summary>
         /// Dot Division Product 
