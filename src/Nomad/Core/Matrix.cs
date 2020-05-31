@@ -58,10 +58,9 @@ namespace Nomad.Core
 
         public Matrix(IReadOnlyList<double> vectorValues)
         {
-            var rows = vectorValues.Count;
-            _matrix = new double[rows, 1];
-            for (var i = 0; i < rows; i++)
-                _matrix[i, 1] = vectorValues[i];
+            _matrix = new double[vectorValues.Count, 1];
+            for (var i = 0; i < vectorValues.Count; i++)
+                _matrix[i, 0] = vectorValues[i];
         }
 
         public Matrix Duplicate()
@@ -129,23 +128,10 @@ namespace Nomad.Core
         {
             Console.WriteLine(ToString());
         }
-
-
+        
         public override bool Equals(object obj)
         {
-            var matrix = obj as Matrix;
-            if (obj == null) return false;
-
-            var result = matrix != null && Rows == matrix.Rows && Columns == matrix.Columns;
-            if (!result) return false;
-            for (var row = 0; row < Rows; row++)
-            for (var col = 0; col < Columns; col++)
-            {
-                result &= Math.Abs(this[row, col] - matrix[row, col]) < 0.01;
-                if (!result) return false;
-            }
-
-            return true;
+            return (this == (obj as Matrix));
         }
 
         public override int GetHashCode()
