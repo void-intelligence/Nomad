@@ -31,8 +31,8 @@ namespace Nomad.Core
         public static Matrix Vandermonde(int rows, int cols)
         {
             var result = new Matrix(rows, cols);
-            for (var m = 1; m <= rows; m++)
-            for (var n = 1; n <= cols; n++) result[m, n] = Math.Pow(m, n - 1);
+            for (var m = 0; m < rows; m++)
+            for (var n = 0; n < cols; n++) result[m, n] = Math.Pow(m, n - 1 + double.Epsilon);
             return result;
         }
 
