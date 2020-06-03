@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Nomad.Utility;
@@ -16,6 +17,8 @@ namespace Nomad.Core
         // ReSharper disable once InconsistentNaming
         public Guid GUID { get; }
 
+        public string Name { get; set; }
+
         private double[,] _matrix;
         public int Rows => _matrix.GetLength(0);
         public int Columns => _matrix.GetLength(1);
@@ -27,6 +30,7 @@ namespace Nomad.Core
 
         public Matrix(int rows, int columns)
         {
+            Name = string.Empty;
             _matrix = new double[rows, columns];
             Cache = new List<Matrix>();
             GUID = Guid.NewGuid();
@@ -140,12 +144,12 @@ namespace Nomad.Core
                 if (rows[i][j] != string.Empty) _matrix[i, j] = double.Parse(rows[i][j]);
         }
 
-        public string Save()
+        public string SaveString()
         {
             return ToString();
         }
 
-        public void Load(string matrixString)
+        public void LoadString(string matrixString)
         {
             FromString(matrixString);
         }
@@ -199,6 +203,17 @@ namespace Nomad.Core
                 Cache[i].LoadBytes(bytes[i]);
             }
         }
+
+        public void SaveToFile(string fileName)
+        {
+            File.WriteAllBytes(fileName, SaveBytes().ToArray());
+        }
+
+        public void LoadFromFile(string fileName)
+        {
+            LoadBytes(File.ReadAllBytes(fileName).ToList());
+        }
+
         public void Print()
         {
             Console.WriteLine(ToString());
