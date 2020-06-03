@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Nomad.Utility;
 
 namespace Nomad.Core
@@ -16,12 +17,14 @@ namespace Nomad.Core
         {
             var result = new Matrix(Rows * Columns, 1);
             var k = 0;
-            for (var i = 0; i < Rows; i++)
-            for (var j = 0; j < Columns; j++)
+            Parallel.For(0, Rows, i =>
             {
-                result[k, 0] = _matrix[i, j];
-                k++;
-            }
+                for (var j = 0; j < Columns; j++)
+                {
+                    result[k, 0] = _matrix[i, j];
+                    k++;
+                }
+            });
 
             return result;
         }
@@ -56,12 +59,14 @@ namespace Nomad.Core
             var result = new Matrix(row, col);
 
             var k = 0;
-            for (var i = 0; i < row; i++)
-            for (var j = 0; j < col; j++)
+            Parallel.For(0, Rows, i =>
             {
-                result[i, j] = this[k, 0];
-                k++;
-            }
+                for (var j = 0; j < col; j++)
+                {
+                    result[i, j] = this[k, 0];
+                    k++;
+                }
+            });
 
             if (transpose) InTranspose();
 
