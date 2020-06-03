@@ -24,7 +24,7 @@ PM> Install-Package VI-Nomad
 
 ```C#
 using System;
-using Nomad.Matrix;
+using Nomad.Core;
 using Nomad.Utility;
 
 namespace Sample
