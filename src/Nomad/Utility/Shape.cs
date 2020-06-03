@@ -20,8 +20,14 @@ namespace Nomad.Utility
 
         public EType Type()
         {
-            if (X == 1 && Y == 1) return EType.Scalar;
-            if (X == 1 && Y != 1) return EType.VectorTransposed;
+            switch (X)
+            {
+                case 1 when Y == 1:
+                    return EType.Scalar;
+                case 1 when Y != 1:
+                    return EType.VectorTransposed;
+            }
+
             if (X != 1 && Y == 1) return EType.Vector;
             if (X != 1 && Y != 1 && X == Y) return EType.SquareMatrix;
             if (X != 1 && Y != 1 && X != Y) return EType.Matrix;

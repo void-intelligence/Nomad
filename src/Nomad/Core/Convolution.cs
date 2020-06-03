@@ -1,16 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// © 2020 VOID-INTELLIGENCE ALL RIGHTS RESERVED
 
-namespace Nomad.Matrix
+// WIP: THIS FILE IS WORK IN PROGRESS
+
+using System.Collections.Generic;
+
+namespace Nomad.Core
 {
     public partial class Matrix
     {
+        /// <summary>
+        /// Convolution Operation
+        /// </summary>
+        // ReSharper disable once MethodOverloadWithOptionalParameter
         public Matrix Convolve(Matrix filter, int padSizeX = 1, int padSizeY = 1, double padValue = 0, int stride = 1)
         {
             return Pad(padSizeX, padSizeY, padValue).Convolve(filter, stride);
         }
 
+        /// <summary>
+        /// Convolution Operation
+        /// </summary>
         public Matrix Convolve(Matrix filter, int stride = 1)
         {
             var newX = (Rows - filter.Rows) / stride + 1;

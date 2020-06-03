@@ -1,12 +1,8 @@
 ﻿// © 2020 VOID-INTELLIGENCE ALL RIGHTS RESERVED
 
-/********************************************\
-      Matrix Transformation Functionality. 
-\********************************************/
-
 using System;
 
-namespace Nomad.Matrix
+namespace Nomad.Core
 {
     public partial class Matrix
     {
@@ -76,6 +72,11 @@ namespace Nomad.Matrix
             return result;
         }
 
+        /// <summary>
+        /// 3D Uniform Scaling Matrix
+        /// </summary>
+        /// <param name="factor">Uniform Factor</param>
+        /// <returns>Scale Matrix</returns>
         public static Matrix Scaling(double factor)
         {
             var result = new Matrix(3)
@@ -87,6 +88,13 @@ namespace Nomad.Matrix
             return result;
         }
 
+        /// <summary>
+        /// 3D Scaling Matrix
+        /// </summary>
+        /// <param name="factorX">X Factor</param>
+        /// <param name="factorY">Y Factor</param>
+        /// <param name="factorZ">Z Factor</param>
+        /// <returns>Scale Matrix</returns>
         public static Matrix Scaling(double factorX, double factorY, double factorZ)
         {
             var result = new Matrix(3)
@@ -98,6 +106,13 @@ namespace Nomad.Matrix
             return result;
         }
 
+        /// <summary>
+        /// 3D Translation Matrix
+        /// </summary>
+        /// <param name="moveX">X Translation</param>
+        /// <param name="moveY">Y Translation</param>
+        /// <param name="moveZ">Z Translation</param>
+        /// <returns>Trasnlate Matrix</returns>
         public static Matrix Translation(double moveX, double moveY, double moveZ)
         {
             var result = new Matrix(4)
