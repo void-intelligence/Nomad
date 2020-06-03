@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using Nomad.Utility;
 
@@ -120,8 +121,33 @@ namespace Nomad.Core
                 buffer += "\n";
             }
 
+            buffer = buffer.TrimEnd();
             buffer += "]";
             return buffer;
+        }
+
+        public void FromString(string matrixString)
+        {
+            matrixString = matrixString.Replace("[", string.Empty);
+            matrixString = matrixString.Replace("]", string.Empty);
+
+            var cols = matrixString.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var rows = cols.Select(col => col.Split(',', StringSplitOptions.RemoveEmptyEntries)).ToList();
+
+            _matrix = new double[cols.Length, rows.Count];
+            for (var i = 0; i < Rows; i++)
+            for (var j = 0; j < Columns; j++)
+                if (rows[i][j] != string.Empty) _matrix[i, j] = double.Parse(rows[i][j]);
+        }
+
+        public string Save()
+        {
+            return ToString();
+        }
+
+        public void Load(string matrixString)
+        {
+            FromString(matrixString);
         }
 
         public void Print()
@@ -131,7 +157,7 @@ namespace Nomad.Core
         
         public override bool Equals(object obj)
         {
-            return (this == (obj as Matrix));
+            return this == obj as Matrix;
         }
 
         public override int GetHashCode()
