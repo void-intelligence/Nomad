@@ -35,9 +35,11 @@ namespace NomadTest.Core
             mat = mat.DotDivision(mat.T());
             mat = mat.Inverse();
             mat = mat.Fill(10);
+            mat = mat.Fill(2).DotDivision(mat.T().Fill(3));
             // ReSharper enable RedundantAssignment
             // ReSharper enable UnusedVariable
             // ReSharper enable once RedundantAssignment
+
         }
     }
 }

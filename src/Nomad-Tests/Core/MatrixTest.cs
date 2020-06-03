@@ -32,8 +32,12 @@ namespace NomadTest.Core
             mat = mat.Map(CustomFunction);
             var shape = mat.Shape();
             var type = mat.Type();
+
+            mat.InRandomize();
             var str = mat.ToString();
             mat.Print();
+
+            mat.FromString(str);
 
             // ReSharper disable once EqualExpressionComparison
             var eq = mat.Equals(mat );
