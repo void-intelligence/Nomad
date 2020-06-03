@@ -574,12 +574,150 @@ namespace Nomad.Core
         /// Fill the matrix
         /// </summary>
         /// <param name="value">Value parameter</param>
-
         public void InFill(double value)
         {
             for (var row = 0; row < _matrix.GetLength(0); row++)
             for (var col = 0; col < _matrix.GetLength(1); col++)
                 _matrix[row, col] = value;
+        }
+
+        /// <summary>
+        /// ArgMax Index in a flattened matrix
+        /// </summary>
+        public int ArgMaxIndex()
+        {
+            var tmp = double.NegativeInfinity;
+            var x = 0; var y = 0;
+            for (var row = 0; row < _matrix.GetLength(0); row++)
+            for (var col = 0; col < _matrix.GetLength(1); col++)
+                if (_matrix[row, col] >= tmp)
+                {
+                    tmp = _matrix[row, col];
+                    x = row; y = col;
+                }
+            return x * y;
+        }
+
+        /// <summary>
+        /// Argmax of the Matrix
+        /// </summary>
+        public Matrix ArgMax()
+        {
+            var mat = Duplicate();
+            mat.InArgMax();
+            return mat;
+        }
+
+        /// <summary>
+        /// Inplace Argmax of the Matrix
+        /// </summary>
+        public void InArgMax()
+        {
+            var tmp = double.NegativeInfinity;
+            var x = 0; var y = 0;
+            for (var row = 0; row < _matrix.GetLength(0); row++)
+            for (var col = 0; col < _matrix.GetLength(1); col++)
+                if (_matrix[row, col] >= tmp)
+                {
+                    tmp = _matrix[row, col];
+                    x = row; y = col;
+                }
+            InFill(0);
+            _matrix[x, y] = 1.0;
+        }
+
+        /// <summary>
+        /// ArgMin Index in a flattened matrix
+        /// </summary>
+        public int ArgMinIndex()
+        {
+            var tmp = double.PositiveInfinity;
+            var x = 0; var y = 0;
+            for (var row = 0; row < _matrix.GetLength(0); row++)
+            for (var col = 0; col < _matrix.GetLength(1); col++)
+                if (_matrix[row, col] <= tmp)
+                {
+                    tmp = _matrix[row, col];
+                    x = row; y = col;
+                }
+            return x * y;
+        }
+
+        /// <summary>
+        /// Inplace Argmin of the Matrix
+        /// </summary>
+        public Matrix ArgMin()
+        {
+            var mat = Duplicate();
+            mat.InArgMin();
+            return mat;
+        }
+
+        /// <summary>
+        /// Inplace Argmin of the Matrix
+        /// </summary>
+        public void InArgMin()
+        {
+            var tmp = double.PositiveInfinity;
+            var x = 0; var y = 0;
+            for (var row = 0; row < _matrix.GetLength(0); row++)
+            for (var col = 0; col < _matrix.GetLength(1); col++)
+                if (_matrix[row, col] <= tmp)
+                {
+                    tmp = _matrix[row, col];
+                    x = row; y = col;
+                }
+            InFill(0);
+            _matrix[x, y] = 1.0;
+        }
+        
+        /// <summary>
+        /// Cummulative Sum Matrix of all elements
+        /// </summary>
+        public Matrix Cumsum()
+        {
+            var mat = Duplicate();
+            mat.InCumsum();
+            return mat;
+        }
+
+        /// <summary>
+        /// Fill the matrix with Cummulative Sum of all it's elements
+        /// </summary>
+        public void InCumsum()
+        {
+            var vec = Flatten();
+            for (var row = 0; row < _matrix.GetLength(0); row++)
+            for (var col = 0; col < _matrix.GetLength(1); col++)
+            {
+                var sum = 0.0;
+                for (var index = 0; index < row * col; index++) sum += vec[index, 0];
+                _matrix[row, col] = sum;
+            }
+        }
+
+        /// <summary>
+        /// Main Diagonal of the Matrix
+        /// </summary>
+        public Matrix Diagonal()
+        {
+            var max = Math.Max(Rows, Columns);
+            var result = new Matrix(max, 1);
+            for (var i = 0; i < max; i++) result[i, 0] = _matrix[max, max];
+            return result;
+        }
+
+        /// <summary>
+        /// Replace the matrix with a vector containing the Main Diagonal of the Matrix
+        /// </summary>
+        public void InDiagonal()
+        {
+            var max = Math.Max(Rows, Columns);
+            var result = new Matrix(max, 1);
+            for (var i = 0; i < max; i++) result[i, 0] = _matrix[max, max];
+
+            InReshape(max, 1);
+            for (var i = 0; i < max; i++) _matrix[max, 0] = result[i, 0];
         }
     }
 }
