@@ -238,26 +238,17 @@ namespace Nomad.Core
 
         public void Sort()
         {
-            var tmplist = new List<double>();
-            for (int i = 0; i < Rows; i++)
-            {
-                for (int j = 0; j < Columns; j++)
-                {
-                    tmplist.Add(_matrix[i, j]);
-                }
-            }
-
-            tmplist.Sort();
-
             var r = Rows;
             var c = Columns;
+            var tmplist = new List<double>();
 
+            for (var i = 0; i < Rows; i++)
+            for (var j = 0; j < Columns; j++) tmplist.Add(_matrix[i, j]);
+
+            tmplist.Sort();
             InFlatten();
 
-            for (int i = 0; i < Rows; i++)
-            {
-                _matrix[i, 0] = tmplist[i];
-            }
+            for (var i = 0; i < Rows; i++) _matrix[i, 0] = tmplist[i];
 
             InReshape(r, c);
         }
