@@ -150,6 +150,55 @@ namespace Nomad.Core
             FromString(matrixString);
         }
 
+        public List<byte> SaveBytes()
+        {
+            var bytes = new List<byte>();
+
+            var rowb = BitConverter.GetBytes(Rows);
+            for (var i = 0; i < sizeof(int); i++) bytes.Add(rowb[i]);
+
+            var colb = BitConverter.GetBytes(Columns);
+            for (var i = 0; i < sizeof(int); i++) bytes.Add(colb[i]);
+
+            for (var i = 0; i < Rows; i++)
+            for (var j = 0; j < Columns; j++)
+            {
+                var val = BitConverter.GetBytes(_matrix[i, j]);
+                for (var x = 0; x < sizeof(double); x++) bytes.Add(val[x]);
+            }
+
+            return bytes;
+        }
+        
+        public void LoadBytes(List<byte> bytes)
+        {
+            var rows = BitConverter.ToInt32(bytes.ToArray(), 0);
+            var cols = BitConverter.ToInt32(bytes.ToArray(), sizeof(int));
+
+            _matrix = new double[rows, cols];
+            for (var i = 0; i < rows; i++)
+            for (var j = 0; j < cols; j++)
+            {
+                var byteArrayIndex = 
+                    sizeof(int) * 2 +         // Row & Col
+                    sizeof(double) * i * j;   // Data
+                _matrix[i, j] = BitConverter.ToDouble(bytes.ToArray(), byteArrayIndex);
+            }
+        }
+
+        public List<List<byte>> SaveCache()
+        {
+            return Cache.Select(cache => cache.SaveBytes()).ToList();
+        }
+
+        public void LoadCache(List<List<byte>> bytes)
+        {
+            for (var i = 0; i < bytes.Count; i++)
+            {
+                Cache[i].Add(new Matrix(1));
+                Cache[i].LoadBytes(bytes[i]);
+            }
+        }
         public void Print()
         {
             Console.WriteLine(ToString());
