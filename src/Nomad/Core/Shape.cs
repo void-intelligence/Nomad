@@ -59,7 +59,7 @@ namespace Nomad.Core
             var result = new Matrix(row, col);
 
             var k = 0;
-            Parallel.For(0, Rows, i =>
+            Parallel.For(0, row, i =>
             {
                 for (var j = 0; j < col; j++)
                 {
