@@ -6,21 +6,43 @@ namespace Nomad.Core
 {
     public partial class Matrix
     {
+        // Inverse
         public static Matrix operator!(Matrix matrix)
         {
             return matrix.Inverse();
         }
 
+        // Addition
         public static Matrix operator+(Matrix first, Matrix second)
         {
             return first.Add(second);
         }
+        public static Matrix operator+(Matrix matrix, double value)
+        {
+            return matrix.Add(value);
+        }
+        public static Matrix operator+(double value, Matrix matrix)
+        {
+            return matrix.Add(value);
+        }
 
+        // Subtraction
         public static Matrix operator-(Matrix first, Matrix second)
         {
             return first.Sub(second);
         }
+        public static Matrix operator-(Matrix matrix, double value)
+        {
+            return matrix.Sub(value);
+        }
+        public static Matrix operator-(double value, Matrix matrix)
+        {
+            for (var i = 0; i < matrix.Rows; i++)
+            for (var j = 0; j < matrix.Columns; j++) matrix[i, j] = value - matrix[i, j];
+            return matrix;
+        }
 
+        // Dot and Scale
         public static Matrix operator*(Matrix first, Matrix second)
         {
             if (first.Type() == Utility.EType.Scalar)
@@ -28,12 +50,21 @@ namespace Nomad.Core
             if (second.Type() == Utility.EType.Scalar)
                 return first.Scale(second[0, 0]);
             if (first.Shape() == second.Shape() && first.Type() != Utility.EType.SquareMatrix &&
-                     second.Type() != Utility.EType.SquareMatrix)
+                second.Type() != Utility.EType.SquareMatrix)
                 return first.Hadamard(second);
             return first.Dot(second);
         }
-        
-        public static Matrix operator /(Matrix first, Matrix second)
+        public static Matrix operator*(Matrix matrix, double scalar)
+        {
+            return matrix.Scale(scalar);
+        }
+        public static Matrix operator*(double scalar, Matrix matrix)
+        {
+            return matrix.Scale(scalar);
+        }
+
+        // Division 
+        public static Matrix operator/(Matrix first, Matrix second)
         {
             if (first.Type() == Utility.EType.Scalar)
                 return second.Divide(first[0, 0]);
@@ -45,51 +76,34 @@ namespace Nomad.Core
             else
                 return first.DotDivision(second);
         }
-
-        public static Matrix operator+(Matrix matrix, double value)
-        {
-            return matrix.Add(value);
-        }
-        
-        public static Matrix operator +(double value, Matrix matrix)
-        {
-            return matrix.Add(value);
-        }
-
-        public static Matrix operator-(Matrix matrix, double value)
-        {
-            return matrix.Sub(value);
-        }
-
-        public static Matrix operator -(double value, Matrix matrix)
-        {
-            for (var i = 0; i < matrix.Rows; i++)
-            for (var j = 0; j < matrix.Columns; j++) matrix[i, j] = value - matrix[i, j];
-            return matrix;
-        }
-
-        public static Matrix operator*(Matrix matrix, double scalar)
-        {
-            return matrix.Scale(scalar);
-        }
-
-        public static Matrix operator *(double scalar, Matrix matrix)
-        {
-            return matrix.Scale(scalar);
-        }
-
         public static Matrix operator/(Matrix matrix, double scalar)
         {
             return matrix.Scale(1 / scalar);
         }
-
-        public static Matrix operator /(double scalar, Matrix matrix)
+        public static Matrix operator/(double scalar, Matrix matrix)
         {
             for (var i = 0; i < matrix.Rows; i++)
             for (var j = 0; j < matrix.Columns; j++) matrix[i, j] = scalar / matrix[i, j];
             return matrix;
         }
 
+        // Power
+        public static Matrix operator^(Matrix first, Matrix second)
+        {
+            return first.HadamardPower(second);
+        }
+        public static Matrix operator^(Matrix matrix, double power)
+        {
+            return matrix.Power(power);
+        }
+        public static Matrix operator^(double value, Matrix matrix)
+        {
+            for (var i = 0; i < matrix.Rows; i++)
+            for (var j = 0; j < matrix.Columns; j++) matrix[i, j] = Math.Pow(value, matrix[i, j]);
+            return matrix;
+        }
+        
+        // Equality
         public static bool operator==(Matrix first, Matrix second)
         {
             // ReSharper disable PossibleNullReferenceException
@@ -104,30 +118,27 @@ namespace Nomad.Core
             
             return result;
         }
-
         public static bool operator!=(Matrix first, Matrix second)
         {
             return !(first == second);
         }
 
+        // Comparison (Frobenious Norm)
         public static bool operator>(Matrix first, Matrix second)
         {
-            return first.Rows * first.Columns > second.Rows * second.Columns;
+            return first.FrobeniusNorm() > second.FrobeniusNorm();
         }
-
         public static bool operator<(Matrix first, Matrix second)
         {
-            return first.Rows * first.Columns < second.Rows * second.Columns;
+            return first.FrobeniusNorm() < second.FrobeniusNorm();
         }
-
         public static bool operator>=(Matrix first, Matrix second)
         {
-            return first.Rows * first.Columns >= second.Rows * second.Columns;
+            return first.FrobeniusNorm() >= second.FrobeniusNorm();
         }
-
         public static bool operator<=(Matrix first, Matrix second)
         {
-            return first.Rows * first.Columns <= second.Rows * second.Columns;
+            return first.FrobeniusNorm() <= second.FrobeniusNorm();
         }
     }
 }
