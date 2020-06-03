@@ -2,9 +2,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using Nomad.Utility;
 
@@ -232,6 +234,39 @@ namespace Nomad.Core
             for (var col = 0; col < Columns; col++) matrixString.Append(this[row, col]).Append(";");
 
             return matrixString.ToString().GetHashCode();
+        }
+
+        public void Sort()
+        {
+            var tmplist = new List<double>();
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Columns; j++)
+                {
+                    tmplist.Add(_matrix[i, j]);
+                }
+            }
+
+            tmplist.Sort();
+
+            var r = Rows;
+            var c = Columns;
+
+            InFlatten();
+
+            for (int i = 0; i < Rows; i++)
+            {
+                _matrix[i, 0] = tmplist[i];
+            }
+
+            InReshape(r, c);
+        }
+
+        public Matrix GetSorted()
+        {
+            var mat = Duplicate();
+            mat.Sort();
+            return mat;
         }
     }
 }
