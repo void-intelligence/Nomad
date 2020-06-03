@@ -697,13 +697,25 @@ namespace Nomad.Core
         }
 
         /// <summary>
-        /// Main Diagonal of the Matrix
+        /// Main Diagonal of the Matrix as a Vector
         /// </summary>
         public Matrix Diagonal()
         {
             var max = Math.Max(Rows, Columns);
             var result = new Matrix(max, 1);
             for (var i = 0; i < max; i++) result[i, 0] = _matrix[max, max];
+            return result;
+        }
+
+
+        /// <summary>
+        /// Main Diagonal of the Matrix as a Matrix
+        /// </summary>
+        public Matrix FullDiagonal()
+        {
+            var max = Math.Max(Rows, Columns);
+            var result = new Matrix(max, max).Fill(0.0);
+            for (var i = 0; i < max; i++) result[i, i] = _matrix[max, max];
             return result;
         }
 
