@@ -7,6 +7,8 @@ namespace Nomad.Core
 {
     public partial class Matrix
     {
+        #region Transpose
+
         /// <summary>
         /// Get the transposed Matrix
         /// </summary>
@@ -52,6 +54,10 @@ namespace Nomad.Core
             InTranspose();
         }
 
+        #endregion
+
+        #region Sum, Mean and Variance
+        
         /// <summary>
         /// Sum of Matrix
         /// </summary>
@@ -107,6 +113,10 @@ namespace Nomad.Core
             return mat.Sum() / (Rows * Columns);
         }
 
+        #endregion
+
+        #region Mathematical Operations
+
         /// <summary>
         /// Add
         /// </summary>
@@ -116,6 +126,18 @@ namespace Nomad.Core
         {
             var mat = new Matrix(1, 1, value);
             return Add(mat);
+        }
+
+        /// <summary>
+        /// Add
+        /// </summary>
+        /// <param name="value">Value Parameter</param>
+        /// <returns>Sum of matrix and value</returns>
+        public void InAdd(double value)
+        {
+            for (var row = 0; row < Rows; row++)
+            for (var col = 0; col < Columns; col++)
+                _matrix[row, col] += value;
         }
 
         /// <summary>
@@ -186,6 +208,18 @@ namespace Nomad.Core
         }
 
         /// <summary>
+        /// Sub
+        /// </summary>
+        /// <param name="value">Value Parameter</param>
+        /// <returns>Difference of matrix and value</returns>
+        public void InSub(double value)
+        {
+            for (var row = 0; row < Rows; row++)
+            for (var col = 0; col < Columns; col++)
+                _matrix[row, col] -= value;
+        }
+
+        /// <summary>
         /// Subtract
         /// </summary>
         /// <param name="matrix">Matrix parameter</param>
@@ -253,6 +287,18 @@ namespace Nomad.Core
         }
 
         /// <summary>
+        /// Scale
+        /// </summary>
+        /// <param name="value">Value parameter</param>
+        /// <returns>The scale product</returns>
+        public void InScale(double value)
+        {
+            for (var row = 0; row < Rows; row++)
+            for (var col = 0; col < Columns; col++)
+                _matrix[row, col] *= value;
+        }
+
+        /// <summary>
         /// Hadamard
         /// </summary>
         /// <param name="value">Value parameter</param>
@@ -295,11 +341,23 @@ namespace Nomad.Core
         /// <summary>
         /// Divide
         /// </summary>
-        /// <param name="value">Matrix parameter</param>
+        /// <param name="value">Value parameter</param>
         /// <returns>The division product</returns>
         public Matrix Divide(double value)
         {
             return Duplicate().HadamardDivision(value);
+        }
+
+        /// <summary>
+        /// Divide
+        /// </summary>
+        /// <param name="value">Value parameter</param>
+        /// <returns>The division product</returns>
+        public void InDivide(double value)
+        {
+            for (var row = 0; row < Rows; row++)
+            for (var col = 0; col < Columns; col++)
+                _matrix[row, col] /= value;
         }
 
         /// <summary>
@@ -744,5 +802,7 @@ namespace Nomad.Core
             InFill(0.0);
             for (var i = 0; i < max; i++) _matrix[max, max] = result[i, i];
         }
+
+        #endregion
     }
 }
