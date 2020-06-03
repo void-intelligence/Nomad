@@ -40,7 +40,7 @@ namespace Nomad.Core
         public Matrix T()
         {
             var mat = Duplicate();
-            mat.InTranspose();
+            mat.InT();
             return mat;
         }
 

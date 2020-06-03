@@ -25,13 +25,12 @@ namespace Nomad.Core
         {
             if (first.Type() == Utility.EType.Scalar)
                 return second.Scale(first[0, 0]);
-            else if (second.Type() == Utility.EType.Scalar)
+            if (second.Type() == Utility.EType.Scalar)
                 return first.Scale(second[0, 0]);
-            else if (first.Shape() == second.Shape() && first.Type() != Utility.EType.SquareMatrix &&
+            if (first.Shape() == second.Shape() && first.Type() != Utility.EType.SquareMatrix &&
                      second.Type() != Utility.EType.SquareMatrix)
                 return first.Hadamard(second);
-            else
-                return first.Dot(second);
+            return first.Dot(second);
         }
         
         public static Matrix operator /(Matrix first, Matrix second)
@@ -69,9 +68,11 @@ namespace Nomad.Core
 
         public static bool operator==(Matrix first, Matrix second)
         {
+            // ReSharper disable PossibleNullReferenceException
             var result = first.Rows == second.Rows;
             result &= first.Columns == second.Columns;
-            if (!result) return result;
+            if (!result) return false;
+            // ReSharper enable PossibleNullReferenceException
 
             for (var row = 0; row < first.Rows; row++)
             for (var col = 0; col < first.Columns; col++)

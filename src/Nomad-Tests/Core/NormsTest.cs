@@ -22,7 +22,7 @@ namespace NomadTest.Core
             mat.MaximumNorm();
             mat.ManhattanNorm();
             mat.TaxicabNorm();
-            mat.PNorm(0);
+            mat.PNorm(2);
             mat.EuclideanNorm();
             mat.FrobeniusNorm();
             mat.AbsoluteNorm();
