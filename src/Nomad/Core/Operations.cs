@@ -707,6 +707,18 @@ namespace Nomad.Core
             return result;
         }
 
+        /// <summary>
+        /// Replace the matrix with a vector containing the Main Diagonal of the Matrix
+        /// </summary>
+        public void InDiagonal()
+        {
+            var max = Math.Max(Rows, Columns);
+            var result = new Matrix(max, 1);
+            for (var i = 0; i < max; i++) result[i, 0] = _matrix[max, max];
+
+            InReshape(max, 1);
+            for (var i = 0; i < max; i++) _matrix[max, 0] = result[i, 0];
+        }
 
         /// <summary>
         /// Main Diagonal of the Matrix as a Matrix
@@ -720,16 +732,17 @@ namespace Nomad.Core
         }
 
         /// <summary>
-        /// Replace the matrix with a vector containing the Main Diagonal of the Matrix
+        /// Inplace Main Diagonal of the Matrix as a Matrix
         /// </summary>
-        public void InDiagonal()
+        public void InFullDiagonal()
         {
             var max = Math.Max(Rows, Columns);
-            var result = new Matrix(max, 1);
+            var result = new Matrix(max, 0);
             for (var i = 0; i < max; i++) result[i, 0] = _matrix[max, max];
 
-            InReshape(max, 1);
-            for (var i = 0; i < max; i++) _matrix[max, 0] = result[i, 0];
+            InReshape(max, max);
+            InFill(0.0);
+            for (var i = 0; i < max; i++) _matrix[max, max] = result[i, i];
         }
     }
 }
