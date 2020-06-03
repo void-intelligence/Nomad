@@ -1,6 +1,7 @@
 ﻿// © 2020 VOID-INTELLIGENCE ALL RIGHTS RESERVED
 
 using System;
+using System.Threading.Tasks;
 using Nomad.Utility;
 
 namespace Nomad.Core
@@ -26,11 +27,11 @@ namespace Nomad.Core
         public void InTranspose()
         {
             var result = new double[Columns, Rows];
-
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
-                result[col, row] = _matrix[row, col];
-
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    result[col, row] = _matrix[row, col];
+            });
             _matrix = result;
         }
 
@@ -65,9 +66,11 @@ namespace Nomad.Core
         public double Sum()
         {
             var sum = 0.0;
-            for (var row = 0; row < Rows; row++)
-            for (var col = 0; col < Columns; col++)
-                sum += _matrix[row, col];
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    sum += _matrix[row, col];
+            });
             return sum;
         }
 
@@ -78,9 +81,11 @@ namespace Nomad.Core
         public double Average()
         {
             var avg = 0.0;
-            for (var row = 0; row < Rows; row++)
-            for (var col = 0; col < Columns; col++)
-                avg += _matrix[row, col];
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    avg += _matrix[row, col];
+            });
             avg /= Rows * Columns;
             return avg;
         }
@@ -103,12 +108,14 @@ namespace Nomad.Core
             var mat = Duplicate();
             var mean = mat.Mean();
 
-            for (var i = 0; i < Rows; i++)
-            for (var j = 0; j < Columns; j++)
+            Parallel.For(0, Rows, i =>
             {
-                mat[i, j] -= mean;
-                mat[i, j] = Math.Pow(mat[i, j], 2);
-            }
+                for (var j = 0; j < Columns; j++)
+                {
+                    mat[i, j] -= mean;
+                    mat[i, j] = Math.Pow(mat[i, j], 2);
+                }
+            });
 
             return mat.Sum() / (Rows * Columns);
         }
@@ -135,9 +142,11 @@ namespace Nomad.Core
         /// <returns>Sum of matrix and value</returns>
         public void InAdd(double value)
         {
-            for (var row = 0; row < Rows; row++)
-            for (var col = 0; col < Columns; col++)
-                _matrix[row, col] += value;
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] += value;
+            });
         }
 
         /// <summary>
@@ -160,13 +169,16 @@ namespace Nomad.Core
         {
             if (matrix.Shape().Type() == EType.Scalar)
             {
-                for (var row = 0; row < Rows; row++)
-                for (var col = 0; col < Columns; col++)
-                    _matrix[row, col] += matrix[0, 0];
+                Parallel.For(0, Rows, row =>
+                {
+                    for (var col = 0; col < Columns; col++)
+                        _matrix[row, col] += matrix[0, 0];
+                });
                 return;
             }
 
             var transpose = false;
+
             // Vector Broadcasting
             if (matrix.Shape().Type() == EType.VectorTransposed)
             {
@@ -179,21 +191,25 @@ namespace Nomad.Core
             {
                 if (Rows != matrix.Rows) throw new InvalidOperationException("Cannot broadcast Vector.");
 
-                for (var row = 0; row < Rows; row++)
-                for (var col = 0; col < Columns; col++)
-                    _matrix[row, col] += matrix[row, 0];
+                Parallel.For(0, Rows, row =>
+                {
+                    for (var col = 0; col < Columns; col++)
+                        _matrix[row, col] += matrix[row, 0];
+                });
                 if (!transpose) return;
                 matrix.InTranspose();
                 InTranspose();
                 return;
             }
 
-            // Regular Addition
+            // Regular Subtraction
             if (Rows != matrix.Rows || Columns != matrix.Columns)
                 throw new InvalidOperationException("Cannot add matrices of different sizes.");
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
-                _matrix[row, col] += matrix[row, col];
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] += matrix[row, col];
+            });
         }
 
         /// <summary>
@@ -239,9 +255,11 @@ namespace Nomad.Core
         {
             if (matrix.Shape().Type() == EType.Scalar)
             {
-                for (var row = 0; row < Rows; row++)
-                for (var col = 0; col < Columns; col++)
-                    _matrix[row, col] -= matrix[0, 0];
+                Parallel.For(0, Rows, row =>
+                {
+                    for (var col = 0; col < Columns; col++)
+                        _matrix[row, col] -= matrix[0, 0];
+                });
                 return;
             }
 
@@ -259,9 +277,11 @@ namespace Nomad.Core
             {
                 if (Rows != matrix.Rows) throw new InvalidOperationException("Cannot broadcast Vector.");
 
-                for (var row = 0; row < Rows; row++)
-                for (var col = 0; col < Columns; col++)
-                    _matrix[row, col] -= matrix[row, 0];
+                Parallel.For(0, Rows, row =>
+                {
+                    for (var col = 0; col < Columns; col++)
+                        _matrix[row, col] -= matrix[row, 0];
+                });
                 if (!transpose) return;
                 matrix.InTranspose();
                 InTranspose();
@@ -271,9 +291,11 @@ namespace Nomad.Core
             // Regular Subtraction
             if (Rows != matrix.Rows || Columns != matrix.Columns)
                 throw new InvalidOperationException("Cannot sub matrices of different sizes.");
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
-                _matrix[row, col] -= matrix[row, col];
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] -= matrix[row, col];
+            });
         }
 
         /// <summary>
@@ -293,9 +315,11 @@ namespace Nomad.Core
         /// <returns>The scale product</returns>
         public void InScale(double value)
         {
-            for (var row = 0; row < Rows; row++)
-            for (var col = 0; col < Columns; col++)
-                _matrix[row, col] *= value;
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] *= value;
+            });
         }
 
         /// <summary>
@@ -306,9 +330,11 @@ namespace Nomad.Core
         public Matrix Hadamard(double value)
         {
             var mat = Duplicate();
-            for (var row = 0; row < Rows; row++)
-            for (var col = 0; col < Columns; col++)
-                mat[row, col] *= value;
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    mat[row, col] *= value;
+            });
             return mat;
         }
 
@@ -333,9 +359,11 @@ namespace Nomad.Core
             if (Columns != matrix.Columns || Rows != matrix.Rows)
                 throw new InvalidOperationException("Cannot multiply matrices of different sizes.");
 
-            for (var row = 0; row < Rows; row++)
-            for (var col = 0; col < Columns; col++)
-                _matrix[row, col] *= matrix[row, col];
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] *= matrix[row, col];
+            });
         }
 
         /// <summary>
@@ -355,9 +383,11 @@ namespace Nomad.Core
         /// <returns>The division product</returns>
         public void InDivide(double value)
         {
-            for (var row = 0; row < Rows; row++)
-            for (var col = 0; col < Columns; col++)
-                _matrix[row, col] /= value;
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] /= value;
+            });
         }
 
         /// <summary>
@@ -368,9 +398,11 @@ namespace Nomad.Core
         public Matrix HadamardDivision(double value)
         {
             var mat = Duplicate();
-            for (var row = 0; row < Rows; row++)
-            for (var col = 0; col < Columns; col++)
-                mat[row, col] /= value + double.Epsilon;
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    mat[row, col] /= value + double.Epsilon;
+            });
             return mat;
         }
 
@@ -395,9 +427,11 @@ namespace Nomad.Core
             if (Columns != matrix.Columns || Rows != matrix.Rows)
                 throw new InvalidOperationException("Cannot multiply matrices of different sizes.");
 
-            for (var row = 0; row < Rows; row++)
-            for (var col = 0; col < Columns; col++)
-                _matrix[row, col] /= matrix[row, col] + double.Epsilon;
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] /= matrix[row, col] + double.Epsilon;
+            });
         }
         
         /// <summary>
@@ -418,9 +452,11 @@ namespace Nomad.Core
         /// <param name="p"></param>
         public void InPower(double p = 2.0)
         {
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
-                _matrix[row, col] = Math.Pow(_matrix[row, col], p);
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] = Math.Pow(_matrix[row, col], p);
+            });
         }
 
         /// <summary>
@@ -444,9 +480,11 @@ namespace Nomad.Core
             if (Columns != matrix.Columns || Rows != matrix.Rows)
                 throw new InvalidOperationException("Cannot evaluate matrices of different sizes.");
 
-            for (var row = 0; row < Rows; row++)
-            for (var col = 0; col < Columns; col++)
-                _matrix[row, col] = Math.Pow(_matrix[row, col], matrix[row, col]);
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] = Math.Pow(_matrix[row, col], matrix[row, col]);
+            });
         }
 
         /// <summary>
@@ -467,9 +505,11 @@ namespace Nomad.Core
         /// <param name="r">Root parameter</param>
         public void InRoot(double r = 2.0)
         {
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
-                _matrix[row, col] = Math.Pow(_matrix[row, col], 1.0 / (r + double.Epsilon));
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] = Math.Pow(_matrix[row, col], 1.0 / (r + double.Epsilon));
+            });
         }
 
         /// <summary>
@@ -493,9 +533,11 @@ namespace Nomad.Core
             if (Columns != matrix.Columns || Rows != matrix.Rows)
                 throw new InvalidOperationException("Cannot evaluate matrices of different sizes.");
 
-            for (var row = 0; row < Rows; row++)
-            for (var col = 0; col < Columns; col++)
-                _matrix[row, col] = Math.Pow(_matrix[row, col], 1.0 / (matrix[row, col] + double.Epsilon));
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] = Math.Pow(_matrix[row, col], 1.0 / (matrix[row, col] + double.Epsilon));
+            });
         }
 
         /// <summary>
@@ -520,13 +562,16 @@ namespace Nomad.Core
                 throw new InvalidOperationException("Cannot multiply matrices of different sizes.");
 
             var result = new double[Rows, matrix.Columns];
-            for (var row = 0; row < Rows; row++)
-            for (var col = 0; col < matrix.Columns; col++)
+
+            Parallel.For(0, Rows, row =>
             {
-                double sum = 0;
-                for (var i = 0; i < Columns; i++) sum += _matrix[row, i] * matrix[i, col];
-                result[row, col] = sum;
-            }
+                for (var col = 0; col < matrix.Columns; col++)
+                {
+                    double sum = 0;
+                    for (var i = 0; i < Columns; i++) sum += _matrix[row, i] * matrix[i, col];
+                    result[row, col] = sum;
+                }
+            });
 
             _matrix = result;
         }
@@ -553,13 +598,15 @@ namespace Nomad.Core
                 throw new InvalidOperationException("Cannot evaluate on matrices of different sizes.");
 
             var result = new double[Rows, matrix.Columns];
-            for (var row = 0; row < Rows; row++)
-            for (var col = 0; col < matrix.Columns; col++)
+            Parallel.For(0, Rows, row =>
             {
-                double sum = 0;
-                for (var i = 0; i < Columns; i++) sum += _matrix[row, i] / (matrix[i, col] + double.Epsilon);
-                result[row, col] = sum;
-            }
+                for (var col = 0; col < matrix.Columns; col++)
+                {
+                    double sum = 0;
+                    for (var i = 0; i < Columns; i++) sum += _matrix[row, i] / (matrix[i, col] + double.Epsilon);
+                    result[row, col] = sum;
+                }
+            });
 
             _matrix = result;
         }
@@ -592,7 +639,7 @@ namespace Nomad.Core
                 identity[row, col] = row == col ? 1.0 : 0.0;
 
             //invert
-            for (var i = 0; i < dimension; i++)
+            Parallel.For(0, dimension, i =>
             {
                 var tmp = result[i, i];
                 for (var j = 0; j < dimension; j++)
@@ -611,7 +658,7 @@ namespace Nomad.Core
                         identity[k, n] = identity[k, n] - tmp * identity[i, n];
                     }
                 }
-            }
+            });
 
             _matrix = identity;
         }
@@ -634,9 +681,11 @@ namespace Nomad.Core
         /// <param name="value">Value parameter</param>
         public void InFill(double value)
         {
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
-                _matrix[row, col] = value;
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] = value;
+            });
         }
 
         /// <summary>
@@ -646,13 +695,16 @@ namespace Nomad.Core
         {
             var tmp = double.NegativeInfinity;
             var x = 0; var y = 0;
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
-                if (_matrix[row, col] >= tmp)
-                {
-                    tmp = _matrix[row, col];
-                    x = row; y = col;
-                }
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    if (_matrix[row, col] >= tmp)
+                    {
+                        tmp = _matrix[row, col];
+                        x = row;
+                        y = col;
+                    }
+            });
             return x * y;
         }
 
@@ -673,13 +725,16 @@ namespace Nomad.Core
         {
             var tmp = double.NegativeInfinity;
             var x = 0; var y = 0;
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
-                if (_matrix[row, col] >= tmp)
-                {
-                    tmp = _matrix[row, col];
-                    x = row; y = col;
-                }
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    if (_matrix[row, col] >= tmp)
+                    {
+                        tmp = _matrix[row, col];
+                        x = row;
+                        y = col;
+                    }
+            });
             InFill(0);
             _matrix[x, y] = 1.0;
         }
@@ -691,13 +746,16 @@ namespace Nomad.Core
         {
             var tmp = double.PositiveInfinity;
             var x = 0; var y = 0;
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
-                if (_matrix[row, col] <= tmp)
-                {
-                    tmp = _matrix[row, col];
-                    x = row; y = col;
-                }
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    if (_matrix[row, col] <= tmp)
+                    {
+                        tmp = _matrix[row, col];
+                        x = row;
+                        y = col;
+                    }
+            });
             return x * y;
         }
 
@@ -718,13 +776,16 @@ namespace Nomad.Core
         {
             var tmp = double.PositiveInfinity;
             var x = 0; var y = 0;
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
-                if (_matrix[row, col] <= tmp)
-                {
-                    tmp = _matrix[row, col];
-                    x = row; y = col;
-                }
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    if (_matrix[row, col] <= tmp)
+                    {
+                        tmp = _matrix[row, col];
+                        x = row;
+                        y = col;
+                    }
+            });
             InFill(0);
             _matrix[x, y] = 1.0;
         }
@@ -745,13 +806,15 @@ namespace Nomad.Core
         public void InCumsum()
         {
             var vec = Flatten();
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
+            Parallel.For(0, Rows, row =>
             {
-                var sum = 0.0;
-                for (var index = 0; index < row * col; index++) sum += vec[index, 0];
-                _matrix[row, col] = sum;
-            }
+                for (var col = 0; col < Columns; col++)
+                {
+                    var sum = 0.0;
+                    for (var index = 0; index < row * col; index++) sum += vec[index, 0];
+                    _matrix[row, col] = sum;
+                }
+            });
         }
 
         /// <summary>
@@ -818,9 +881,11 @@ namespace Nomad.Core
         /// </summary>
         public void InRound()
         {
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
-                _matrix[row, col] = Math.Round(_matrix[row, col]);
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] = Math.Round(_matrix[row, col]);
+            });
         }
 
         /// <summary>
@@ -838,9 +903,11 @@ namespace Nomad.Core
         /// </summary>
         public void InCeiling()
         {
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
-                _matrix[row, col] = Math.Ceiling(_matrix[row, col]);
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] = Math.Ceiling(_matrix[row, col]);
+            });
         }
 
         /// <summary>
@@ -858,9 +925,11 @@ namespace Nomad.Core
         /// </summary>
         public void InFloor()
         {
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
-                _matrix[row, col] = Math.Floor(_matrix[row, col]);
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] = Math.Floor(_matrix[row, col]);
+            });
         }
 
         #endregion

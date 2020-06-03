@@ -1,6 +1,7 @@
 ﻿// © 2020 VOID-INTELLIGENCE ALL RIGHTS RESERVED
 
 using System;
+using System.Threading.Tasks;
 
 namespace Nomad.Core
 {
@@ -37,8 +38,10 @@ namespace Nomad.Core
         }
         public static Matrix operator-(double value, Matrix matrix)
         {
-            for (var i = 0; i < matrix.Rows; i++)
-            for (var j = 0; j < matrix.Columns; j++) matrix[i, j] = value - matrix[i, j];
+            Parallel.For(0, matrix.Rows, i =>
+            {
+                for (var j = 0; j < matrix.Columns; j++) matrix[i, j] = value - matrix[i, j];
+            });
             return matrix;
         }
 
@@ -82,8 +85,10 @@ namespace Nomad.Core
         }
         public static Matrix operator/(double scalar, Matrix matrix)
         {
-            for (var i = 0; i < matrix.Rows; i++)
-            for (var j = 0; j < matrix.Columns; j++) matrix[i, j] = scalar / matrix[i, j];
+            Parallel.For(0, matrix.Rows, i =>
+            {
+                for (var j = 0; j < matrix.Columns; j++) matrix[i, j] = scalar / matrix[i, j];
+            });
             return matrix;
         }
 
@@ -98,8 +103,10 @@ namespace Nomad.Core
         }
         public static Matrix operator^(double value, Matrix matrix)
         {
-            for (var i = 0; i < matrix.Rows; i++)
-            for (var j = 0; j < matrix.Columns; j++) matrix[i, j] = Math.Pow(value, matrix[i, j]);
+            Parallel.For(0, matrix.Rows, i =>
+            {
+                for (var j = 0; j < matrix.Columns; j++) matrix[i, j] = Math.Pow(value, matrix[i, j]);
+            });
             return matrix;
         }
         
@@ -112,10 +119,11 @@ namespace Nomad.Core
             if (!result) return false;
             // ReSharper enable PossibleNullReferenceException
 
-            for (var row = 0; row < first.Rows; row++)
-            for (var col = 0; col < first.Columns; col++)
-                result &= Math.Abs(first[row, col] - second[row, col]) < 0.01;
-            
+            Parallel.For(0, first.Rows, row =>
+            {
+                for (var col = 0; col < first.Columns; col++)
+                    result &= Math.Abs(first[row, col] - second[row, col]) < 0.01;
+            });
             return result;
         }
         public static bool operator!=(Matrix first, Matrix second)

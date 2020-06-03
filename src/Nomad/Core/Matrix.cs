@@ -2,12 +2,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Numerics;
 using System.Text;
+using System.Threading.Tasks;
 using Nomad.Utility;
 
 namespace Nomad.Core
@@ -40,9 +39,11 @@ namespace Nomad.Core
 
         public Matrix(int rows, int columns, double value) : this(rows, columns)
         {
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
-                _matrix[row, col] = value;
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] = value;
+            });
         }
 
         public Matrix(int m) : this(m, m)
@@ -58,9 +59,11 @@ namespace Nomad.Core
             var rows = values.GetLength(0);
             var cols = values.GetLength(1);
             _matrix = new double[rows, cols];
-            for (var i = 0; i < rows; i++)
-            for (var j = 0; j < cols; j++)
-                _matrix[i, j] = values[i, j];
+            Parallel.For(0, rows, i =>
+            {
+                for (var j = 0; j < cols; j++)
+                    _matrix[i, j] = values[i, j];
+            });
         }
 
         public Matrix(IReadOnlyList<double> vectorValues)
@@ -73,9 +76,11 @@ namespace Nomad.Core
         public Matrix Duplicate()
         {
             var result = new Matrix(Rows, Columns);
-            for (var row = 0; row < Rows; row++)
-            for (var col = 0; col < Columns; col++)
-                result[row, col] = _matrix[row, col];
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    result[row, col] = _matrix[row, col];
+            });
             return result;
         }
 
@@ -85,18 +90,21 @@ namespace Nomad.Core
                 throw new InvalidOperationException("Index out of bounds.");
 
             var result = new Matrix((int)dX, (int)dY);
-            for (var i = startX; i < startX + dX; i++)
-            for (var j = startY; j < startY + dY; j++)
-                result._matrix[i - startX, j - startY] = _matrix[i, j];
-
+            Parallel.For(startX, startX + dX, i =>
+            {
+                for (var j = startY; j < startY + dY; j++)
+                    result._matrix[i - startX, j - startY] = _matrix[i, j];
+            });
             return result;
         }
 
         public void InMap(Func<double, double> func)
         {
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
-                _matrix[row, col] = func(_matrix[row, col]);
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] = func(_matrix[row, col]);
+            });
         }
 
         public Matrix Map(Func<double, double> func)
@@ -120,12 +128,13 @@ namespace Nomad.Core
         {
             var buffer = string.Empty;
             buffer += "[";
-            for (var row = 0; row < Rows; row++)
+            Parallel.For(0, Rows, row =>
             {
                 for (var col = 0; col < Columns; col++)
+                    // ReSharper disable once AccessToModifiedClosure
                     buffer += _matrix[row, col].ToString(CultureInfo.InvariantCulture) + ", ";
                 buffer += "\n";
-            }
+            });
 
             buffer = buffer.TrimEnd();
             buffer += "]";
@@ -141,9 +150,12 @@ namespace Nomad.Core
             var rows = cols.Select(col => col.Split(',', StringSplitOptions.RemoveEmptyEntries)).ToList();
 
             _matrix = new double[cols.Length, rows.Count];
-            for (var i = 0; i < Rows; i++)
-            for (var j = 0; j < Columns; j++)
-                if (rows[i][j] != string.Empty) _matrix[i, j] = double.Parse(rows[i][j]);
+            Parallel.For(0, Rows, i =>
+            {
+                for (var j = 0; j < Columns; j++)
+                    if (rows[i][j] != string.Empty)
+                        _matrix[i, j] = double.Parse(rows[i][j]);
+            });
         }
 
         public string SaveString()
@@ -166,12 +178,14 @@ namespace Nomad.Core
             var colb = BitConverter.GetBytes(Columns);
             for (var i = 0; i < sizeof(int); i++) bytes.Add(colb[i]);
 
-            for (var i = 0; i < Rows; i++)
-            for (var j = 0; j < Columns; j++)
+            Parallel.For(0, Rows, i =>
             {
-                var val = BitConverter.GetBytes(_matrix[i, j]);
-                for (var x = 0; x < sizeof(double); x++) bytes.Add(val[x]);
-            }
+                for (var j = 0; j < Columns; j++)
+                {
+                    var val = BitConverter.GetBytes(_matrix[i, j]);
+                    for (var x = 0; x < sizeof(double); x++) bytes.Add(val[x]);
+                }
+            });
 
             return bytes;
         }
@@ -182,14 +196,16 @@ namespace Nomad.Core
             var cols = BitConverter.ToInt32(bytes.ToArray(), sizeof(int));
 
             _matrix = new double[rows, cols];
-            for (var i = 0; i < rows; i++)
-            for (var j = 0; j < cols; j++)
+            Parallel.For(0, Rows, i =>
             {
-                var byteArrayIndex = 
-                    sizeof(int) * 2 +         // Row & Col
-                    sizeof(double) * i * j;   // Data
-                _matrix[i, j] = BitConverter.ToDouble(bytes.ToArray(), byteArrayIndex);
-            }
+                for (var j = 0; j < cols; j++)
+                {
+                    var byteArrayIndex =
+                        sizeof(int) * 2 + // Row & Col
+                        sizeof(double) * i * j; // Data
+                    _matrix[i, j] = BitConverter.ToDouble(bytes.ToArray(), byteArrayIndex);
+                }
+            });
         }
 
         public List<List<byte>> SaveCache()
@@ -230,8 +246,11 @@ namespace Nomad.Core
         {
             var matrixString = new StringBuilder();
             matrixString.Append(Rows).Append("x").Append(Columns).Append("=");
-            for (var row = 0; row < Rows; row++)
-            for (var col = 0; col < Columns; col++) matrixString.Append(this[row, col]).Append(";");
+
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++) matrixString.Append(this[row, col]).Append(";");
+            });
 
             return matrixString.ToString().GetHashCode();
         }
@@ -242,9 +261,11 @@ namespace Nomad.Core
             var c = Columns;
             var tmplist = new List<double>();
 
-            for (var i = 0; i < Rows; i++)
-            for (var j = 0; j < Columns; j++) tmplist.Add(_matrix[i, j]);
-
+            Parallel.For(0, Rows, i =>
+            {
+                for (var j = 0; j < Columns; j++) tmplist.Add(_matrix[i, j]);
+            });
+            
             tmplist.Sort();
             InFlatten();
 

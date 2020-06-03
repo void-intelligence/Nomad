@@ -1,6 +1,7 @@
 ﻿// © 2020 VOID-INTELLIGENCE ALL RIGHTS RESERVED
 
 using System;
+using System.Threading.Tasks;
 using Nomad.Utility;
 
 namespace Nomad.Core
@@ -41,10 +42,11 @@ namespace Nomad.Core
                 case EDistribution.Uniform:
                     {
                         var random = new Random();
-                        for (var row = 0; row < _matrix.GetLength(0); row++)
-                            for (var col = 0; col < _matrix.GetLength(1); col++)
+                        Parallel.For(0, Rows, row =>
+                        {
+                            for (var col = 0; col < Columns; col++)
                                 _matrix[row, col] = random.NextDouble() * diff + lowest;
-
+                        });
                         break;
                     }
                 case EDistribution.Normal:
@@ -52,8 +54,9 @@ namespace Nomad.Core
                     {
                         var dispersion = diff / 2;
                         var random = new Random();
-                        for (var row = 0; row < _matrix.GetLength(0); row++)
-                            for (var col = 0; col < _matrix.GetLength(1); col++)
+                        Parallel.For(0, Rows, row =>
+                        {
+                            for (var col = 0; col < Columns; col++)
                             {
                                 var u1 = 1.0 - random.NextDouble();
                                 var u2 = 1.0 - random.NextDouble();
@@ -65,7 +68,7 @@ namespace Nomad.Core
 
                                 _matrix[row, col] = randNormal;
                             }
-
+                        });
                         break;
                     }
                 default:

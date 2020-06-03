@@ -1,6 +1,7 @@
 ﻿// © 2020 VOID-INTELLIGENCE ALL RIGHTS RESERVED
 
 using System;
+using System.Threading.Tasks;
 
 namespace Nomad.Core
 {
@@ -12,12 +13,14 @@ namespace Nomad.Core
         public double MaximumNorm()
         {
             var result = 0.0;
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-                for (var col = 0; col < _matrix.GetLength(1); col++)
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
                 {
                     var value = _matrix[row, col];
                     if (Math.Abs(value) > result) result = Math.Abs(value);
                 }
+            });
 
             return result;
         }
@@ -28,9 +31,10 @@ namespace Nomad.Core
         public double ManhattanNorm()
         {
             var result = 0.0;
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-                for (var col = 0; col < _matrix.GetLength(1); col++) result += Math.Abs(_matrix[row, col]);
-
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++) result += Math.Abs(_matrix[row, col]);
+            });
             return result;
         }
 
@@ -40,9 +44,10 @@ namespace Nomad.Core
         public double TaxicabNorm()
         {
             var result = 0.0;
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-                for (var col = 0; col < _matrix.GetLength(1); col++) result += Math.Abs(_matrix[row, col]);
-
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++) result += Math.Abs(_matrix[row, col]);
+            });
             return result;
         }
         
@@ -56,14 +61,15 @@ namespace Nomad.Core
             var result = 0.0;
             if (p < 1)
             {
-                for (var row = 0; row < _matrix.GetLength(0); row++)
-                    for (var col = 0; col < _matrix.GetLength(1); col++) result += Math.Abs(_matrix[row, col]);
-
+                Parallel.For(0, Rows, row =>
+                {
+                    for (var col = 0; col < Columns; col++) result += Math.Abs(_matrix[row, col]);
+                });
                 return result;
             }
 
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-                for (var col = 0; col < _matrix.GetLength(1); col++) result += Math.Pow(Math.Abs(_matrix[row, col]), p);
+            for (var row = 0; row < Rows; row++)
+                for (var col = 0; col < Columns; col++) result += Math.Pow(Math.Abs(_matrix[row, col]), p);
 
             return Math.Pow(result, 1.0 / p);
         }
@@ -74,9 +80,10 @@ namespace Nomad.Core
         public double EuclideanNorm()
         {
             var result = 0.0;
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-                for (var col = 0; col < _matrix.GetLength(1); col++) result += _matrix[row, col] * _matrix[row, col];
-
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++) result += _matrix[row, col] * _matrix[row, col];
+            });
             return Math.Sqrt(result);
         }
 
@@ -86,9 +93,10 @@ namespace Nomad.Core
         public double FrobeniusNorm()
         {
             var result = 0.0;
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-                for (var col = 0; col < _matrix.GetLength(1); col++) result += _matrix[row, col] * _matrix[row, col];
-
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++) result += _matrix[row, col] * _matrix[row, col];
+            });
             return Math.Sqrt(result);
         }
 
@@ -99,9 +107,10 @@ namespace Nomad.Core
         public double AbsoluteNorm()
         {
             var result = 0.0;
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-                for (var col = 0; col < _matrix.GetLength(1); col++) result += Math.Abs(_matrix[row, col]);
-
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++) result += Math.Abs(_matrix[row, col]);
+            });
             return result;
         }
 
@@ -112,9 +121,10 @@ namespace Nomad.Core
         public double IntegrateCustomNorm(Func<double, double> func)
         {
             var result = 0.0;
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-                for (var col = 0; col < _matrix.GetLength(1); col++) result += func(_matrix[row, col]);
-
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++) result += func(_matrix[row, col]);
+            });
             return result;
         }
     }

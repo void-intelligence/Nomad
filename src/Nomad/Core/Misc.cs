@@ -1,6 +1,7 @@
 ﻿// © 2020 VOID-INTELLIGENCE ALL RIGHTS RESERVED
 
 using System;
+using System.Threading.Tasks;
 
 namespace Nomad.Core
 {
@@ -23,12 +24,17 @@ namespace Nomad.Core
         public void InSoftmax()
         {
             var sum = 0.0;
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
-                sum += _matrix[row, col];
-            for (var row = 0; row < _matrix.GetLength(0); row++)
-            for (var col = 0; col < _matrix.GetLength(1); col++)
-                _matrix[row, col] = _matrix[row, col] / sum;
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    sum += _matrix[row, col];
+            });
+
+            Parallel.For(0, Rows, row =>
+            {
+                for (var col = 0; col < Columns; col++)
+                    _matrix[row, col] = _matrix[row, col] / sum;
+            });
         }
 
         /// <summary>
