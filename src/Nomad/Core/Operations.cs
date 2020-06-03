@@ -803,6 +803,66 @@ namespace Nomad.Core
             for (var i = 0; i < max; i++) _matrix[max, max] = result[i, i];
         }
 
+        /// <summary>
+        /// Rounds the Matrix values
+        /// </summary>
+        public Matrix Round()
+        {
+            var mat = Duplicate();
+            mat.InRound();
+            return mat;
+        }
+
+        /// <summary>
+        /// Rounds the Matrix values In Place
+        /// </summary>
+        public void InRound()
+        {
+            for (var row = 0; row < _matrix.GetLength(0); row++)
+            for (var col = 0; col < _matrix.GetLength(1); col++)
+                _matrix[row, col] = Math.Round(_matrix[row, col]);
+        }
+
+        /// <summary>
+        /// Ceiling Operation on all Matrix elements
+        /// </summary>
+        public Matrix Ceiling()
+        {
+            var mat = Duplicate();
+            mat.InCeiling();
+            return mat;
+        }
+
+        /// <summary>
+        /// Ceiling Operation on all Matrix elements In Place
+        /// </summary>
+        public void InCeiling()
+        {
+            for (var row = 0; row < _matrix.GetLength(0); row++)
+            for (var col = 0; col < _matrix.GetLength(1); col++)
+                _matrix[row, col] = Math.Ceiling(_matrix[row, col]);
+        }
+
+        /// <summary>
+        /// Floor Operation on all Matrix elements
+        /// </summary>
+        public Matrix Floor()
+        {
+            var mat = Duplicate();
+            mat.InFloor();
+            return mat;
+        }
+
+        /// <summary>
+        /// Floor Operation on all Matrix elements In Place
+        /// </summary>
+        public void InFloor()
+        {
+            for (var row = 0; row < _matrix.GetLength(0); row++)
+            for (var col = 0; col < _matrix.GetLength(1); col++)
+                _matrix[row, col] = Math.Floor(_matrix[row, col]);
+        }
+
         #endregion
     }
 }
