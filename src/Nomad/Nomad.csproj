@@ -11,14 +11,14 @@
     <PackageIcon>Nomad-proj-Icon.png</PackageIcon>
     <PackageIconUrl />
     <PackageTags>Matrix, Nomad, Library</PackageTags>
-    <PackageReleaseNotes>2.0 - Architecture Redesign</PackageReleaseNotes>
+    <PackageReleaseNotes>2.0.1 - Operator Expansion</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>VI-Nomad</PackageId>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
+    <AssemblyVersion>2.0.1.0</AssemblyVersion>
+    <FileVersion>2.0.1.0</FileVersion>
     <Version>2.0</Version>
   </PropertyGroup>
 

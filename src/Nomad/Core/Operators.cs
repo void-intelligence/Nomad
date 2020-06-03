@@ -50,10 +50,22 @@ namespace Nomad.Core
         {
             return matrix.Add(value);
         }
+        
+        public static Matrix operator +(double value, Matrix matrix)
+        {
+            return matrix.Add(value);
+        }
 
         public static Matrix operator-(Matrix matrix, double value)
         {
             return matrix.Sub(value);
+        }
+
+        public static Matrix operator -(double value, Matrix matrix)
+        {
+            for (var i = 0; i < matrix.Rows; i++)
+            for (var j = 0; j < matrix.Columns; j++) matrix[i, j] = value - matrix[i, j];
+            return matrix;
         }
 
         public static Matrix operator*(Matrix matrix, double scalar)
@@ -61,9 +73,21 @@ namespace Nomad.Core
             return matrix.Scale(scalar);
         }
 
+        public static Matrix operator *(double scalar, Matrix matrix)
+        {
+            return matrix.Scale(scalar);
+        }
+
         public static Matrix operator/(Matrix matrix, double scalar)
         {
             return matrix.Scale(1 / scalar);
+        }
+
+        public static Matrix operator /(double scalar, Matrix matrix)
+        {
+            for (var i = 0; i < matrix.Rows; i++)
+            for (var j = 0; j < matrix.Columns; j++) matrix[i, j] = scalar / matrix[i, j];
+            return matrix;
         }
 
         public static bool operator==(Matrix first, Matrix second)
