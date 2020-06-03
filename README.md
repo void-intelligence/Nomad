@@ -10,7 +10,7 @@ Nomad's Matrix class supports a variaty of different functions such as **Norm Ca
 
 You can find the full list of all the capabilities in the [matrix class documentation page](https://github.com/void-intelligence/Nomad/blob/master/docs/Matrix.md).
 
-## Documentation
+## Documentation (Out of Date)
  
 The full API Documentation explaination on all aspects of the library, you can check it out [**here**](https://github.com/void-intelligence/Nomad/blob/master/docs/README.md).
 
