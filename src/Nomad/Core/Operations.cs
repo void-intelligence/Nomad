@@ -84,6 +84,7 @@ namespace Nomad.Core
             Parallel.For(0, Rows, row =>
             {
                 for (var col = 0; col < Columns; col++)
+                    // ReSharper disable once AccessToModifiedClosure
                     avg += _matrix[row, col];
             });
             avg /= Rows * Columns;
