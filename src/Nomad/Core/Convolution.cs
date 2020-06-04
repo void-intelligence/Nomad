@@ -30,16 +30,17 @@ namespace Nomad.Core
             for (var i = 0; i < Rows; i+= stride)
             for (var j = 0; j < Columns; j += stride)
             {
+                while (i > Rows) i--;
+                while (j > Columns) j--;
+
                 var tempSum = 0.0;
                 for (var k = 0; k < filter.Rows; k++)
                 {
                     if (k + i >= Rows) continue;
                     for (var l = 0; l < filter.Columns; l++)
                         if (l + j < Columns)
-                        {
                             // Pool Operation (Sum)
                             tempSum += _matrix[i + k, j + l] * filter[k, l];
-                        }
                 }
 
                 resArray.Add(tempSum);
