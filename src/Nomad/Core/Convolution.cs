@@ -12,23 +12,23 @@ namespace Nomad.Core
         /// Convolution Operation
         /// </summary>
         // ReSharper disable once MethodOverloadWithOptionalParameter
-        public Matrix Convolve(Matrix filter, int padSizeX = 1, int padSizeY = 1, double padValue = 0, int stride = 1)
+        public Matrix Convolve(Matrix filter, int padSizeX = 1, int padSizeY = 1, double padValue = 0, int strideX = 1, int strideY = 1)
         {
-            return Pad(padSizeX, padSizeY, padValue).Convolve(filter, stride);
+            return Pad(padSizeX, padSizeY, padValue).Convolve(filter, strideX, strideY);
         }
 
         /// <summary>
         /// Convolution Operation
         /// </summary>
-        public Matrix Convolve(Matrix filter, int stride = 1)
+        public Matrix Convolve(Matrix filter, int strideX = 1, int strideY = 1)
         {
-            var newX = (Rows - filter.Rows) / stride + 1;
-            var newY = (Columns - filter.Columns) / stride + 1;
+            var newX = (Rows - filter.Rows) / strideX + 1;
+            var newY = (Columns - filter.Columns) / strideY + 1;
             var result = new Matrix(newX, newY);
 
             var resArray = new List<double>();
-            for (var i = 0; i < Rows; i+= stride)
-            for (var j = 0; j < Columns; j += stride)
+            for (var i = 0; i < Rows; i+= strideX)
+            for (var j = 0; j < Columns; j += strideY)
             {
                 while (i > Rows) i--;
                 while (j > Columns) j--;
