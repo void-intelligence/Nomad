@@ -934,5 +934,41 @@ namespace Nomad.Core
         }
 
         #endregion
+
+        #region Sparse
+
+        public int NumNonZeros()
+        {
+            var tmp = 0;
+            for (var i = 0; i < Rows; i++)
+            for (var j = 0; j < Columns; j++)
+                if (Math.Abs(_matrix[i, j]) > 0.01)
+                    tmp++;
+
+            return tmp;
+        }
+
+        public int NumZeros()
+        {
+            var tmp = 0;
+            for (var i = 0; i < Rows; i++)
+            for (var j = 0; j < Columns; j++)
+                if (Math.Abs(_matrix[i, j]) < 0.01)
+                    tmp++;
+
+            return tmp;
+        }
+
+        public bool IsSparse()
+        {
+            return (NumNonZeros() < (Rows * (Columns - 1) - 1) / 2);
+        }
+
+        public bool IsDense()
+        {
+            return !IsSparse();
+        }
+
+        #endregion
     }
 }
