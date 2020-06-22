@@ -3,7 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <Authors>Void-Intelligence</Authors>
-    <Description>Lightweight Matrix Library</Description>
+    <Description>Nomad Version 2.2 Baby! (Parallel Computing + Strassen's Algorithm)
+
+=== 
+Hey I'm a young dev, working on this framework just to apply Math (Linear Algebra) to computers.
+
+I would love to receive your feedback on this lib and see what my options for the next step are! 
+
+Nirex.0@gmail.com</Description>
     <Copyright>(C) Void-Intelligence Under Apache 2.0 License</Copyright>
     <PackageProjectUrl>void-intelligence.github.io</PackageProjectUrl>
     <RepositoryUrl>https://github.com/void-intelligence/Nomad</RepositoryUrl>
@@ -13,8 +20,6 @@
     <PackageTags>Matrix, Nomad, Library, Parallel, Strassen, Fast</PackageTags>
     <PackageReleaseNotes>2.2.0 Add Strassen's Algorithm
 2.1.0 All Possible Operations are now done in Parallel
-
-Please Send us feedback: Nirex.0@gmail.com
 </PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
