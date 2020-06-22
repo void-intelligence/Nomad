@@ -546,10 +546,11 @@ namespace Nomad.Core
         /// </summary>
         /// <param name="matrix">Matrix parameter</param>
         /// <returns>(a . b)</returns>
-        public Matrix Dot(Matrix matrix)
+        /// <param name="useStrassen">Switch Between Strassen's Algorithm and the Regular Matrix Multiplication Algorithm</param>
+        public Matrix Dot(Matrix matrix, bool useStrassen = true)
         {
             var mat = Duplicate();
-            mat.InDot(matrix);
+            mat.InDot(matrix, useStrassen);
             return mat;
         }
 
@@ -557,24 +558,37 @@ namespace Nomad.Core
         /// Inplace Dot Product 
         /// </summary>
         /// <param name="matrix">Matrix parameter</param>
-        public void InDot(Matrix matrix)
+        /// <param name="useStrassen">Switch Between Strassen's Algorithm and the Regular Matrix Multiplication Algorithm</param>
+        public void InDot(Matrix matrix, bool useStrassen = true)
         {
             if (Columns != matrix.Rows)
                 throw new InvalidOperationException("Cannot multiply matrices of different sizes.");
 
-            var result = new double[Rows, matrix.Columns];
-
-            Parallel.For(0, Rows, row =>
+            if (useStrassen)
             {
-                for (var col = 0; col < matrix.Columns; col++)
-                {
-                    double sum = 0;
-                    for (var i = 0; i < Columns; i++) sum += _matrix[row, i] * matrix[i, col];
-                    result[row, col] = sum;
-                }
-            });
+                var dup = Duplicate();
+                Strassen.StrassenMultiply(dup, matrix);
 
-            _matrix = result;
+                Parallel.For(0, Rows, i =>
+                {
+                    for (var j = 0; j < Columns; j++) matrix[i, j] = dup[i, j];
+                });
+            }
+            else
+            {
+
+                var result = new double[Rows, matrix.Columns];
+                Parallel.For(0, Rows, row =>
+                {
+                    for (var col = 0; col < matrix.Columns; col++)
+                    {
+                        double sum = 0;
+                        for (var i = 0; i < Columns; i++) sum += _matrix[row, i] * matrix[i, col];
+                        result[row, col] = sum;
+                    }
+                });
+                _matrix = result;
+            }
         }
 
         /// <summary>
@@ -961,7 +975,7 @@ namespace Nomad.Core
 
         public bool IsSparse()
         {
-            return (NumNonZeros() < (Rows * (Columns - 1) - 1) / 2);
+            return NumNonZeros() < (Rows * (Columns - 1) - 1) / 2;
         }
 
         public bool IsDense()
